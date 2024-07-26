@@ -12,7 +12,8 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Date;
-import org.apeiron.kernel.config.Constants.Apeiron;
+import java.util.Map;
+import org.apeiron.kernel.config.Constants.AyudantesConstants;
 
 public class ValidationUtils {
 
@@ -41,6 +42,34 @@ public class ValidationUtils {
     }
 
     /**
+     * Dado el mapa de ayudante de una solicitud de tipo AYUDANTES regresa
+     * la cantidad de UMAS asignadas al la solicitud
+     * @param ayudante el mapa con la información del ayudante (se obtiene generalmente del
+     * properties)
+     * @return la cantidad de UMAS asignadas a ese ayudante en la solicitud.
+     */
+    public static Integer obtieneUmasAsignadasEnSolicitudAyudantes(Map<String, Object> ayudante) {
+        var umas = ayudante != null ? ayudante.get(AyudantesConstants.UMA_KEY) : null;
+        Integer umasAsignadas = 0;
+        if (umas != null) umasAsignadas = (Integer) umas;
+        return umasAsignadas;
+    }
+
+    /**
+     * Dado el mapa de ayudante de una solicitud de tipo AYUDANTES regresa
+     * la cantidad de UMAS ANTERIOR asignadas al la solicitud
+     * @param ayudante el mapa con la información del ayudante (se obtiene generalmente del
+     * properties)
+     * @return la cantidad de UMAS ANTERIOR asignadas a ese ayudante en la solicitud.
+     */
+    public static Integer obtieneUmasAnteriorAsignadasEnSolicitudAyudantes(Map<String, Object> ayudante) {
+        var umas = ayudante != null ? ayudante.get(AyudantesConstants.UMA_ANTERIOR_KEY) : null;
+        Integer umasAsignadas = 0;
+        if (umas != null) umasAsignadas = (Integer) umas;
+        return umasAsignadas;
+    }
+
+    /**
      * Como hay problemas de guardado de fecha, se agrega el siguiente método
      * para hacer el parse por si es un String o un Date y/o una fecha retroactiva (porque cambia el formato)
      * @param fecha la fecha a  paresear (un Date o String en un formato ISO o un formato simple de ayudantes)
@@ -49,7 +78,7 @@ public class ValidationUtils {
      */
     public static LocalDate parseFecha(Object fecha, Boolean isRetroactiva) {
         if (Boolean.TRUE.equals(isRetroactiva) && fecha instanceof String) {
-            return LocalDate.parse((String) fecha, Apeiron.FORMATO_FECHA);
+            return LocalDate.parse((String) fecha, AyudantesConstants.FORMATO_FECHA);
         }
         if (fecha instanceof String) {
             return LocalDate.parse((String) fecha, DateTimeFormatter.ISO_DATE_TIME);
@@ -69,7 +98,7 @@ public class ValidationUtils {
      */
     public static OffsetDateTime parseOffsetDateTime(Object fecha, Boolean isRetroactiva) {
         if (Boolean.TRUE.equals(isRetroactiva) && fecha instanceof String) {
-            return LocalDateTime.parse((String) fecha, Apeiron.FORMATO_FECHA).atOffset(OffsetDateTime.now().getOffset());
+            return LocalDateTime.parse((String) fecha, AyudantesConstants.FORMATO_FECHA).atOffset(OffsetDateTime.now().getOffset());
         }
         if (fecha instanceof String) {
             return LocalDateTime

@@ -1,0 +1,21 @@
+package org.apeiron.kernel.domain.enumeration;
+
+/**
+ * The TipoSolucion enumeration.
+ */
+public enum TipoSolucion {
+    AYUDANTES,
+    INGRESO_PERMANENCIA_PROMOCION,
+    EMERITOS,
+    BECAS_NACIONALES,
+    BECAS_EXTRANJERAS,
+    POSGRADO_NACIONAL,
+    POSDOCTORADO,
+    CUENTAS_BANCARIAS,
+    ACREDITACIONES,
+    ACREDITACIONES_SIN_INST,
+    REGISTRO_MATRICULA_SNP,
+    MOVIMIENTOS_SITUACION,
+    INSTITUCIONES,
+    ACREDITACIONES_PROGRAMAS,
+}
