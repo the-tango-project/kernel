@@ -5,7 +5,7 @@ import lombok.Data;
 import org.apeiron.kernel.commons.annotations.ArgumentType;
 import org.apeiron.kernel.commons.annotations.PropertyMapType;
 import org.apeiron.kernel.service.actionable.IAction;
-import org.apeiron.kernel.service.dto.SolicitudDTO;
+import org.apeiron.kernel.service.dto.SolicitudDto;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
@@ -15,8 +15,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * sentido, esta clase se utiliza para realizar operaciones que implican
  * convertir un objeto en otro o simplemente definir varibales que se copiaran
  * en un nuevo objeto. Un caso de uso conocido es cuando se emplea en un
- * {@link IAction} para convertir el objeto {@link SolicitudDTO} en el objeto
- * {@link SolicitudDTO} y enviar a un servicio externo una notificación
+ * {@link IAction} para convertir el objeto {@link SolicitudDto} en el objeto
+ * {@link SolicitudDto} y enviar a un servicio externo una notificación
  * 
  * FIXME: Es posible que esta funcionalidad ya no se necesaria o se tenga que
  * constuir una más genérica

@@ -1,6 +1,6 @@
 package org.apeiron.kernel.service;
 
-import org.apeiron.kernel.service.dto.DocumentoDTO;
+import org.apeiron.kernel.service.dto.DocumentoDto;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -12,26 +12,26 @@ public interface DocumentoService {
     /**
      * Save a documento.
      *
-     * @param documentoDTO the entity to save.
+     * @param documentoDto the entity to save.
      * @return the persisted entity.
      */
-    Mono<DocumentoDTO> save(DocumentoDTO documentoDTO);
+    Mono<DocumentoDto> save(DocumentoDto documentoDto);
 
     /**
      * Updates a documento.
      *
-     * @param documentoDTO the entity to update.
+     * @param documentoDto the entity to update.
      * @return the persisted entity.
      */
-    Mono<DocumentoDTO> update(DocumentoDTO documentoDTO);
+    Mono<DocumentoDto> update(DocumentoDto documentoDto);
 
     /**
      * Partially updates a documento.
      *
-     * @param documentoDTO the entity to update partially.
+     * @param documentoDto the entity to update partially.
      * @return the persisted entity.
      */
-    Mono<DocumentoDTO> partialUpdate(DocumentoDTO documentoDTO);
+    Mono<DocumentoDto> partialUpdate(DocumentoDto documentoDto);
 
     /**
      * Get all the documentos.
@@ -39,7 +39,7 @@ public interface DocumentoService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Flux<DocumentoDTO> findAll(Pageable pageable);
+    Flux<DocumentoDto> findAll(Pageable pageable);
 
     /**
      * Returns the number of documentos available.
@@ -55,7 +55,7 @@ public interface DocumentoService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Mono<DocumentoDTO> findOne(String id);
+    Mono<DocumentoDto> findOne(String id);
 
     /**
      * Delete the "id" documento.

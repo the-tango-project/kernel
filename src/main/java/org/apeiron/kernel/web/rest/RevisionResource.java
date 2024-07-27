@@ -7,7 +7,7 @@ import java.util.Objects;
 import org.apeiron.kernel.domain.enumeration.EstadoRevision;
 import org.apeiron.kernel.repository.RevisionRepository;
 import org.apeiron.kernel.service.RevisionService;
-import org.apeiron.kernel.service.dto.RevisionDTO;
+import org.apeiron.kernel.service.dto.RevisionDto;
 import org.apeiron.kernel.service.util.FiltroRevision;
 import org.apeiron.kernel.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
@@ -63,21 +63,21 @@ public class RevisionResource {
     /**
      * {@code POST  /revisiones} : Create a new revision.
      *
-     * @param revisionDTO the revisionDTO to create.
+     * @param revisionDto the revisionDto to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
-     *         body the new revisionDTO, or with status {@code 400 (Bad Request)} if
+     *         body the new revisionDto, or with status {@code 400 (Bad Request)} if
      *         the revision has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/revisiones")
-    public Mono<ResponseEntity<RevisionDTO>> createRevision(@RequestBody RevisionDTO revisionDTO)
+    public Mono<ResponseEntity<RevisionDto>> createRevision(@RequestBody RevisionDto revisionDto)
             throws URISyntaxException {
-        log.debug("REST request to save Revision : {}", revisionDTO);
-        if (revisionDTO.getId() != null) {
+        log.debug("REST request to save Revision : {}", revisionDto);
+        if (revisionDto.getId() != null) {
             throw new BadRequestAlertException("A new revision cannot already have an ID", ENTITY_NAME, "idexists");
         }
         return revisionService
-                .confirmarRevision(revisionDTO)
+                .confirmarRevision(revisionDto)
                 .map(result -> {
                     try {
                         return ResponseEntity
@@ -94,25 +94,25 @@ public class RevisionResource {
     /**
      * {@code PUT  /revisiones/:id} : Updates an existing revision.
      *
-     * @param id          the id of the revisionDTO to save.
-     * @param revisionDTO the revisionDTO to update.
+     * @param id          the id of the revisionDto to save.
+     * @param revisionDto the revisionDto to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the updated revisionDTO,
-     *         or with status {@code 400 (Bad Request)} if the revisionDTO is not
+     *         the updated revisionDto,
+     *         or with status {@code 400 (Bad Request)} if the revisionDto is not
      *         valid,
-     *         or with status {@code 500 (Internal Server Error)} if the revisionDTO
+     *         or with status {@code 500 (Internal Server Error)} if the revisionDto
      *         couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/revisiones/{id}")
-    public Mono<ResponseEntity<RevisionDTO>> updateRevision(
+    public Mono<ResponseEntity<RevisionDto>> updateRevision(
             @PathVariable(value = "id", required = false) final String id,
-            @RequestBody RevisionDTO revisionDTO) throws URISyntaxException {
-        log.debug("REST request to update Revision : {}, {}", id, revisionDTO);
-        if (revisionDTO.getId() == null) {
+            @RequestBody RevisionDto revisionDto) throws URISyntaxException {
+        log.debug("REST request to update Revision : {}, {}", id, revisionDto);
+        if (revisionDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, revisionDTO.getId())) {
+        if (!Objects.equals(id, revisionDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -124,7 +124,7 @@ public class RevisionResource {
                     }
 
                     return revisionService
-                            .update(revisionDTO)
+                            .update(revisionDto)
                             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                             .map(result -> ResponseEntity
                                     .ok()
@@ -135,17 +135,17 @@ public class RevisionResource {
     }
 
     @PutMapping("/revisiones/enviar/{id}")
-    public Mono<ResponseEntity<RevisionDTO>> sendRevision(
+    public Mono<ResponseEntity<RevisionDto>> sendRevision(
             @PathVariable(value = "id", required = false) final String id,
-            @RequestBody RevisionDTO revisionDTO) throws URISyntaxException {
-        log.debug("REST request to update Revision : {}, {}", id, revisionDTO);
-        if (revisionDTO.getId() == null) {
+            @RequestBody RevisionDto revisionDto) throws URISyntaxException {
+        log.debug("REST request to update Revision : {}, {}", id, revisionDto);
+        if (revisionDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, revisionDTO.getId())) {
+        if (!Objects.equals(id, revisionDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
-        revisionDTO.setEstado(EstadoRevision.REVISADA);
+        revisionDto.setEstado(EstadoRevision.REVISADA);
         return revisionRepository
                 .existsById(id)
                 .flatMap(exists -> {
@@ -154,7 +154,7 @@ public class RevisionResource {
                     }
 
                     return revisionService
-                            .update(revisionDTO)
+                            .update(revisionDto)
                             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                             .map(result -> ResponseEntity
                                     .ok()
@@ -168,27 +168,27 @@ public class RevisionResource {
      * {@code PATCH  /revisiones/:id} : Partial updates given fields of an existing
      * revision, field will ignore if it is null
      *
-     * @param id          the id of the revisionDTO to save.
-     * @param revisionDTO the revisionDTO to update.
+     * @param id          the id of the revisionDto to save.
+     * @param revisionDto the revisionDto to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the updated revisionDTO,
-     *         or with status {@code 400 (Bad Request)} if the revisionDTO is not
+     *         the updated revisionDto,
+     *         or with status {@code 400 (Bad Request)} if the revisionDto is not
      *         valid,
-     *         or with status {@code 404 (Not Found)} if the revisionDTO is not
+     *         or with status {@code 404 (Not Found)} if the revisionDto is not
      *         found,
-     *         or with status {@code 500 (Internal Server Error)} if the revisionDTO
+     *         or with status {@code 500 (Internal Server Error)} if the revisionDto
      *         couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/revisiones/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public Mono<ResponseEntity<RevisionDTO>> partialUpdateRevision(
+    public Mono<ResponseEntity<RevisionDto>> partialUpdateRevision(
             @PathVariable(value = "id", required = false) final String id,
-            @RequestBody RevisionDTO revisionDTO) throws URISyntaxException {
-        log.debug("REST request to partial update Revision partially : {}, {}", id, revisionDTO);
-        if (revisionDTO.getId() == null) {
+            @RequestBody RevisionDto revisionDto) throws URISyntaxException {
+        log.debug("REST request to partial update Revision partially : {}, {}", id, revisionDto);
+        if (revisionDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, revisionDTO.getId())) {
+        if (!Objects.equals(id, revisionDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -199,7 +199,7 @@ public class RevisionResource {
                         return Mono.error(new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound"));
                     }
 
-                    Mono<RevisionDTO> result = revisionService.partialUpdate(revisionDTO);
+                    Mono<RevisionDto> result = revisionService.partialUpdate(revisionDto);
 
                     return result
                             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
@@ -220,7 +220,7 @@ public class RevisionResource {
      *         of revisiones in body.
      */
     @GetMapping("/revisiones")
-    public Mono<ResponseEntity<List<RevisionDTO>>> getAllRevisions(
+    public Mono<ResponseEntity<List<RevisionDto>>> getAllRevisions(
             FiltroRevision filtro,
             @org.springdoc.core.annotations.ParameterObject Pageable pageable,
             ServerHttpRequest request) {
@@ -240,36 +240,36 @@ public class RevisionResource {
     /**
      * {@code GET  /revisiones/:id} : get the "id" revision.
      *
-     * @param id the id of the revisionDTO to retrieve.
+     * @param id the id of the revisionDto to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the revisionDTO, or with status {@code 404 (Not Found)}.
+     *         the revisionDto, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/revisiones/{id}")
-    public Mono<ResponseEntity<RevisionDTO>> getRevision(@PathVariable String id) {
+    public Mono<ResponseEntity<RevisionDto>> getRevision(@PathVariable String id) {
         log.debug("REST request to get Revision : {}", id);
-        Mono<RevisionDTO> revisionDTO = revisionService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(revisionDTO);
+        Mono<RevisionDto> revisionDto = revisionService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(revisionDto);
     }
 
     /**
      * {@code GET  /revisiones/:evaluacionId/:revisorId} : get the "evaluacionId"
      * and "revisorId" revision.
      *
-     * @param id the id of the revisionDTO to retrieve.
+     * @param id the id of the revisionDto to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the revisionDTO, or with status {@code 404 (Not Found)}.
+     *         the revisionDto, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/revisiones/realizadas")
-    public Mono<ResponseEntity<RevisionDTO>> getRevisionByFiltro(FiltroRevision filtro) {
+    public Mono<ResponseEntity<RevisionDto>> getRevisionByFiltro(FiltroRevision filtro) {
         log.debug("REST request to get Revision : {}", filtro);
-        Mono<RevisionDTO> revisionDTO = revisionService.findByEvaluacionIdAndRevisorId(filtro);
-        return ResponseUtil.wrapOrNotFound(revisionDTO);
+        Mono<RevisionDto> revisionDto = revisionService.findByEvaluacionIdAndRevisorId(filtro);
+        return ResponseUtil.wrapOrNotFound(revisionDto);
     }
 
     /**
      * {@code DELETE  /revisiones/:id} : delete the "id" revision.
      *
-     * @param id the id of the revisionDTO to delete.
+     * @param id the id of the revisionDto to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/revisiones/{id}")
@@ -290,20 +290,20 @@ public class RevisionResource {
      *
      * @param idSolicitud and revisorId and evaluacionId the
      * solicitudResumen.solicitudId and
-     * revisor.revisorId and evaluacionIdof the revisionDTO to retrieve.
+     * revisor.revisorId and evaluacionIdof the revisionDto to retrieve.
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the revisionDTO, or with status {@code 404 (Not Found)}.
+     *         the revisionDto, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/revisiones/obtener-por-solicitud-revisor/{solicitudId}")
-    public Mono<ResponseEntity<RevisionDTO>> getRevisionBySolicitudIdAndRevisorId(
+    public Mono<ResponseEntity<RevisionDto>> getRevisionBySolicitudIdAndRevisorId(
             @PathVariable String solicitudId,
             String revisorId,
             String evaluacionId) {
         log.debug("REST request to get Revision : {}", solicitudId);
-        Mono<RevisionDTO> revisionDTO = revisionService.findBysolicitudIdAndRevisorId(solicitudId, revisorId,
+        Mono<RevisionDto> revisionDto = revisionService.findBysolicitudIdAndRevisorId(solicitudId, revisorId,
                 evaluacionId);
-        return ResponseUtil.wrapOrNotFound(revisionDTO);
+        return ResponseUtil.wrapOrNotFound(revisionDto);
     }
 
     /**
@@ -311,13 +311,13 @@ public class RevisionResource {
      *
      * @param idSolicitud and revisorId and evaluacionId the
      *                    solicitudResumen.solicitudId and
-     *                    revisor.revisorId and evaluacionIdof the revisionDTO
+     *                    revisor.revisorId and evaluacionIdof the revisionDto
      * @param request     a {@link ServerHttpRequest} request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
      *         of revisiones in body.
      */
     @GetMapping("/revisiones/obtener-por-solicitud/{solicitudId}")
-    public Mono<ResponseEntity<List<RevisionDTO>>> getAllRevisionesBySolicitudId(
+    public Mono<ResponseEntity<List<RevisionDto>>> getAllRevisionesBySolicitudId(
             @PathVariable String solicitudId,
             String evaluacionId,
             ServerHttpRequest request) {

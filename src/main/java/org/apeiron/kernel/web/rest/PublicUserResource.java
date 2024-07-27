@@ -6,7 +6,7 @@ import org.apeiron.kernel.domain.Authority;
 import org.apeiron.kernel.domain.User;
 import org.apeiron.kernel.security.AuthoritiesConstants;
 import org.apeiron.kernel.service.UserService;
-import org.apeiron.kernel.service.dto.UserDTO;
+import org.apeiron.kernel.service.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +49,7 @@ public class PublicUserResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
      */
     @GetMapping("/users")
-    public Mono<ResponseEntity<Flux<UserDTO>>> getAllPublicUsers(
+    public Mono<ResponseEntity<Flux<UserDto>>> getAllPublicUsers(
         ServerHttpRequest request,
         @org.springdoc.core.annotations.ParameterObject Pageable pageable
     ) {

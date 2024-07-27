@@ -3,11 +3,11 @@ package org.apeiron.kernel.commons.annotations;
 import org.apeiron.kernel.domain.PropertyMap;
 import org.apeiron.kernel.domain.Solicitud;
 import org.apeiron.kernel.domain.Solucion;
-import org.apeiron.kernel.service.dto.PropertyMapDTO;
+import org.apeiron.kernel.service.dto.PropertyMapDto;
 
 /**
  * Enumeración con los tipos de Mapeos que soporta Ápeiron a través del objecto
- * {@link PropertyMap} y {@link PropertyMapDTO}.
+ * {@link PropertyMap} y {@link PropertyMapDto}.
  *
  * @author Daniel Cortes Pichardo
  *

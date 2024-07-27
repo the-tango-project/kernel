@@ -3,7 +3,7 @@ package org.apeiron.kernel.service.impl;
 import org.apeiron.kernel.domain.Documento;
 import org.apeiron.kernel.repository.DocumentoRepository;
 import org.apeiron.kernel.service.DocumentoService;
-import org.apeiron.kernel.service.dto.DocumentoDTO;
+import org.apeiron.kernel.service.dto.DocumentoDto;
 import org.apeiron.kernel.service.mapper.DocumentoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,25 +30,25 @@ public class DocumentoServiceImpl implements DocumentoService {
     }
 
     @Override
-    public Mono<DocumentoDTO> save(DocumentoDTO documentoDTO) {
-        log.debug("Request to save Documento : {}", documentoDTO);
-        return documentoRepository.save(documentoMapper.toEntity(documentoDTO)).map(documentoMapper::toDto);
+    public Mono<DocumentoDto> save(DocumentoDto documentoDto) {
+        log.debug("Request to save Documento : {}", documentoDto);
+        return documentoRepository.save(documentoMapper.toEntity(documentoDto)).map(documentoMapper::toDto);
     }
 
     @Override
-    public Mono<DocumentoDTO> update(DocumentoDTO documentoDTO) {
-        log.debug("Request to update Documento : {}", documentoDTO);
-        return documentoRepository.save(documentoMapper.toEntity(documentoDTO)).map(documentoMapper::toDto);
+    public Mono<DocumentoDto> update(DocumentoDto documentoDto) {
+        log.debug("Request to update Documento : {}", documentoDto);
+        return documentoRepository.save(documentoMapper.toEntity(documentoDto)).map(documentoMapper::toDto);
     }
 
     @Override
-    public Mono<DocumentoDTO> partialUpdate(DocumentoDTO documentoDTO) {
-        log.debug("Request to partially update Documento : {}", documentoDTO);
+    public Mono<DocumentoDto> partialUpdate(DocumentoDto documentoDto) {
+        log.debug("Request to partially update Documento : {}", documentoDto);
 
         return documentoRepository
-            .findById(documentoDTO.getId())
+            .findById(documentoDto.getId())
             .map(existingDocumento -> {
-                documentoMapper.partialUpdate(existingDocumento, documentoDTO);
+                documentoMapper.partialUpdate(existingDocumento, documentoDto);
 
                 return existingDocumento;
             })
@@ -57,7 +57,7 @@ public class DocumentoServiceImpl implements DocumentoService {
     }
 
     @Override
-    public Flux<DocumentoDTO> findAll(Pageable pageable) {
+    public Flux<DocumentoDto> findAll(Pageable pageable) {
         log.debug("Request to get all Documentos");
         return documentoRepository.findAllBy(pageable).map(documentoMapper::toDto);
     }
@@ -67,7 +67,7 @@ public class DocumentoServiceImpl implements DocumentoService {
     }
 
     @Override
-    public Mono<DocumentoDTO> findOne(String id) {
+    public Mono<DocumentoDto> findOne(String id) {
         log.debug("Request to get Documento : {}", id);
         return documentoRepository.findById(id).map(documentoMapper::toDto);
     }

@@ -1,6 +1,6 @@
 package org.apeiron.kernel.service;
 
-import org.apeiron.kernel.service.dto.RevisionDTO;
+import org.apeiron.kernel.service.dto.RevisionDto;
 import org.apeiron.kernel.service.util.FiltroRevision;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
@@ -14,34 +14,34 @@ public interface RevisionService {
     /**
      * Save a revision.
      *
-     * @param revisionDTO the entity to save.
+     * @param revisionDto the entity to save.
      * @return the persisted entity.
      */
-    Mono<RevisionDTO> save(RevisionDTO revisionDTO);
+    Mono<RevisionDto> save(RevisionDto revisionDto);
 
     /**
      * Save a revision.
      *
-     * @param revisionDTO the entity to save.
+     * @param revisionDto the entity to save.
      * @return the persisted entity.
      */
-    Mono<RevisionDTO> confirmarRevision(RevisionDTO revisionDTO);
+    Mono<RevisionDto> confirmarRevision(RevisionDto revisionDto);
 
     /**
      * Updates a revision.
      *
-     * @param revisionDTO the entity to update.
+     * @param revisionDto the entity to update.
      * @return the persisted entity.
      */
-    Mono<RevisionDTO> update(RevisionDTO revisionDTO);
+    Mono<RevisionDto> update(RevisionDto revisionDto);
 
     /**
      * Partially updates a revision.
      *
-     * @param revisionDTO the entity to update partially.
+     * @param revisionDto the entity to update partially.
      * @return the persisted entity.
      */
-    Mono<RevisionDTO> partialUpdate(RevisionDTO revisionDTO);
+    Mono<RevisionDto> partialUpdate(RevisionDto revisionDto);
 
     /**
      * Get all the revisions.
@@ -49,7 +49,7 @@ public interface RevisionService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Flux<RevisionDTO> findAll(Pageable pageable);
+    Flux<RevisionDto> findAll(Pageable pageable);
 
     /**
      * Get all the revisions by filtro
@@ -58,7 +58,7 @@ public interface RevisionService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Flux<RevisionDTO> findAll(FiltroRevision filtro, Pageable pageable);
+    Flux<RevisionDto> findAll(FiltroRevision filtro, Pageable pageable);
 
     /**
      * Returns the number of revisions available.
@@ -83,7 +83,7 @@ public interface RevisionService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Mono<RevisionDTO> findOne(String id);
+    Mono<RevisionDto> findOne(String id);
 
     /**
      * Delete the "id" revision.
@@ -94,35 +94,35 @@ public interface RevisionService {
     Mono<Void> delete(String id);
 
     /**
-     * Get the "RevisionDTO" revision.
+     * Get the "RevisionDto" revision.
      *
      * @param idSolicitud and revisorId and evaluacionId the
      *                    solicitudResumen.solicitudId and
-     *                    revisor.revisorId and evaluacionId of the revisionDTO to
+     *                    revisor.revisorId and evaluacionId of the revisionDto to
      *                    retrieve.
      * @return the entity.
      */
-    public Mono<RevisionDTO> findBysolicitudIdAndRevisorId(String solicitudId, String revisorId, String evaluacionId);
+    public Mono<RevisionDto> findBysolicitudIdAndRevisorId(String solicitudId, String revisorId, String evaluacionId);
 
     /**
-     * Get the "RevisionDTO" revision.
+     * Get the "RevisionDto" revision.
      *
      * @param idSolicitud and revisorId and evaluacionId the
      *                    solicitudResumen.solicitudId and
-     *                    revisor.revisorId and evaluacionId of the revisionDTO to
+     *                    revisor.revisorId and evaluacionId of the revisionDto to
      *                    retrieve.
      * @return the entity.
      */
-    public Flux<RevisionDTO> findAllRevisionesBySolicitudId(String solicitudId, String evaluacionId);
+    public Flux<RevisionDto> findAllRevisionesBySolicitudId(String solicitudId, String evaluacionId);
 
     /**
-     * Get the "RevisionDTO" revision.
+     * Get the "RevisionDto" revision.
      *
      * @param evaluacionId and revisorId the solicitudResumen.solicitudId and
-     *                     revisor.revisorId of the revisionDTO to retrieve.
+     *                     revisor.revisorId of the revisionDto to retrieve.
      * @param revisorId    and revisorId the solicitudResumen.solicitudId and
-     *                     revisor.revisorId of the revisionDTO to retrieve.
+     *                     revisor.revisorId of the revisionDto to retrieve.
      * @return the entity.
      */
-    Mono<RevisionDTO> findByEvaluacionIdAndRevisorId(FiltroRevision filtro);
+    Mono<RevisionDto> findByEvaluacionIdAndRevisorId(FiltroRevision filtro);
 }

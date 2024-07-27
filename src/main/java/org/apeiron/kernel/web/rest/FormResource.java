@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import org.apeiron.kernel.repository.FormRepository;
 import org.apeiron.kernel.service.FormService;
-import org.apeiron.kernel.service.dto.FormDTO;
+import org.apeiron.kernel.service.dto.FormDto;
 import org.apeiron.kernel.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,17 +58,17 @@ public class FormResource {
     /**
      * {@code POST  /forms} : Create a new form.
      *
-     * @param formDTO the formDTO to create.
+     * @param formDto the formDto to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
-     *         body the new formDTO, or with status {@code 400 (Bad Request)} if the
+     *         body the new formDto, or with status {@code 400 (Bad Request)} if the
      *         form has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/forms")
-    public Mono<ResponseEntity<FormDTO>> createForm(@RequestBody FormDTO formDTO) throws URISyntaxException {
-        log.debug("REST request to save Form : {}", formDTO);
+    public Mono<ResponseEntity<FormDto>> createForm(@RequestBody FormDto formDto) throws URISyntaxException {
+        log.debug("REST request to save Form : {}", formDto);
         return formService
-            .save(formDTO)
+            .save(formDto)
             .map(result -> {
                 try {
                     return ResponseEntity
@@ -84,25 +84,25 @@ public class FormResource {
     /**
      * {@code PUT  /forms/:id} : Updates an existing form.
      *
-     * @param id      the id of the formDTO to save.
-     * @param formDTO the formDTO to update.
+     * @param id      the id of the formDto to save.
+     * @param formDto the formDto to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the updated formDTO,
-     *         or with status {@code 400 (Bad Request)} if the formDTO is not valid,
-     *         or with status {@code 500 (Internal Server Error)} if the formDTO
+     *         the updated formDto,
+     *         or with status {@code 400 (Bad Request)} if the formDto is not valid,
+     *         or with status {@code 500 (Internal Server Error)} if the formDto
      *         couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/forms/{id}")
-    public Mono<ResponseEntity<FormDTO>> updateForm(
+    public Mono<ResponseEntity<FormDto>> updateForm(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody FormDTO formDTO
+        @RequestBody FormDto formDto
     ) throws URISyntaxException {
-        log.debug("REST request to update Form : {}, {}", id, formDTO);
-        if (formDTO.getId() == null) {
+        log.debug("REST request to update Form : {}, {}", id, formDto);
+        if (formDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, formDTO.getId())) {
+        if (!Objects.equals(id, formDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -114,7 +114,7 @@ public class FormResource {
                 }
 
                 return formService
-                    .update(formDTO)
+                    .update(formDto)
                     .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                     .map(result ->
                         ResponseEntity
@@ -129,26 +129,26 @@ public class FormResource {
      * {@code PATCH  /forms/:id} : Partial updates given fields of an existing form,
      * field will ignore if it is null
      *
-     * @param id      the id of the formDTO to save.
-     * @param formDTO the formDTO to update.
+     * @param id      the id of the formDto to save.
+     * @param formDto the formDto to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the updated formDTO,
-     *         or with status {@code 400 (Bad Request)} if the formDTO is not valid,
-     *         or with status {@code 404 (Not Found)} if the formDTO is not found,
-     *         or with status {@code 500 (Internal Server Error)} if the formDTO
+     *         the updated formDto,
+     *         or with status {@code 400 (Bad Request)} if the formDto is not valid,
+     *         or with status {@code 404 (Not Found)} if the formDto is not found,
+     *         or with status {@code 500 (Internal Server Error)} if the formDto
      *         couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/forms/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public Mono<ResponseEntity<FormDTO>> partialUpdateForm(
+    public Mono<ResponseEntity<FormDto>> partialUpdateForm(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody FormDTO formDTO
+        @RequestBody FormDto formDto
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Form partially : {}, {}", id, formDTO);
-        if (formDTO.getId() == null) {
+        log.debug("REST request to partial update Form partially : {}, {}", id, formDto);
+        if (formDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, formDTO.getId())) {
+        if (!Objects.equals(id, formDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -159,7 +159,7 @@ public class FormResource {
                     return Mono.error(new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound"));
                 }
 
-                Mono<FormDTO> result = formService.partialUpdate(formDTO);
+                Mono<FormDto> result = formService.partialUpdate(formDto);
 
                 return result
                     .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
@@ -181,7 +181,7 @@ public class FormResource {
      *         of forms in body.
      */
     @GetMapping("/forms")
-    public Mono<ResponseEntity<List<FormDTO>>> getAllForms(
+    public Mono<ResponseEntity<List<FormDto>>> getAllForms(
         @org.springdoc.core.annotations.ParameterObject Pageable pageable,
         ServerHttpRequest request
     ) {
@@ -205,21 +205,21 @@ public class FormResource {
     /**
      * {@code GET  /forms/:id} : get the "id" form.
      *
-     * @param id the id of the formDTO to retrieve.
+     * @param id the id of the formDto to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the formDTO, or with status {@code 404 (Not Found)}.
+     *         the formDto, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/forms/{id}")
-    public Mono<ResponseEntity<FormDTO>> getForm(@PathVariable String id) {
+    public Mono<ResponseEntity<FormDto>> getForm(@PathVariable String id) {
         log.debug("REST request to get Form : {}", id);
-        Mono<FormDTO> formDTO = formService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(formDTO);
+        Mono<FormDto> formDto = formService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(formDto);
     }
 
     /**
      * {@code DELETE  /forms/:id} : delete the "id" form.
      *
-     * @param id the id of the formDTO to delete.
+     * @param id the id of the formDto to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/forms/{id}")

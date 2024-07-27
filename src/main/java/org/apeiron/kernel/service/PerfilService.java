@@ -1,10 +1,10 @@
 package org.apeiron.kernel.service;
 
-import org.apeiron.kernel.service.dto.PersonaDTO;
+import org.apeiron.kernel.service.dto.PersonaDto;
 
 import reactor.core.publisher.Mono;
 
 public interface PerfilService {
 
-    Mono<Mono<PersonaDTO>> getPerfil(String usuarioId);
+    Mono<Mono<PersonaDto>> getPerfil(String usuarioId);
 }

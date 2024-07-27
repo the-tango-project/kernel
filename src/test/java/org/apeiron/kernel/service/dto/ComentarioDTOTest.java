@@ -4,19 +4,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-class ComentarioDTOTest {
+class ComentarioDtoTest {
 
     @Test
     void dtoEqualsVerifier() throws Exception {
-        ComentarioDTO comentarioDTO1 = new ComentarioDTO();
-        comentarioDTO1.setId("id1");
-        ComentarioDTO comentarioDTO2 = new ComentarioDTO();
-        assertThat(comentarioDTO1).isNotEqualTo(comentarioDTO2);
-        comentarioDTO2.setId(comentarioDTO1.getId());
-        assertThat(comentarioDTO1).isEqualTo(comentarioDTO2);
-        comentarioDTO2.setId("id2");
-        assertThat(comentarioDTO1).isNotEqualTo(comentarioDTO2);
-        comentarioDTO1.setId(null);
-        assertThat(comentarioDTO1).isNotEqualTo(comentarioDTO2);
+        ComentarioDto comentarioDto1 = new ComentarioDto();
+        comentarioDto1.setId("id1");
+        ComentarioDto comentarioDto2 = new ComentarioDto();
+        assertThat(comentarioDto1).isNotEqualTo(comentarioDto2);
+        comentarioDto2.setId(comentarioDto1.getId());
+        assertThat(comentarioDto1).isEqualTo(comentarioDto2);
+        comentarioDto2.setId("id2");
+        assertThat(comentarioDto1).isNotEqualTo(comentarioDto2);
+        comentarioDto1.setId(null);
+        assertThat(comentarioDto1).isNotEqualTo(comentarioDto2);
     }
 }

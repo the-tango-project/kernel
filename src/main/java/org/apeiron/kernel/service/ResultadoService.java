@@ -1,22 +1,22 @@
 package org.apeiron.kernel.service;
 
-import org.apeiron.kernel.service.dto.ResultadoDTO;
+import org.apeiron.kernel.service.dto.ResultadoDto;
 import reactor.core.publisher.Mono;
 
 public interface ResultadoService {
     /**
      * Save a Resultado.
      *
-     * @param ResultadoDTO the entity to save.
+     * @param ResultadoDto the entity to save.
      * @return the persisted entity.
      */
-    Mono<ResultadoDTO> save(ResultadoDTO resultadoDto);
+    Mono<ResultadoDto> save(ResultadoDto resultadoDto);
 
     /**
      * Regresa el resultado de una dictaminación
      *
      * @param id de la solicitud
-     * @return ReporteDTO.
+     * @return ReporteDto.
      */
-    Mono<ResultadoDTO> findOne(String id);
+    Mono<ResultadoDto> findOne(String id);
 }

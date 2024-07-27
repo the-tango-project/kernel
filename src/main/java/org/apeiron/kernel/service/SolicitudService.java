@@ -2,7 +2,7 @@ package org.apeiron.kernel.service;
 
 import java.util.List;
 import org.apeiron.kernel.domain.enumeration.EstadoSolicitud;
-import org.apeiron.kernel.service.dto.SolicitudDTO;
+import org.apeiron.kernel.service.dto.SolicitudDto;
 import org.apeiron.kernel.service.util.Filtro;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
@@ -16,36 +16,36 @@ public interface SolicitudService {
     /**
      * Save a solicitud.
      *
-     * @param solicitudDTO the entity to save.
+     * @param solicitudDto the entity to save.
      * @return the persisted entity.
      */
-    Mono<SolicitudDTO> save(SolicitudDTO solicitudDTO);
+    Mono<SolicitudDto> save(SolicitudDto solicitudDto);
 
-    Mono<SolicitudDTO> migrar(SolicitudDTO solicitudDTO);
-
-    /**
-     * Updates a solicitud.
-     *
-     * @param solicitudDTO the entity to update.
-     * @return the persisted entity.
-     */
-    Mono<SolicitudDTO> update(SolicitudDTO solicitudDTO);
+    Mono<SolicitudDto> migrar(SolicitudDto solicitudDto);
 
     /**
      * Updates a solicitud.
      *
-     * @param solicitudDTO the entity to update.
+     * @param solicitudDto the entity to update.
      * @return the persisted entity.
      */
-    Mono<SolicitudDTO> updateRevisores(SolicitudDTO solicitudDTO);
+    Mono<SolicitudDto> update(SolicitudDto solicitudDto);
+
+    /**
+     * Updates a solicitud.
+     *
+     * @param solicitudDto the entity to update.
+     * @return the persisted entity.
+     */
+    Mono<SolicitudDto> updateRevisores(SolicitudDto solicitudDto);
 
     /**
      * Partially updates a solicitud.
      *
-     * @param solicitudDTO the entity to update partially.
+     * @param solicitudDto the entity to update partially.
      * @return the persisted entity.
      */
-    Mono<SolicitudDTO> partialUpdate(SolicitudDTO solicitudDTO);
+    Mono<SolicitudDto> partialUpdate(SolicitudDto solicitudDto);
 
     /**
      * Get all the solicituds.
@@ -53,7 +53,7 @@ public interface SolicitudService {
      * @param filtro the information filter.
      * @return the list of entities.
      */
-    Flux<SolicitudDTO> findAll(Filtro filtro);
+    Flux<SolicitudDto> findAll(Filtro filtro);
 
     /**
      * Get all the solicituds.
@@ -61,9 +61,9 @@ public interface SolicitudService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Flux<SolicitudDTO> findAll(Filtro filtro, Pageable pageable);
+    Flux<SolicitudDto> findAll(Filtro filtro, Pageable pageable);
 
-    Flux<SolicitudDTO> findAllInvitaciones();
+    Flux<SolicitudDto> findAllInvitaciones();
 
     /**
      * Returns the number of solicituds available.
@@ -81,22 +81,22 @@ public interface SolicitudService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Mono<SolicitudDTO> findOne(String id);
+    Mono<SolicitudDto> findOne(String id);
 
-    Mono<SolicitudDTO> findRevisoresById(String id);
+    Mono<SolicitudDto> findRevisoresById(String id);
 
-    Mono<SolicitudDTO> findBySolucionId(String id);
+    Mono<SolicitudDto> findBySolucionId(String id);
 
-    Mono<SolicitudDTO> findBySolucionIdAndEstado(String id, EstadoSolicitud estado);
+    Mono<SolicitudDto> findBySolucionIdAndEstado(String id, EstadoSolicitud estado);
 
     /**
      * Consulta la lista de solicitudes asociadas a solucionId y usuario logueado
      * 
      * @param solucionId
      * @param pageable
-     * @return Flux<SolicitudDTO>
+     * @return Flux<SolicitudDto>
      */
-    Flux<SolicitudDTO> findAllByUsuarioAndSolucionId(String solucionIds, Pageable pageable);
+    Flux<SolicitudDto> findAllByUsuarioAndSolucionId(String solucionIds, Pageable pageable);
 
     /**
      * Consulta la lista de solicitudes asociadas a la lista de solucionIds y
@@ -104,9 +104,9 @@ public interface SolicitudService {
      * 
      * @param solucionIds
      * @param pageable
-     * @return Flux<SolicitudDTO>
+     * @return Flux<SolicitudDto>
      */
-    Flux<SolicitudDTO> findAllByAllSoluciones(List<String> solucionIds, Pageable pageable);
+    Flux<SolicitudDto> findAllByAllSoluciones(List<String> solucionIds, Pageable pageable);
 
     /**
      * Regresa un true si encuentra una solicitud que cumpla con los filtros

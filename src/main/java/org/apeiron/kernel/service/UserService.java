@@ -13,8 +13,8 @@ import org.apeiron.kernel.domain.User;
 import org.apeiron.kernel.repository.AuthorityRepository;
 import org.apeiron.kernel.repository.UserRepository;
 import org.apeiron.kernel.security.SecurityUtils;
-import org.apeiron.kernel.service.dto.AdminUserDTO;
-import org.apeiron.kernel.service.dto.UserDTO;
+import org.apeiron.kernel.service.dto.AdminUserDto;
+import org.apeiron.kernel.service.dto.UserDto;
 import org.apeiron.kernel.service.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,12 +114,12 @@ public class UserService {
             });
     }
 
-    public Flux<AdminUserDTO> getAllManagedUsers(Pageable pageable) {
-        return userRepository.findAllByIdNotNull(pageable).map(AdminUserDTO::new);
+    public Flux<AdminUserDto> getAllManagedUsers(Pageable pageable) {
+        return userRepository.findAllByIdNotNull(pageable).map(AdminUserDto::new);
     }
 
-    public Flux<UserDTO> getAllPublicUsers(Pageable pageable) {
-        return userRepository.findAllByIdNotNullAndActivatedIsTrue(pageable).map(UserDTO::new);
+    public Flux<UserDto> getAllPublicUsers(Pageable pageable) {
+        return userRepository.findAllByIdNotNullAndActivatedIsTrue(pageable).map(UserDto::new);
     }
 
     public Mono<Long> countManagedUsers() {
@@ -201,7 +201,7 @@ public class UserService {
      * @param authToken the authentication token.
      * @return the user from the authentication.
      */
-    public Mono<AdminUserDTO> getUserFromAuthentication(AbstractAuthenticationToken authToken) {
+    public Mono<AdminUserDto> getUserFromAuthentication(AbstractAuthenticationToken authToken) {
         Map<String, Object> attributes;
         if (authToken instanceof OAuth2AuthenticationToken) {
             attributes = ((OAuth2AuthenticationToken) authToken).getPrincipal().getAttributes();
@@ -224,7 +224,7 @@ public class UserService {
                 .collect(Collectors.toSet())
         );
 
-        return syncUserWithIdP(attributes, user).flatMap(u -> Mono.just(new AdminUserDTO(u)));
+        return syncUserWithIdP(attributes, user).flatMap(u -> Mono.just(new AdminUserDto(u)));
     }
 
     private static User getUser(Map<String, Object> details) {

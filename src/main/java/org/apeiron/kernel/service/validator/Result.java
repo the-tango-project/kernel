@@ -3,13 +3,13 @@ package org.apeiron.kernel.service.validator;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
-import org.apeiron.kernel.service.dto.ContextDTO;
-import org.apeiron.kernel.service.dto.RuleDTO;
+import org.apeiron.kernel.service.dto.ContextDto;
+import org.apeiron.kernel.service.dto.RuleDto;
 
 @Data
 @Builder
 public class Result {
 
-    private ContextDTO contexto;
-    private List<RuleDTO> errores;
+    private ContextDto contexto;
+    private List<RuleDto> errores;
 }

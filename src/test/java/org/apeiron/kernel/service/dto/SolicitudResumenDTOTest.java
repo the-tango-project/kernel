@@ -3,10 +3,10 @@ package org.apeiron.kernel.service.dto;
 import org.apeiron.kernel.web.rest.TestUtil;
 import org.junit.jupiter.api.Test;
 
-class SolicitudResumenDTOTest {
+class SolicitudResumenDtoTest {
 
     @Test
     void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(SolicitudResumenDTO.class);
+        TestUtil.equalsVerifier(SolicitudResumenDto.class);
     }
 }

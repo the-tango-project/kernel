@@ -4,7 +4,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apeiron.kernel.service.dto.RuleDTO;
+import org.apeiron.kernel.service.dto.RuleDto;
 import org.zalando.problem.AbstractThrowableProblem;
 import org.zalando.problem.Status;
 
@@ -17,13 +17,13 @@ public class InvalidSolicitudException extends AbstractThrowableProblem {
 
     private final String errorKey;
 
-    private final List<RuleDTO> errores;
+    private final List<RuleDto> errores;
 
-    public InvalidSolicitudException(String defaultMessage, String errorKey, List<RuleDTO> errores) {
+    public InvalidSolicitudException(String defaultMessage, String errorKey, List<RuleDto> errores) {
         this(ErrorConstants.DEFAULT_TYPE, defaultMessage, "solicitud", errorKey, errores);
     }
 
-    public InvalidSolicitudException(URI type, String defaultMessage, String entityName, String errorKey, List<RuleDTO> errores) {
+    public InvalidSolicitudException(URI type, String defaultMessage, String entityName, String errorKey, List<RuleDto> errores) {
         super(type, defaultMessage, Status.PRECONDITION_FAILED, null, null, null, getAlertParameters(entityName, errorKey));
         this.entityName = entityName;
         this.errorKey = errorKey;
@@ -38,7 +38,7 @@ public class InvalidSolicitudException extends AbstractThrowableProblem {
         return errorKey;
     }
 
-    public List<RuleDTO> getErrores() {
+    public List<RuleDto> getErrores() {
         return errores;
     }
 

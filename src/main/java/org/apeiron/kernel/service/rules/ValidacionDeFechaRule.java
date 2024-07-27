@@ -11,7 +11,7 @@ import org.apeiron.kernel.commons.annotations.Argument;
 import org.apeiron.kernel.commons.annotations.ArgumentType;
 import org.apeiron.kernel.commons.annotations.Condition;
 import org.apeiron.kernel.commons.annotations.Tags;
-import org.apeiron.kernel.service.dto.ContextDTO;
+import org.apeiron.kernel.service.dto.ContextDto;
 import org.apeiron.kernel.service.util.ArgumentUtils;
 import org.apeiron.kernel.service.validator.IRule;
 import reactor.core.publisher.Mono;
@@ -32,7 +32,7 @@ public class ValidacionDeFechaRule implements IRule {
      */
     @Override
     @Argument(name = FECHA_LIMITE_NAME, type = ArgumentType.DATE_TIME)
-    public Mono<Boolean> validate(ContextDTO context) {
+    public Mono<Boolean> validate(ContextDto context) {
         Optional<Instant> fechaLimiteOptional = ArgumentUtils.asDateTime(context, this, FECHA_LIMITE_NAME);
 
         if (fechaLimiteOptional.isPresent()) {

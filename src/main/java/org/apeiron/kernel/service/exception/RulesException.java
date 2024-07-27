@@ -1,7 +1,7 @@
 package org.apeiron.kernel.service.exception;
 
 import java.util.List;
-import org.apeiron.kernel.service.dto.RuleDTO;
+import org.apeiron.kernel.service.dto.RuleDto;
 import org.apeiron.kernel.web.rest.errors.ExceptionTranslator;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
@@ -18,14 +18,14 @@ import org.zalando.problem.Status;
  */
 public class RulesException extends ApeironApiException {
 
-    private final List<RuleDTO> errores;
+    private final List<RuleDto> errores;
 
-    public RulesException(String message, List<RuleDTO> errores) {
+    public RulesException(String message, List<RuleDto> errores) {
         super(message);
         this.errores = errores;
     }
 
-    public List<RuleDTO> getErrores() {
+    public List<RuleDto> getErrores() {
         return this.errores;
     }
 }

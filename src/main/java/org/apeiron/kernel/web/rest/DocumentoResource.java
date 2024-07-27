@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.Objects;
 import org.apeiron.kernel.repository.DocumentoRepository;
 import org.apeiron.kernel.service.DocumentoService;
-import org.apeiron.kernel.service.dto.DocumentoDTO;
+import org.apeiron.kernel.service.dto.DocumentoDto;
 import org.apeiron.kernel.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,17 +50,17 @@ public class DocumentoResource {
     /**
      * {@code POST  /documentos} : Create a new documento.
      *
-     * @param documentoDTO the documentoDTO to create.
+     * @param documentoDto the documentoDto to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
-     *         body the new documentoDTO, or with status {@code 400 (Bad Request)}
+     *         body the new documentoDto, or with status {@code 400 (Bad Request)}
      *         if the documento has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/documentos")
-    public Mono<ResponseEntity<DocumentoDTO>> createDocumento(@RequestBody DocumentoDTO documentoDTO) throws URISyntaxException {
-        log.debug("REST request to save Documento : {}", documentoDTO);
+    public Mono<ResponseEntity<DocumentoDto>> createDocumento(@RequestBody DocumentoDto documentoDto) throws URISyntaxException {
+        log.debug("REST request to save Documento : {}", documentoDto);
         return documentoService
-            .save(documentoDTO)
+            .save(documentoDto)
             .map(result -> {
                 try {
                     return ResponseEntity
@@ -76,26 +76,26 @@ public class DocumentoResource {
     /**
      * {@code PUT  /documentos/:id} : Updates an existing documento.
      *
-     * @param id           the id of the documentoDTO to save.
-     * @param documentoDTO the documentoDTO to update.
+     * @param id           the id of the documentoDto to save.
+     * @param documentoDto the documentoDto to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the updated documentoDTO,
-     *         or with status {@code 400 (Bad Request)} if the documentoDTO is not
+     *         the updated documentoDto,
+     *         or with status {@code 400 (Bad Request)} if the documentoDto is not
      *         valid,
      *         or with status {@code 500 (Internal Server Error)} if the
-     *         documentoDTO couldn't be updated.
+     *         documentoDto couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/documentos/{id}")
-    public Mono<ResponseEntity<DocumentoDTO>> updateDocumento(
+    public Mono<ResponseEntity<DocumentoDto>> updateDocumento(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody DocumentoDTO documentoDTO
+        @RequestBody DocumentoDto documentoDto
     ) throws URISyntaxException {
-        log.debug("REST request to update Documento : {}, {}", id, documentoDTO);
-        if (documentoDTO.getId() == null) {
+        log.debug("REST request to update Documento : {}, {}", id, documentoDto);
+        if (documentoDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, documentoDTO.getId())) {
+        if (!Objects.equals(id, documentoDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -107,7 +107,7 @@ public class DocumentoResource {
                 }
 
                 return documentoService
-                    .update(documentoDTO)
+                    .update(documentoDto)
                     .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                     .map(result ->
                         ResponseEntity
@@ -119,9 +119,9 @@ public class DocumentoResource {
     }
 
     @GetMapping("/documentos/{id}")
-    public Mono<ResponseEntity<DocumentoDTO>> getDocumento(@PathVariable String id) {
+    public Mono<ResponseEntity<DocumentoDto>> getDocumento(@PathVariable String id) {
         log.debug("REST request to get Documento : {}", id);
-        Mono<DocumentoDTO> documentoDTO = documentoService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(documentoDTO);
+        Mono<DocumentoDto> documentoDto = documentoService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(documentoDto);
     }
 }

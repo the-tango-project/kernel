@@ -16,7 +16,7 @@ public class NotificacionContext implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private NotificacionDTO notificacion;
-    private SolicitudDTO solicitud;
+    private NotificacionDto notificacion;
+    private SolicitudDto solicitud;
     private String mailTemplate;
 }

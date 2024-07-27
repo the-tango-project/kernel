@@ -7,7 +7,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apeiron.kernel.service.ReporteService;
-import org.apeiron.kernel.service.dto.ReporteDTO;
+import org.apeiron.kernel.service.dto.ReporteDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,10 +41,10 @@ public class ReporteResource {
      *
      * @param id the id of solution id.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the reporteDTO, or with status {@code 404 (Not Found)}.
+     *         the reporteDto, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/reportes/soluciones/{id}/solicitudes")
-    public Mono<ResponseEntity<List<ReporteDTO>>> countTotalSolicitudesByEstado(@PathVariable String id) {
+    public Mono<ResponseEntity<List<ReporteDto>>> countTotalSolicitudesByEstado(@PathVariable String id) {
         log.debug("REST request to get Reporte : {}", id);
         return reporteService.countTotalSolicitudesByEstado(id).collectList().map(reporte -> ResponseEntity.ok().body(reporte));
     }

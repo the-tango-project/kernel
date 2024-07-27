@@ -8,8 +8,8 @@ package org.apeiron.kernel.service.dto;
  *
  * Los principales objectos que son parametrizables en el áperion son:
  *
- * {@link RuleDTO}
- * {@link ActionDTO}
+ * {@link RuleDto}
+ * {@link ActionDto}
  *
  */
 public interface Parametrizable {
@@ -27,10 +27,10 @@ public interface Parametrizable {
     /**
      * Método get para los objectos parametrizables y que regresan un arreglo de
      * Objectos
-     * {@link org.apeiron.kernel.service.dto.ArgumentDTO}
+     * {@link org.apeiron.kernel.service.dto.ArgumentDto}
      *
-     * @return ArgumentDTO[] arreglo de objetos
-     *         {@link org.apeiron.kernel.service.dto.ArgumentDTO}
+     * @return ArgumentDto[] arreglo de objetos
+     *         {@link org.apeiron.kernel.service.dto.ArgumentDto}
      */
-    ArgumentDTO[] getArguments();
+    ArgumentDto[] getArguments();
 }

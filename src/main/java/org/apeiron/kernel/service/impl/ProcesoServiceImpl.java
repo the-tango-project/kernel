@@ -21,13 +21,13 @@ import org.apeiron.kernel.service.ProcesoService;
 import org.apeiron.kernel.service.SolicitudService;
 import org.apeiron.kernel.service.SolucionService;
 import org.apeiron.kernel.service.actionable.ActionEngine;
-import org.apeiron.kernel.service.dto.BulkDataProcessResultDTO;
-import org.apeiron.kernel.service.dto.BulkResponseDTO;
-import org.apeiron.kernel.service.dto.ContextDTO;
+import org.apeiron.kernel.service.dto.BulkDataProcessResultDto;
+import org.apeiron.kernel.service.dto.BulkResponseDto;
+import org.apeiron.kernel.service.dto.ContextDto;
 import org.apeiron.kernel.service.dto.NotificacionContext;
-import org.apeiron.kernel.service.dto.SolicitudDTO;
-import org.apeiron.kernel.service.dto.SolucionDTO;
-import org.apeiron.kernel.service.dto.TransicionContextDTO;
+import org.apeiron.kernel.service.dto.SolicitudDto;
+import org.apeiron.kernel.service.dto.SolucionDto;
+import org.apeiron.kernel.service.dto.TransicionContextDto;
 import org.apeiron.kernel.service.dto.factories.BitacoraFactory;
 import org.apeiron.kernel.service.dto.factories.BulkDataFactory;
 import org.apeiron.kernel.service.dto.factories.ComentarioFactory;
@@ -67,13 +67,13 @@ public class ProcesoServiceImpl implements ProcesoService {
     private final PerfilService miPerfilService;
 
     @Override
-    public Mono<SolicitudDTO> doTransicion(TransicionContextDTO transicion) {
+    public Mono<SolicitudDto> doTransicion(TransicionContextDto transicion) {
         String solicitudId = Optional.ofNullable(transicion.getSolicitudId()).orElse("invalid-id");
         String solucionId = Optional.ofNullable(transicion.getSolucionId()).orElse("invalid-solucion");
 
         return solicitudService
             .findOne(solicitudId)
-            .switchIfEmpty(Mono.just(new SolicitudDTO()))
+            .switchIfEmpty(Mono.just(new SolicitudDto()))
             .zipWith(solucionService.findOne(solucionId))
             .flatMap(merge -> createContext(transicion, merge))
             .flatMap(validator::validate)
@@ -81,18 +81,18 @@ public class ProcesoServiceImpl implements ProcesoService {
     }
 
     @Override
-    public Mono<BulkResponseDTO> doMultipleTransicions(List<TransicionContextDTO> transicions) {
+    public Mono<BulkResponseDto> doMultipleTransicions(List<TransicionContextDto> transicions) {
         return Flux.fromIterable(transicions).flatMap(this::processTransition).collectList().map(BulkDataFactory::response);
     }
 
     @Override
-    public Mono<BulkResponseDTO> doMultipleCreations(List<SolicitudDTO> solicitudes) {
+    public Mono<BulkResponseDto> doMultipleCreations(List<SolicitudDto> solicitudes) {
         return Flux.fromIterable(solicitudes).flatMap(this::processSolicitudes).collectList().map(BulkDataFactory::response);
     }
 
-    private Mono<BulkDataProcessResultDTO> processSolicitudes(SolicitudDTO solicitud) {
-        AtomicReference<BulkDataProcessResultDTO> creationResult = new AtomicReference<>();
-        var solicitudDTO = miPerfilService
+    private Mono<BulkDataProcessResultDto> processSolicitudes(SolicitudDto solicitud) {
+        AtomicReference<BulkDataProcessResultDto> creationResult = new AtomicReference<>();
+        var solicitudDto = miPerfilService
             .getPerfil(solicitud.getSolicitante().getCvu())
             .zipWith(
                 solicitudService
@@ -117,31 +117,31 @@ public class ProcesoServiceImpl implements ProcesoService {
             .flatMap(this.solicitudService::migrar)
             .doOnSuccess(sol -> creationResult.set(success(solicitud)))
             .doOnError(exception -> creationResult.set(failure(solicitud, exception)))
-            .onErrorReturn(new SolicitudDTO());
+            .onErrorReturn(new SolicitudDto());
 
-        return solicitudDTO.map(sol -> creationResult.get());
+        return solicitudDto.map(sol -> creationResult.get());
     }
 
-    private List<SolicitudDTO> filterValidState(List<SolicitudDTO> solicitudes) {
+    private List<SolicitudDto> filterValidState(List<SolicitudDto> solicitudes) {
         return solicitudes
             .stream()
             .filter(solicitud -> !VALID_SOLICITUD_STATE.contains(solicitud.getEstado()))
             .collect(Collectors.toList());
     }
 
-    private Mono<BulkDataProcessResultDTO> processTransition(TransicionContextDTO transicion) {
-        AtomicReference<BulkDataProcessResultDTO> transitionResult = new AtomicReference<>();
+    private Mono<BulkDataProcessResultDto> processTransition(TransicionContextDto transicion) {
+        AtomicReference<BulkDataProcessResultDto> transitionResult = new AtomicReference<>();
 
         var solicitudDto =
             this.doTransicion(transicion)
                 .doOnSuccess(solicitud -> transitionResult.set(success(transicion)))
                 .doOnError(exception -> transitionResult.set(failure(transicion, exception)))
-                .onErrorReturn(new SolicitudDTO());
+                .onErrorReturn(new SolicitudDto());
         return solicitudDto.map(solicitud -> transitionResult.get());
     }
 
     @Override
-    public Mono<SolicitudDTO> saveForm(SolicitudDTO solicitud, String formId) {
+    public Mono<SolicitudDto> saveForm(SolicitudDto solicitud, String formId) {
         return solucionService
             .findOne(solicitud.getSolucionId())
             .flatMap(solucion -> createContext(solicitud, solucion, formId))
@@ -149,12 +149,12 @@ public class ProcesoServiceImpl implements ProcesoService {
             .flatMap(this::doSaveForm);
     }
 
-    private Mono<ContextDTO> createContext(TransicionContextDTO transicion, Tuple2<SolicitudDTO, SolucionDTO> merge) {
+    private Mono<ContextDto> createContext(TransicionContextDto transicion, Tuple2<SolicitudDto, SolucionDto> merge) {
         return SecurityUtils
             .getCurrentUserLogin()
             .switchIfEmpty(Mono.just("system"))
             .map(usuario -> {
-                ContextDTO context = ContextDTO
+                ContextDto context = ContextDto
                     .builder()
                     .accion(transicion.getTransicion().getAccion())
                     .inicioTransicion(Instant.now())
@@ -168,13 +168,13 @@ public class ProcesoServiceImpl implements ProcesoService {
             });
     }
 
-    private Mono<ContextDTO> createContext(SolicitudDTO solicitud, SolucionDTO solucion, String formId) {
+    private Mono<ContextDto> createContext(SolicitudDto solicitud, SolucionDto solucion, String formId) {
         return SecurityUtils
             .getCurrentUserLogin()
             .switchIfEmpty(Mono.just("system"))
             .flatMap(usuario ->
                 Mono.just(
-                    ContextDTO
+                    ContextDto
                         .builder()
                         .inicioTransicion(Instant.now())
                         .solicitud(solicitud)
@@ -186,7 +186,7 @@ public class ProcesoServiceImpl implements ProcesoService {
             );
     }
 
-    private Mono<SolicitudDTO> doActions(Result result) {
+    private Mono<SolicitudDto> doActions(Result result) {
         if (!result.getErrores().isEmpty()) {
             return Mono.error(new RulesException("solucionId", result.getErrores()));
         }
@@ -197,14 +197,14 @@ public class ProcesoServiceImpl implements ProcesoService {
             .flatMap(contexto -> Mono.just(contexto.getSolicitud()));
     }
 
-    private Mono<SolicitudDTO> doSaveForm(Result result) {
+    private Mono<SolicitudDto> doSaveForm(Result result) {
         if (!result.getErrores().isEmpty()) {
             return Mono.error(new RulesException("solucionId", result.getErrores()));
         }
         return this.saveSolicitud(result.getContexto()).flatMap(contexto -> Mono.just(contexto.getSolicitud()));
     }
 
-    private Mono<ContextDTO> saveSolicitud(ContextDTO contexto) {
+    private Mono<ContextDto> saveSolicitud(ContextDto contexto) {
         return solicitudService
             .update(contexto.getSolicitud())
             .map(solicitud -> {
@@ -213,7 +213,7 @@ public class ProcesoServiceImpl implements ProcesoService {
             });
     }
 
-    private Mono<ContextDTO> doPostActions(ContextDTO contexto) {
+    private Mono<ContextDto> doPostActions(ContextDto contexto) {
         if (contexto.getTransicion().isAgregarComentario()) {
             jobService.schedule(() -> comentarioService.saveAsynchronous(ComentarioFactory.fromContext(contexto)));
         }

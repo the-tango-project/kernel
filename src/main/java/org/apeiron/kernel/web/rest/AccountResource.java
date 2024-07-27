@@ -2,7 +2,7 @@ package org.apeiron.kernel.web.rest;
 
 import java.security.Principal;
 import org.apeiron.kernel.service.UserService;
-import org.apeiron.kernel.service.dto.AdminUserDTO;
+import org.apeiron.kernel.service.dto.AdminUserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -45,7 +45,7 @@ public class AccountResource {
      */
     @GetMapping("/account")
     @SuppressWarnings("unchecked")
-    public Mono<AdminUserDTO> getAccount(Principal principal) {
+    public Mono<AdminUserDto> getAccount(Principal principal) {
         if (principal instanceof AbstractAuthenticationToken) {
             return userService.getUserFromAuthentication((AbstractAuthenticationToken) principal);
         } else {

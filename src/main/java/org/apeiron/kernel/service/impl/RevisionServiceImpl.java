@@ -11,7 +11,7 @@ import org.apeiron.kernel.repository.RevisionRepository;
 import org.apeiron.kernel.repository.SolicitudRepository;
 import org.apeiron.kernel.security.SecurityUtils;
 import org.apeiron.kernel.service.RevisionService;
-import org.apeiron.kernel.service.dto.RevisionDTO;
+import org.apeiron.kernel.service.dto.RevisionDto;
 import org.apeiron.kernel.service.mapper.RevisionMapper;
 import org.apeiron.kernel.service.util.FiltroRevision;
 import org.slf4j.Logger;
@@ -37,25 +37,25 @@ public class RevisionServiceImpl implements RevisionService {
     private final SolicitudRepository solicitudRepository;
 
     @Override
-    public Mono<RevisionDTO> save(RevisionDTO revisionDTO) {
-        log.debug("Request to save Revision : {}", revisionDTO);
-        return revisionRepository.save(revisionMapper.toEntity(revisionDTO)).map(revisionMapper::toDto);
+    public Mono<RevisionDto> save(RevisionDto revisionDto) {
+        log.debug("Request to save Revision : {}", revisionDto);
+        return revisionRepository.save(revisionMapper.toEntity(revisionDto)).map(revisionMapper::toDto);
     }
 
     @Override
-    public Mono<RevisionDTO> update(RevisionDTO revisionDTO) {
-        log.debug("Request to update Revision : {}", revisionDTO);
-        return revisionRepository.save(revisionMapper.toEntity(revisionDTO)).map(revisionMapper::toDto);
+    public Mono<RevisionDto> update(RevisionDto revisionDto) {
+        log.debug("Request to update Revision : {}", revisionDto);
+        return revisionRepository.save(revisionMapper.toEntity(revisionDto)).map(revisionMapper::toDto);
     }
 
     @Override
-    public Mono<RevisionDTO> partialUpdate(RevisionDTO revisionDTO) {
-        log.debug("Request to partially update Revision : {}", revisionDTO);
+    public Mono<RevisionDto> partialUpdate(RevisionDto revisionDto) {
+        log.debug("Request to partially update Revision : {}", revisionDto);
 
         return revisionRepository
-            .findById(revisionDTO.getId())
+            .findById(revisionDto.getId())
             .map(existingRevision -> {
-                revisionMapper.partialUpdate(existingRevision, revisionDTO);
+                revisionMapper.partialUpdate(existingRevision, revisionDto);
 
                 return existingRevision;
             })
@@ -64,7 +64,7 @@ public class RevisionServiceImpl implements RevisionService {
     }
 
     @Override
-    public Flux<RevisionDTO> findAll(Pageable pageable) {
+    public Flux<RevisionDto> findAll(Pageable pageable) {
         log.debug("Request to get all Revisions");
         return SecurityUtils
             .getCurrentCvu()
@@ -78,7 +78,7 @@ public class RevisionServiceImpl implements RevisionService {
     }
 
     @Override
-    public Mono<RevisionDTO> findOne(String id) {
+    public Mono<RevisionDto> findOne(String id) {
         log.debug("Request to get Revision : {}", id);
         return revisionRepository.findById(id).map(revisionMapper::toDto);
     }
@@ -90,11 +90,11 @@ public class RevisionServiceImpl implements RevisionService {
     }
 
     @Override
-    public Mono<RevisionDTO> confirmarRevision(RevisionDTO revisionDTO) {
+    public Mono<RevisionDto> confirmarRevision(RevisionDto revisionDto) {
         return SecurityUtils
             .getCurrentCvu()
             .switchIfEmpty(Mono.just("anonymous"))
-            .map(usuario -> mapRevision(revisionMapper.toEntity(revisionDTO), usuario))
+            .map(usuario -> mapRevision(revisionMapper.toEntity(revisionDto), usuario))
             .flatMap(revision ->
                 revisionRepository
                     .findBysolicitudIdAndRevisorId(
@@ -104,13 +104,13 @@ public class RevisionServiceImpl implements RevisionService {
                     )
                     .switchIfEmpty(Mono.just(revision))
             )
-            .zipWith(solicitudRepository.findById(revisionDTO.getSolicitudResumen().getSolicitudId()))
+            .zipWith(solicitudRepository.findById(revisionDto.getSolicitudResumen().getSolicitudId()))
             .flatMap(result -> {
                 if (result.getT1().getId() != null) {
                     return Mono.just(result.getT1());
                 } else {
                     int indx = resolveIndex(result.getT1().getRevisor().getRevisorId(), result.getT2().getRevisores());
-                    result.getT2().getRevisores().get(indx).setEstado(revisionDTO.getEstado());
+                    result.getT2().getRevisores().get(indx).setEstado(revisionDto.getEstado());
                     return solicitudRepository.save(result.getT2()).flatMap(solicitud -> revisionRepository.save(result.getT1()));
                 }
             })
@@ -135,19 +135,19 @@ public class RevisionServiceImpl implements RevisionService {
     }
 
     @Override
-    public Mono<RevisionDTO> findBysolicitudIdAndRevisorId(String solicitudId, String revisorId, String evaluacionId) {
+    public Mono<RevisionDto> findBysolicitudIdAndRevisorId(String solicitudId, String revisorId, String evaluacionId) {
         log.debug("Request to get Revision : {}", solicitudId);
         return revisionRepository.findBysolicitudIdAndRevisorId(solicitudId, revisorId, evaluacionId).map(revisionMapper::toDto);
     }
 
     @Override
-    public Flux<RevisionDTO> findAllRevisionesBySolicitudId(String solicitudId, String evaluacionId) {
+    public Flux<RevisionDto> findAllRevisionesBySolicitudId(String solicitudId, String evaluacionId) {
         log.debug("Request to get Revision : {}", solicitudId);
         return revisionRepository.findAllRevisionesBySolicitudIdAndEvaluacionId(solicitudId, evaluacionId).map(revisionMapper::toDto);
     }
 
     @Override
-    public Mono<RevisionDTO> findByEvaluacionIdAndRevisorId(FiltroRevision filtro) {
+    public Mono<RevisionDto> findByEvaluacionIdAndRevisorId(FiltroRevision filtro) {
         log.debug("Request to get Revision : {}", filtro);
         return revisionRepository
             .findByEvaluacionIdAndRevisorId(filtro.getEvaluacionId(), filtro.getRevisorId())
@@ -155,7 +155,7 @@ public class RevisionServiceImpl implements RevisionService {
     }
 
     @Override
-    public Flux<RevisionDTO> findAll(FiltroRevision filtro, Pageable pageable) {
+    public Flux<RevisionDto> findAll(FiltroRevision filtro, Pageable pageable) {
         log.debug("Request to get all Revisions");
 
         return revisionRepository

@@ -4,7 +4,7 @@ import static org.apeiron.kernel.service.util.QueryHelper.buildQuery;
 
 import org.apeiron.kernel.domain.Comentario;
 import org.apeiron.kernel.repository.ComentarioRepository;
-import org.apeiron.kernel.service.dto.ComentarioDTO;
+import org.apeiron.kernel.service.dto.ComentarioDto;
 import org.apeiron.kernel.service.mapper.ComentarioMapper;
 import org.apeiron.kernel.service.util.Filtro;
 import org.slf4j.Logger;
@@ -37,21 +37,21 @@ public class ComentarioService {
     /**
      * Save a comentario.
      *
-     * @param comentarioDTO the entity to save.
+     * @param comentarioDto the entity to save.
      * @return the persisted entity.
      */
-    public Mono<ComentarioDTO> save(ComentarioDTO comentarioDTO) {
-        log.debug("Request to save Comentario : {}", comentarioDTO);
-        return comentarioRepository.save(comentarioMapper.toEntity(comentarioDTO)).map(comentarioMapper::toDto);
+    public Mono<ComentarioDto> save(ComentarioDto comentarioDto) {
+        log.debug("Request to save Comentario : {}", comentarioDto);
+        return comentarioRepository.save(comentarioMapper.toEntity(comentarioDto)).map(comentarioMapper::toDto);
     }
 
     /**
      * Save a comentario.
      *
-     * @param comentarioDTO the entity to save.
+     * @param comentarioDto the entity to save.
      * @return the persisted entity.
      */
-    public Disposable saveAsynchronous(ComentarioDTO comentario) {
+    public Disposable saveAsynchronous(ComentarioDto comentario) {
         log.debug("Request to save Comentario : {}", comentario);
         return comentarioRepository.save(comentarioMapper.toEntity(comentario)).subscribe();
     }
@@ -59,27 +59,27 @@ public class ComentarioService {
     /**
      * Update a comentario.
      *
-     * @param comentarioDTO the entity to save.
+     * @param comentarioDto the entity to save.
      * @return the persisted entity.
      */
-    public Mono<ComentarioDTO> update(ComentarioDTO comentarioDTO) {
-        log.debug("Request to update Comentario : {}", comentarioDTO);
-        return comentarioRepository.save(comentarioMapper.toEntity(comentarioDTO)).map(comentarioMapper::toDto);
+    public Mono<ComentarioDto> update(ComentarioDto comentarioDto) {
+        log.debug("Request to update Comentario : {}", comentarioDto);
+        return comentarioRepository.save(comentarioMapper.toEntity(comentarioDto)).map(comentarioMapper::toDto);
     }
 
     /**
      * Partially update a comentario.
      *
-     * @param comentarioDTO the entity to update partially.
+     * @param comentarioDto the entity to update partially.
      * @return the persisted entity.
      */
-    public Mono<ComentarioDTO> partialUpdate(ComentarioDTO comentarioDTO) {
-        log.debug("Request to partially update Comentario : {}", comentarioDTO);
+    public Mono<ComentarioDto> partialUpdate(ComentarioDto comentarioDto) {
+        log.debug("Request to partially update Comentario : {}", comentarioDto);
 
         return comentarioRepository
-            .findById(comentarioDTO.getId())
+            .findById(comentarioDto.getId())
             .map(existingComentario -> {
-                comentarioMapper.partialUpdate(existingComentario, comentarioDTO);
+                comentarioMapper.partialUpdate(existingComentario, comentarioDto);
 
                 return existingComentario;
             })
@@ -93,7 +93,7 @@ public class ComentarioService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Flux<ComentarioDTO> findAll(Filtro filtro, Pageable pageable) {
+    public Flux<ComentarioDto> findAll(Filtro filtro, Pageable pageable) {
         log.debug("Request to get all Comentarios");
         return comentarioRepository
             .findAll(buildQuery(filtro), pageable.getSort())
@@ -118,7 +118,7 @@ public class ComentarioService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    public Mono<ComentarioDTO> findOne(String id) {
+    public Mono<ComentarioDto> findOne(String id) {
         log.debug("Request to get Comentario : {}", id);
         return comentarioRepository.findById(id).map(comentarioMapper::toDto);
     }

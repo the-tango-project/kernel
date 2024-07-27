@@ -10,9 +10,9 @@ import org.apeiron.kernel.domain.enumeration.EstadoSolicitud;
 import org.apeiron.kernel.repository.SolicitudRepository;
 import org.apeiron.kernel.service.ProcesoService;
 import org.apeiron.kernel.service.SolicitudService;
-import org.apeiron.kernel.service.dto.BulkResponseDTO;
-import org.apeiron.kernel.service.dto.SolicitudDTO;
-import org.apeiron.kernel.service.dto.TransicionContextDTO;
+import org.apeiron.kernel.service.dto.BulkResponseDto;
+import org.apeiron.kernel.service.dto.SolicitudDto;
+import org.apeiron.kernel.service.dto.TransicionContextDto;
 import org.apeiron.kernel.service.exception.NotFoundException;
 import org.apeiron.kernel.service.exception.RulesException;
 import org.apeiron.kernel.service.util.Filtro;
@@ -77,22 +77,22 @@ public class SolicitudResource {
     /**
      * {@code POST  /solicituds} : Create a new solicitud.
      *
-     * @param solicitudDTO the solicitudDTO to create.
+     * @param solicitudDto the solicitudDto to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
-     *         body the new solicitudDTO, or with status {@code 400 (Bad Request)}
+     *         body the new solicitudDto, or with status {@code 400 (Bad Request)}
      *         if the solicitud has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/solicitudes")
-    public Mono<ResponseEntity<SolicitudDTO>> createSolicitud(@RequestBody SolicitudDTO solicitudDTO)
+    public Mono<ResponseEntity<SolicitudDto>> createSolicitud(@RequestBody SolicitudDto solicitudDto)
             throws URISyntaxException {
-        log.debug("REST request to save Solicitud : {}", solicitudDTO);
-        if (solicitudDTO.getId() != null) {
+        log.debug("REST request to save Solicitud : {}", solicitudDto);
+        if (solicitudDto.getId() != null) {
             throw new BadRequestAlertException("A new solicitud cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        solicitudDTO.setEstado(EstadoSolicitud.EN_CAPTURA);
+        solicitudDto.setEstado(EstadoSolicitud.EN_CAPTURA);
         return solicitudService
-                .save(solicitudDTO)
+                .save(solicitudDto)
                 .map(result -> {
                     try {
                         return ResponseEntity
@@ -107,11 +107,11 @@ public class SolicitudResource {
     }
 
     @PostMapping("/solicitudes/migracion")
-    public Mono<ResponseEntity<SolicitudDTO>> migrarSolicitudes(@RequestBody SolicitudDTO solicitudDTO)
+    public Mono<ResponseEntity<SolicitudDto>> migrarSolicitudes(@RequestBody SolicitudDto solicitudDto)
             throws URISyntaxException {
-        log.debug("REST request to save Solicitud : {}", solicitudDTO);
+        log.debug("REST request to save Solicitud : {}", solicitudDto);
         return solicitudService
-                .migrar(solicitudDTO)
+                .migrar(solicitudDto)
                 .map(result -> {
                     try {
                         return ResponseEntity
@@ -128,25 +128,25 @@ public class SolicitudResource {
     /**
      * {@code PUT  /solicitudes/:id} : Updates an existing solicitud.
      *
-     * @param id           the id of the solicitudDTO to save.
-     * @param solicitudDTO the solicitudDTO to update.
+     * @param id           the id of the solicitudDto to save.
+     * @param solicitudDto the solicitudDto to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the updated solicitudDTO,
-     *         or with status {@code 400 (Bad Request)} if the solicitudDTO is not
+     *         the updated solicitudDto,
+     *         or with status {@code 400 (Bad Request)} if the solicitudDto is not
      *         valid,
      *         or with status {@code 500 (Internal Server Error)} if the
-     *         solicitudDTO couldn't be updated.
+     *         solicitudDto couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/solicitudes/{id}")
-    public Mono<ResponseEntity<SolicitudDTO>> updateSolicitud(
+    public Mono<ResponseEntity<SolicitudDto>> updateSolicitud(
             @PathVariable(value = "id", required = false) final String id,
-            @RequestBody SolicitudDTO solicitudDTO) throws URISyntaxException {
-        log.debug("REST request to update Solicitud : {}, {}", id, solicitudDTO);
-        if (solicitudDTO.getId() == null) {
+            @RequestBody SolicitudDto solicitudDto) throws URISyntaxException {
+        log.debug("REST request to update Solicitud : {}, {}", id, solicitudDto);
+        if (solicitudDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, solicitudDTO.getId())) {
+        if (!Objects.equals(id, solicitudDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -158,7 +158,7 @@ public class SolicitudResource {
                     }
 
                     return solicitudService
-                            .update(solicitudDTO)
+                            .update(solicitudDto)
                             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                             .map(result -> ResponseEntity
                                     .ok()
@@ -176,18 +176,18 @@ public class SolicitudResource {
      *
      * @return the Mono<ResponseEntity<Void>> with status {@code 200 (OK)}
      *         or with status {@code 404 (Not found)} if the
-     *         solicitudDTO can't find.
+     *         solicitudDto can't find.
      */
     @PutMapping("/solicitudes/aprobacionMasivaAcreditacion/")
     public Mono<ResponseEntity<Object>> aprobacionMasivaAcreditacion(
-            @RequestBody List<TransicionContextDTO> transiciones) {
+            @RequestBody List<TransicionContextDto> transiciones) {
         if (transiciones.isEmpty()) {
             return Mono.error(new NotFoundException("No se proporcionaron transiciones"));
         }
 
-        List<Mono<SolicitudDTO>> resultados = new ArrayList<>();
+        List<Mono<SolicitudDto>> resultados = new ArrayList<>();
 
-        for (TransicionContextDTO transicionContextDto : transiciones) {
+        for (TransicionContextDto transicionContextDto : transiciones) {
             resultados.add(procesoService.doTransicion(transicionContextDto));
         }
 
@@ -202,27 +202,27 @@ public class SolicitudResource {
      * {@code PATCH  /solicituds/:id} : Partial updates given fields of an existing
      * solicitud, field will ignore if it is null
      *
-     * @param id           the id of the solicitudDTO to save.
-     * @param solicitudDTO the solicitudDTO to update.
+     * @param id           the id of the solicitudDto to save.
+     * @param solicitudDto the solicitudDto to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the updated solicitudDTO,
-     *         or with status {@code 400 (Bad Request)} if the solicitudDTO is not
+     *         the updated solicitudDto,
+     *         or with status {@code 400 (Bad Request)} if the solicitudDto is not
      *         valid,
-     *         or with status {@code 404 (Not Found)} if the solicitudDTO is not
+     *         or with status {@code 404 (Not Found)} if the solicitudDto is not
      *         found,
      *         or with status {@code 500 (Internal Server Error)} if the
-     *         solicitudDTO couldn't be updated.
+     *         solicitudDto couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/solicitudes/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public Mono<ResponseEntity<SolicitudDTO>> partialUpdateSolicitud(
+    public Mono<ResponseEntity<SolicitudDto>> partialUpdateSolicitud(
             @PathVariable(value = "id", required = false) final String id,
-            @RequestBody SolicitudDTO solicitudDTO) throws URISyntaxException {
-        log.debug("REST request to partial update Solicitud partially : {}, {}", id, solicitudDTO);
-        if (solicitudDTO.getId() == null) {
+            @RequestBody SolicitudDto solicitudDto) throws URISyntaxException {
+        log.debug("REST request to partial update Solicitud partially : {}, {}", id, solicitudDto);
+        if (solicitudDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, solicitudDTO.getId())) {
+        if (!Objects.equals(id, solicitudDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -233,7 +233,7 @@ public class SolicitudResource {
                         return Mono.error(new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound"));
                     }
 
-                    Mono<SolicitudDTO> result = solicitudService.partialUpdate(solicitudDTO);
+                    Mono<SolicitudDto> result = solicitudService.partialUpdate(solicitudDto);
 
                     return result
                             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
@@ -254,7 +254,7 @@ public class SolicitudResource {
      *         of solicituds in body.
      */
     @GetMapping("/solicitudes")
-    public Mono<ResponseEntity<List<SolicitudDTO>>> getAllSolicituds(
+    public Mono<ResponseEntity<List<SolicitudDto>>> getAllSolicituds(
             Filtro filtro,
             @RequestParam Map<String, String> requestParams,
             @org.springdoc.core.annotations.ParameterObject Pageable pageable,
@@ -273,7 +273,7 @@ public class SolicitudResource {
     }
 
     @GetMapping("/solicitudes/invitaciones")
-    public Mono<ResponseEntity<List<SolicitudDTO>>> getAllSolicitudesByRevisor(
+    public Mono<ResponseEntity<List<SolicitudDto>>> getAllSolicitudesByRevisor(
             @RequestParam(required = false) String solucionId,
             @org.springdoc.core.annotations.ParameterObject Pageable pageable,
             ServerHttpRequest request) {
@@ -293,30 +293,30 @@ public class SolicitudResource {
     /**
      * {@code GET  /solicituds/:id} : get the "id" solicitud.
      *
-     * @param id the id of the solicitudDTO to retrieve.
+     * @param id the id of the solicitudDto to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the solicitudDTO, or with status {@code 404 (Not Found)}.
+     *         the solicitudDto, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/solicitudes/{id}")
-    public Mono<ResponseEntity<SolicitudDTO>> getSolicitud(@PathVariable String id) {
+    public Mono<ResponseEntity<SolicitudDto>> getSolicitud(@PathVariable String id) {
         log.debug("REST request to get Solicitud : {}", id);
-        Mono<SolicitudDTO> solicitudDTO = solicitudService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(solicitudDTO);
+        Mono<SolicitudDto> solicitudDto = solicitudService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(solicitudDto);
     }
 
     @GetMapping("/solicitudes/solucion/{id}")
-    public Mono<ResponseEntity<SolicitudDTO>> getSolicitudBySolucionId(@PathVariable String id) {
+    public Mono<ResponseEntity<SolicitudDto>> getSolicitudBySolucionId(@PathVariable String id) {
         log.debug("REST request to get Solicitud : {}", id);
-        Mono<SolicitudDTO> solicitudDTO = solicitudService.findBySolucionId(id);
-        return ResponseUtil.wrapOrNotFound(solicitudDTO);
+        Mono<SolicitudDto> solicitudDto = solicitudService.findBySolucionId(id);
+        return ResponseUtil.wrapOrNotFound(solicitudDto);
     }
 
     @PutMapping("/solicitudes/enviar/{id}")
-    public Mono<ResponseEntity<SolicitudDTO>> sendSolicitud(
+    public Mono<ResponseEntity<SolicitudDto>> sendSolicitud(
             @PathVariable(value = "id", required = false) final String id,
-            @RequestBody SolicitudDTO solicitudDTO) throws URISyntaxException {
-        log.debug("REST request to update Solicitud : {}, {}", id, solicitudDTO);
-        solicitudDTO.setEstado(EstadoSolicitud.ENVIADA);
+            @RequestBody SolicitudDto solicitudDto) throws URISyntaxException {
+        log.debug("REST request to update Solicitud : {}, {}", id, solicitudDto);
+        solicitudDto.setEstado(EstadoSolicitud.ENVIADA);
         return solicitudRepository
                 .existsById(id)
                 .flatMap(exists -> {
@@ -324,7 +324,7 @@ public class SolicitudResource {
                         return Mono.error(new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound"));
                     }
                     return solicitudService
-                            .update(solicitudDTO)
+                            .update(solicitudDto)
                             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                             .map(result -> ResponseEntity
                                     .ok()
@@ -335,21 +335,21 @@ public class SolicitudResource {
     }
 
     @GetMapping("/solicitudes/{id}/revisores")
-    public Mono<ResponseEntity<SolicitudDTO>> getRevisores(@PathVariable String id) {
+    public Mono<ResponseEntity<SolicitudDto>> getRevisores(@PathVariable String id) {
         log.debug("REST request to get Solicitud : {}", id);
-        Mono<SolicitudDTO> solicitudDTO = solicitudService.findRevisoresById(id);
-        return ResponseUtil.wrapOrNotFound(solicitudDTO);
+        Mono<SolicitudDto> solicitudDto = solicitudService.findRevisoresById(id);
+        return ResponseUtil.wrapOrNotFound(solicitudDto);
     }
 
     @PutMapping("/solicitudes/{id}/revisores")
-    public Mono<ResponseEntity<SolicitudDTO>> updateRevisores(
+    public Mono<ResponseEntity<SolicitudDto>> updateRevisores(
             @PathVariable(value = "id", required = false) final String id,
-            @RequestBody SolicitudDTO solicitudDTO) throws URISyntaxException {
-        log.debug("REST request to update Solicitud : {}, {}", id, solicitudDTO);
-        if (solicitudDTO.getId() == null) {
+            @RequestBody SolicitudDto solicitudDto) throws URISyntaxException {
+        log.debug("REST request to update Solicitud : {}, {}", id, solicitudDto);
+        if (solicitudDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, solicitudDTO.getId())) {
+        if (!Objects.equals(id, solicitudDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -361,7 +361,7 @@ public class SolicitudResource {
                     }
 
                     return solicitudService
-                            .updateRevisores(solicitudDTO)
+                            .updateRevisores(solicitudDto)
                             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                             .map(result -> ResponseEntity
                                     .ok()
@@ -372,7 +372,7 @@ public class SolicitudResource {
     }
 
     @PutMapping("/solicitudes/transition")
-    public Mono<ResponseEntity<SolicitudDTO>> enviarSolicitud(@RequestBody TransicionContextDTO transicion)
+    public Mono<ResponseEntity<SolicitudDto>> enviarSolicitud(@RequestBody TransicionContextDto transicion)
             throws URISyntaxException {
         return procesoService
                 .doTransicion(transicion)
@@ -385,8 +385,8 @@ public class SolicitudResource {
     }
 
     @PutMapping("/solicitudes/transition/bulk")
-    public Mono<ResponseEntity<BulkResponseDTO>> doMultipleTransitions(
-            @RequestBody List<TransicionContextDTO> transicions)
+    public Mono<ResponseEntity<BulkResponseDto>> doMultipleTransitions(
+            @RequestBody List<TransicionContextDto> transicions)
             throws URISyntaxException {
         return procesoService
                 .doMultipleTransicions(transicions)
@@ -398,7 +398,7 @@ public class SolicitudResource {
     }
 
     @PostMapping("/solicitudes/create/bulk")
-    public Mono<ResponseEntity<BulkResponseDTO>> doMultipleCreations(@RequestBody List<SolicitudDTO> solicitudes)
+    public Mono<ResponseEntity<BulkResponseDto>> doMultipleCreations(@RequestBody List<SolicitudDto> solicitudes)
             throws URISyntaxException {
         return procesoService
                 .doMultipleCreations(solicitudes)
@@ -410,20 +410,20 @@ public class SolicitudResource {
     }
 
     @PutMapping("/solicitudes/{id}/{formId}")
-    public Mono<ResponseEntity<SolicitudDTO>> updateForm(
+    public Mono<ResponseEntity<SolicitudDto>> updateForm(
             @PathVariable(value = "id", required = false) final String id,
             @PathVariable(value = "formId", required = false) final String formId,
-            @RequestBody SolicitudDTO solicitudDTO) throws URISyntaxException {
-        log.debug("REST request to update Solicitud : {}, {}", id, solicitudDTO);
-        if (solicitudDTO.getId() == null) {
+            @RequestBody SolicitudDto solicitudDto) throws URISyntaxException {
+        log.debug("REST request to update Solicitud : {}, {}", id, solicitudDto);
+        if (solicitudDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, solicitudDTO.getId())) {
+        if (!Objects.equals(id, solicitudDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
         return procesoService
-                .saveForm(solicitudDTO, formId)
+                .saveForm(solicitudDto, formId)
                 .onErrorMap(RulesException.class,
                         e -> new InvalidSolicitudException("Invalid id", "invalidSolicitud", e.getErrores()))
                 .map(result -> ResponseEntity
@@ -440,7 +440,7 @@ public class SolicitudResource {
      * @return
      */
     @GetMapping("/solicitudes/solucionBy/{solucionId}")
-    public Mono<ResponseEntity<List<SolicitudDTO>>> findAllByUsuarioAndSolucionId(@PathVariable String solucionId,
+    public Mono<ResponseEntity<List<SolicitudDto>>> findAllByUsuarioAndSolucionId(@PathVariable String solucionId,
             Pageable pageable) {
         return solicitudService.findAllByUsuarioAndSolucionId(solucionId, pageable).collectList()
                 .map(ResponseEntity::ok);
@@ -455,7 +455,7 @@ public class SolicitudResource {
      * @return
      */
     @GetMapping("/solicitudes/soluciones")
-    public Mono<ResponseEntity<List<SolicitudDTO>>> findAllByAllSoluciones(Filtro filtro, Pageable pageable,
+    public Mono<ResponseEntity<List<SolicitudDto>>> findAllByAllSoluciones(Filtro filtro, Pageable pageable,
             ServerHttpRequest request) {
         if (filtro.getIdsSolucion().isEmpty() || filtro.getIdsSolucion() == null) {
             throw new BadRequestAlertException("La información es incorrecta", ENTITY_NAME, "invalid");

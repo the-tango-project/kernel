@@ -1,6 +1,6 @@
 package org.apeiron.kernel.service;
 
-import org.apeiron.kernel.service.dto.ReporteDTO;
+import org.apeiron.kernel.service.dto.ReporteDto;
 import reactor.core.publisher.Flux;
 
 public interface ReporteService {
@@ -9,7 +9,7 @@ public interface ReporteService {
      * de una solucion
      *
      * @param solucionId the id of the solucion.
-     * @return ReporteDTO.
+     * @return ReporteDto.
      */
-    Flux<ReporteDTO> countTotalSolicitudesByEstado(String solucionId);
+    Flux<ReporteDto> countTotalSolicitudesByEstado(String solucionId);
 }

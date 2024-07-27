@@ -2,7 +2,7 @@ package org.apeiron.kernel.commons.annotations;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import org.apeiron.kernel.service.dto.PropertyMapDTO;
+import org.apeiron.kernel.service.dto.PropertyMapDto;
 
 /**
  * Enumeración con los tipos de datos que se pueden utilizar como argumento que
@@ -53,9 +53,9 @@ public enum ArgumentType {
     DATE_TIME(Instant.class),
     /**
      * Argumento de tipo PROPERTY_MAP. Un argumento de tipo PROPERTY_MAP en java se
-     * representa por {@link PropertyMapDTO}
+     * representa por {@link PropertyMapDto}
      */
-    PROPERTY_MAP(PropertyMapDTO.class);
+    PROPERTY_MAP(PropertyMapDto.class);
 
     private ArgumentType(Class<?> classType) {
         this.classType = classType;

@@ -9,23 +9,23 @@ import reactor.core.publisher.Mono;
 /**
  * Contract for a generic entity to brief dto mapper.
  *
- * @param <D> - BriefDTO type parameter.
+ * @param <D> - BriefDto type parameter.
  * @param <E> - Entity type parameter.
  */
 public interface BriefMapper<D, E> {
     /**
-     * Map an Entity to a DTO object.
+     * Map an Entity to a Dto object.
      *
      * @param entity Entity to map.
-     * @return DTO mapped.
+     * @return Dto mapped.
      */
     D toDto(E entity);
 
     /**
-     * Map a List of Entities to DTOs.
+     * Map a List of Entities to Dtos.
      *
      * @param entityList List of Entities to map.
-     * @return List of DTOs mapped.
+     * @return List of Dtos mapped.
      */
     default List<D> toDto(List<E> entityList) {
         if (entityList == null || entityList.isEmpty()) {
@@ -36,7 +36,7 @@ public interface BriefMapper<D, E> {
     }
 
     /**
-     * Map Flux Entity to Flux DTO.
+     * Map Flux Entity to Flux Dto.
      *
      * @param flux Flux to map.
      * @return Flux mapped.
@@ -50,7 +50,7 @@ public interface BriefMapper<D, E> {
     }
 
     /**
-     * Map Mono Entity to Mono DTO.
+     * Map Mono Entity to Mono Dto.
      *
      * @param mono Mono to map.
      * @return Mono mapped.

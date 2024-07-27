@@ -9,10 +9,10 @@ import static org.apeiron.kernel.autoconfiguration.Constants.TextFormat.SPACE;
 import java.util.Arrays;
 import java.util.List;
 import org.apeiron.kernel.domain.enumeration.TipoAccion;
-import org.apeiron.kernel.service.dto.RuleDTO;
+import org.apeiron.kernel.service.dto.RuleDto;
 
 /**
- * Fabrica de objetos para la clase RuleDTO y Rule
+ * Fabrica de objetos para la clase RuleDto y Rule
  */
 public class RuleFactory {
 
@@ -24,25 +24,25 @@ public class RuleFactory {
      * ápeiron
      *
      * @param action
-     * @return List<RuleDTO> Regresa la regla invalidTransitionByAction como una
+     * @return List<RuleDto> Regresa la regla invalidTransitionByAction como una
      *         lista
      */
-    public static List<RuleDTO> invalidTransitionByActionAsList(TipoAccion action) {
+    public static List<RuleDto> invalidTransitionByActionAsList(TipoAccion action) {
         return Arrays.asList(RuleFactory.invalidTransitionByAction(action));
     }
 
     /**
-     * Método que crea una instancia del objeto RuleDTO con la regla de negocio que
+     * Método que crea una instancia del objeto RuleDto con la regla de negocio que
      * valida que una acción tenga su correspondiente transición. Cuando una acción
      * no tiene su correspondiente transición se debe de mostrar el mensaje que se
      * define este método
      *
      * @param action
-     * @return RuleDTO Regresa la regla invalidTransitionByAction
+     * @return RuleDto Regresa la regla invalidTransitionByAction
      *
      */
-    public static RuleDTO invalidTransitionByAction(TipoAccion action) {
-        return RuleDTO
+    public static RuleDto invalidTransitionByAction(TipoAccion action) {
+        return RuleDto
             .builder()
             .clave("invalidTransitionByAction")
             .nombre("Aviso")

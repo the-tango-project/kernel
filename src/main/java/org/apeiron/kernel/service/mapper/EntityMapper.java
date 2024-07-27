@@ -6,9 +6,9 @@ import org.mapstruct.Named;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 /**
- * Contract for a generic mapper between DTO and Entity.
+ * Contract for a generic mapper between Dto and Entity.
  *
- * @param <D> - DTO type parameter.
+ * @param <D> - Dto type parameter.
  * @param <E> - Entity type parameter.
  */
 public interface EntityMapper<D, E> extends BriefMapper<D, E>, ModifyMapper<D, E> {

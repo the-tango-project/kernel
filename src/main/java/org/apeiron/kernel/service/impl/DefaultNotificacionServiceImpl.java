@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.apeiron.kernel.service.NotificacionService;
 import org.apeiron.kernel.service.dto.NotificacionContext;
-import org.apeiron.kernel.service.dto.PersonaDTO;
+import org.apeiron.kernel.service.dto.PersonaDto;
 import org.simplejavamail.api.mailer.Mailer;
 import org.simplejavamail.email.EmailBuilder;
 import org.slf4j.Logger;
@@ -45,7 +45,7 @@ public class DefaultNotificacionServiceImpl implements NotificacionService {
     @Override
     public void send(NotificacionContext context) {
         log.debug("sending message: {}", context.getNotificacion());
-        PersonaDTO persona = context.getSolicitud().getSolicitante();
+        PersonaDto persona = context.getSolicitud().getSolicitante();
 
         if (isNull(persona.getCorreo())) {
             log.debug("usermail not found for cvu: {}", persona.getCvu());

@@ -1,7 +1,7 @@
 package org.apeiron.kernel.service.actionable;
 
 import org.apeiron.kernel.domain.Solicitud;
-import org.apeiron.kernel.service.dto.ContextDTO;
+import org.apeiron.kernel.service.dto.ContextDto;
 import org.apeiron.kernel.service.transition.TransitionElement;
 import reactor.core.publisher.Mono;
 
@@ -22,5 +22,5 @@ public interface IAction extends TransitionElement {
      * @param context para ejecutar una acción
      * @return Mono<Void>
      */
-    Mono<Void> execute(ContextDTO context);
+    Mono<Void> execute(ContextDto context);
 }

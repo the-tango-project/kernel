@@ -105,7 +105,7 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
             .stream()
             .map(f ->
                 new FieldErrorVM(
-                    f.getObjectName().replaceFirst("DTO$", ""),
+                    f.getObjectName().replaceFirst("Dto$", ""),
                     f.getField(),
                     StringUtils.isNotBlank(f.getDefaultMessage()) ? f.getDefaultMessage() : f.getCode()
                 )

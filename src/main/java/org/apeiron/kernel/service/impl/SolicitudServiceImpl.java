@@ -10,7 +10,7 @@ import org.apeiron.kernel.domain.enumeration.EstadoSolicitud;
 import org.apeiron.kernel.repository.SolicitudRepository;
 import org.apeiron.kernel.security.SecurityUtils;
 import org.apeiron.kernel.service.SolicitudService;
-import org.apeiron.kernel.service.dto.SolicitudDTO;
+import org.apeiron.kernel.service.dto.SolicitudDto;
 import org.apeiron.kernel.service.exception.NotFoundException;
 import org.apeiron.kernel.service.mapper.SolicitudMapper;
 import org.apeiron.kernel.service.util.Filtro;
@@ -31,38 +31,38 @@ public class SolicitudServiceImpl implements SolicitudService {
     private final SolicitudMapper solicitudMapper;
 
     @Override
-    public Mono<SolicitudDTO> save(SolicitudDTO solicitudDTO) {
-        log.debug("Request to save Solicitud : {}", solicitudDTO);
+    public Mono<SolicitudDto> save(SolicitudDto solicitudDto) {
+        log.debug("Request to save Solicitud : {}", solicitudDto);
         return SecurityUtils
                 .getCurrentUserLogin()
                 .switchIfEmpty(Mono.just("anonymous"))
-                .map(usuario -> solicitudMapper.toEntity(solicitudDTO.usuario(usuario)))
+                .map(usuario -> solicitudMapper.toEntity(solicitudDto.usuario(usuario)))
                 .flatMap(solicitudRepository::save)
                 .map(solicitudMapper::toDto);
     }
 
     @Override
-    public Mono<SolicitudDTO> migrar(SolicitudDTO solicitudDTO) {
-        log.debug("Request to save Solicitud : {}", solicitudDTO);
-        return solicitudRepository.save(solicitudMapper.toEntity(solicitudDTO)).map(solicitudMapper::toDto);
+    public Mono<SolicitudDto> migrar(SolicitudDto solicitudDto) {
+        log.debug("Request to save Solicitud : {}", solicitudDto);
+        return solicitudRepository.save(solicitudMapper.toEntity(solicitudDto)).map(solicitudMapper::toDto);
     }
 
     @Override
-    public Mono<SolicitudDTO> update(SolicitudDTO solicitudDTO) {
-        log.debug("Request to update Solicitud : {}", solicitudDTO);
+    public Mono<SolicitudDto> update(SolicitudDto solicitudDto) {
+        log.debug("Request to update Solicitud : {}", solicitudDto);
         // TODO CORREGIR: AL GUARDAR PROPERTIES, LOS FORMATOS DE FECHA SE PIERDEN Y
         // QUEDAN COMO STRING
-        return solicitudRepository.save(solicitudMapper.toEntity(solicitudDTO)).map(solicitudMapper::toDto);
+        return solicitudRepository.save(solicitudMapper.toEntity(solicitudDto)).map(solicitudMapper::toDto);
     }
 
     @Override
-    public Mono<SolicitudDTO> partialUpdate(SolicitudDTO solicitudDTO) {
-        log.debug("Request to partially update Solicitud : {}", solicitudDTO);
+    public Mono<SolicitudDto> partialUpdate(SolicitudDto solicitudDto) {
+        log.debug("Request to partially update Solicitud : {}", solicitudDto);
 
         return solicitudRepository
-                .findById(solicitudDTO.getId())
+                .findById(solicitudDto.getId())
                 .map(existingSolicitud -> {
-                    solicitudMapper.partialUpdate(existingSolicitud, solicitudDTO);
+                    solicitudMapper.partialUpdate(existingSolicitud, solicitudDto);
 
                     return existingSolicitud;
                 })
@@ -71,14 +71,14 @@ public class SolicitudServiceImpl implements SolicitudService {
     }
 
     @Override
-    public Flux<SolicitudDTO> findAll(Filtro filtro) {
+    public Flux<SolicitudDto> findAll(Filtro filtro) {
         log.debug("Request to get all Solicituds by filter");
 
         return solicitudRepository.findAll(buildSolicitudQuery(filtro)).map(solicitudMapper::toDto);
     }
 
     @Override
-    public Flux<SolicitudDTO> findAll(Filtro filtro, Pageable pageable) {
+    public Flux<SolicitudDto> findAll(Filtro filtro, Pageable pageable) {
         log.debug("Request to get all Solicituds");
 
         return solicitudRepository
@@ -88,14 +88,14 @@ public class SolicitudServiceImpl implements SolicitudService {
                 .map(solicitudMapper::toDto);
     }
 
-    public Flux<SolicitudDTO> findAllInvitaciones() {
+    public Flux<SolicitudDto> findAllInvitaciones() {
         return SecurityUtils
                 .getCurrentUserLogin()
                 .switchIfEmpty(Mono.just("anonymous"))
                 .flatMap(user -> {
                     Flux<Solicitud> sol = null;
                     sol = solicitudRepository.findAllByRevisoresIn(user);
-                    Flux<SolicitudDTO> solDto = sol.map(solicitudMapper::toDto);
+                    Flux<SolicitudDto> solDto = sol.map(solicitudMapper::toDto);
                     return solDto.collectList();
                 })
                 .flatMapIterable(re -> re);
@@ -112,13 +112,13 @@ public class SolicitudServiceImpl implements SolicitudService {
     }
 
     @Override
-    public Mono<SolicitudDTO> findOne(String id) {
+    public Mono<SolicitudDto> findOne(String id) {
         log.debug("Request to get Solicitud : {}", id);
         return solicitudRepository.findById(id).map(solicitudMapper::toDto);
     }
 
     @Override
-    public Mono<SolicitudDTO> findBySolucionId(String id) {
+    public Mono<SolicitudDto> findBySolucionId(String id) {
         log.debug("Request to get Solicitud : {}", id);
         return SecurityUtils
                 .getCurrentUserLogin()
@@ -128,7 +128,7 @@ public class SolicitudServiceImpl implements SolicitudService {
     }
 
     @Override
-    public Mono<SolicitudDTO> findBySolucionIdAndEstado(String id, EstadoSolicitud estado) {
+    public Mono<SolicitudDto> findBySolucionIdAndEstado(String id, EstadoSolicitud estado) {
         log.debug("Request to get Solicitud : {}", id);
         return SecurityUtils
                 .getCurrentUserLogin()
@@ -138,17 +138,17 @@ public class SolicitudServiceImpl implements SolicitudService {
     }
 
     @Override
-    public Mono<SolicitudDTO> findRevisoresById(String id) {
+    public Mono<SolicitudDto> findRevisoresById(String id) {
         return solicitudRepository.findRevisoresById(id).map(solicitudMapper::toDto);
     }
 
     @Override
-    public Mono<SolicitudDTO> updateRevisores(SolicitudDTO solicitudDTO) {
-        log.debug("Request to update Solicitud : {}", solicitudDTO);
+    public Mono<SolicitudDto> updateRevisores(SolicitudDto solicitudDto) {
+        log.debug("Request to update Solicitud : {}", solicitudDto);
         return solicitudRepository
-                .findById(solicitudDTO.getId())
+                .findById(solicitudDto.getId())
                 .flatMap(solicitud -> {
-                    Solicitud currentSolicitud = solicitudMapper.toEntity(solicitudDTO);
+                    Solicitud currentSolicitud = solicitudMapper.toEntity(solicitudDto);
                     solicitud.setRevisores(currentSolicitud.getRevisores());
                     return solicitudRepository.save(solicitud);
                 })
@@ -160,10 +160,10 @@ public class SolicitudServiceImpl implements SolicitudService {
      * 
      * @param solucionId
      * @param pageable
-     * @return Flux<SolicitudDTO>
+     * @return Flux<SolicitudDto>
      */
     @Override
-    public Flux<SolicitudDTO> findAllByUsuarioAndSolucionId(String solucionId, Pageable pageable) {
+    public Flux<SolicitudDto> findAllByUsuarioAndSolucionId(String solucionId, Pageable pageable) {
         log.debug("Request get List Solicitudes by solucionId: {} ", solucionId);
         return SecurityUtils
                 .getCurrentUserLogin()
@@ -179,10 +179,10 @@ public class SolicitudServiceImpl implements SolicitudService {
      * 
      * @param solucionIds
      * @param pageable
-     * @return Flux<SolicitudDTO>
+     * @return Flux<SolicitudDto>
      */
     @Override
-    public Flux<SolicitudDTO> findAllByAllSoluciones(List<String> solucionIds, Pageable pageable) {
+    public Flux<SolicitudDto> findAllByAllSoluciones(List<String> solucionIds, Pageable pageable) {
         return SecurityUtils
                 .getCurrentUserLogin()
                 .switchIfEmpty(Mono.error(new NotFoundException("No se encontró el usuario")))

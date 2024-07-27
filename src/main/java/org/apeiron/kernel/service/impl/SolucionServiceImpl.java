@@ -10,8 +10,8 @@ import org.apeiron.kernel.repository.DefinicionEvaluacionRepository;
 import org.apeiron.kernel.repository.HistoricoSolucionRepository;
 import org.apeiron.kernel.repository.SolucionRepository;
 import org.apeiron.kernel.service.SolucionService;
-import org.apeiron.kernel.service.dto.DefinicionEvaluacionDTO;
-import org.apeiron.kernel.service.dto.SolucionDTO;
+import org.apeiron.kernel.service.dto.DefinicionEvaluacionDto;
+import org.apeiron.kernel.service.dto.SolucionDto;
 import org.apeiron.kernel.service.dto.factories.HistoricoFactory;
 import org.apeiron.kernel.service.mapper.DefinicionEvaluacionMapper;
 import org.apeiron.kernel.service.mapper.SolucionMapper;
@@ -41,10 +41,10 @@ public class SolucionServiceImpl implements SolucionService {
     private final DefinicionEvaluacionRepository definicionEvaluacionRepository;
 
     @Override
-    public Mono<SolucionDTO> save(SolucionDTO solucionDTO) {
-        log.debug("Request to save Solucion : {}", solucionDTO);
+    public Mono<SolucionDto> save(SolucionDto solucionDto) {
+        log.debug("Request to save Solucion : {}", solucionDto);
         return solucionRepository
-            .save(solucionMapper.toEntity(solucionDTO))
+            .save(solucionMapper.toEntity(solucionDto))
             .map(HistoricoFactory::toHistorico)
             .flatMap(historicoRepository::save)
             .map(HistoricoSolucion::getSolucion)
@@ -52,29 +52,29 @@ public class SolucionServiceImpl implements SolucionService {
     }
 
     @Override
-    public Mono<SolucionDTO> create(SolucionDTO solucionDTO) {
-        solucionDTO.setVersion(0);
-        solucionDTO.setEstado(EstadoSolucion.EN_CAPTURA);
-        return this.save(solucionDTO);
+    public Mono<SolucionDto> create(SolucionDto solucionDto) {
+        solucionDto.setVersion(0);
+        solucionDto.setEstado(EstadoSolucion.EN_CAPTURA);
+        return this.save(solucionDto);
     }
 
     @Override
-    public Mono<SolucionDTO> publicar(SolucionDTO solucionDTO) {
-        solucionDTO.setVersion(solucionDTO.getVersion() + 1);
-        solucionDTO.setEstado(EstadoSolucion.PUBLICADA);
-        return this.save(solucionDTO);
+    public Mono<SolucionDto> publicar(SolucionDto solucionDto) {
+        solucionDto.setVersion(solucionDto.getVersion() + 1);
+        solucionDto.setEstado(EstadoSolucion.PUBLICADA);
+        return this.save(solucionDto);
     }
 
     @Override
-    public Mono<SolucionDTO> archivar(SolucionDTO solucionDTO) {
-        solucionDTO.setEstado(EstadoSolucion.ARCHIVADA);
-        return this.save(solucionDTO);
+    public Mono<SolucionDto> archivar(SolucionDto solucionDto) {
+        solucionDto.setEstado(EstadoSolucion.ARCHIVADA);
+        return this.save(solucionDto);
     }
 
     @Override
-    public Mono<SolucionDTO> update(SolucionDTO solucionDTO) {
-        Solucion solucion = solucionMapper.toEntity(solucionDTO);
-        log.debug("Request to update Solucion : {}", solucionDTO);
+    public Mono<SolucionDto> update(SolucionDto solucionDto) {
+        Solucion solucion = solucionMapper.toEntity(solucionDto);
+        log.debug("Request to update Solucion : {}", solucionDto);
         return historicoRepository
             .save(HistoricoFactory.toHistorico(solucion))
             .map(HistoricoSolucion::getSolucion)
@@ -82,13 +82,13 @@ public class SolucionServiceImpl implements SolucionService {
     }
 
     @Override
-    public Mono<SolucionDTO> partialUpdate(SolucionDTO solucionDTO) {
-        log.debug("Request to partially update Solucion : {}", solucionDTO);
+    public Mono<SolucionDto> partialUpdate(SolucionDto solucionDto) {
+        log.debug("Request to partially update Solucion : {}", solucionDto);
 
         return solucionRepository
-            .findById(solucionDTO.getId())
+            .findById(solucionDto.getId())
             .map(existingSolucion -> {
-                solucionMapper.partialUpdate(existingSolucion, solucionDTO);
+                solucionMapper.partialUpdate(existingSolucion, solucionDto);
 
                 return existingSolucion;
             })
@@ -97,13 +97,13 @@ public class SolucionServiceImpl implements SolucionService {
     }
 
     @Override
-    public Flux<SolucionDTO> findAll(Pageable pageable) {
+    public Flux<SolucionDto> findAll(Pageable pageable) {
         log.debug("Request to get all Solucions");
         return solucionRepository.findAllBy(pageable).map(solucionMapper::toDto);
     }
 
     @Override
-    public Flux<SolucionDTO> findAll(Filtro filtro) {
+    public Flux<SolucionDto> findAll(Filtro filtro) {
         log.debug("Request to get all Solucions by filtro");
         return solucionRepository.findAll(buildSolucionQuery(filtro)).map(solucionMapper::toDto);
     }
@@ -125,13 +125,13 @@ public class SolucionServiceImpl implements SolucionService {
     }
 
     @Override
-    public Flux<SolucionDTO> findAll(Filtro filtro, Pageable pageable) {
-        log.debug("Request to get all SolucionDTO");
+    public Flux<SolucionDto> findAll(Filtro filtro, Pageable pageable) {
+        log.debug("Request to get all SolucionDto");
         return findAllEntities(filtro, pageable).map(solucionMapper::toDto);
     }
 
     @Override
-    public Flux<SolucionDTO> findAllByEstado(String estado, Pageable pageable) {
+    public Flux<SolucionDto> findAllByEstado(String estado, Pageable pageable) {
         log.debug("Request to get all Solucions by PUBLICADA");
         return solucionRepository.findAllByEstado("PUBLICADA", pageable).map(solucionMapper::toDto);
     }
@@ -146,7 +146,7 @@ public class SolucionServiceImpl implements SolucionService {
     }
 
     @Override
-    public Mono<SolucionDTO> findOne(String id) {
+    public Mono<SolucionDto> findOne(String id) {
         log.debug("Request to get Solucion : {}", id);
         return solucionRepository.findById(id).map(solucionMapper::toDto);
     }
@@ -158,7 +158,7 @@ public class SolucionServiceImpl implements SolucionService {
     }
 
     @Override
-    public Mono<SolucionDTO> findOneByLastVersion(String id) {
+    public Mono<SolucionDto> findOneByLastVersion(String id) {
         log.debug("Request to get Solucion : {}", id);
         return solucionRepository
             .findById(id)
@@ -169,14 +169,14 @@ public class SolucionServiceImpl implements SolucionService {
     }
 
     @Override
-    public Mono<DefinicionEvaluacionDTO> findOneDefinicionEvaluacion(String solucionId) {
+    public Mono<DefinicionEvaluacionDto> findOneDefinicionEvaluacion(String solucionId) {
         return definicionEvaluacionRepository.findById(solucionId).map(definicionEvaluacionMapper::toDto);
     }
 
     @Override
-    public Mono<DefinicionEvaluacionDTO> saveDefinicionEvaluacion(DefinicionEvaluacionDTO definicionDTO) {
+    public Mono<DefinicionEvaluacionDto> saveDefinicionEvaluacion(DefinicionEvaluacionDto definicionDto) {
         return definicionEvaluacionRepository
-            .save(definicionEvaluacionMapper.toEntity(definicionDTO))
+            .save(definicionEvaluacionMapper.toEntity(definicionDto))
             .map(definicionEvaluacionMapper::toDto);
     }
 }

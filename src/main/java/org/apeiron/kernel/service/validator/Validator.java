@@ -1,7 +1,7 @@
 package org.apeiron.kernel.service.validator;
 
 import jakarta.validation.constraints.NotNull;
-import org.apeiron.kernel.service.dto.ContextDTO;
+import org.apeiron.kernel.service.dto.ContextDto;
 import reactor.core.publisher.Mono;
 
 /**
@@ -23,7 +23,7 @@ public interface Validator {
      * @param contexto
      * @return Mono<Result> resultado del proceso de validación
      */
-    public Mono<Result> validate(@NotNull ContextDTO contexto);
+    public Mono<Result> validate(@NotNull ContextDto contexto);
 
     /**
      * Lleva a cabo la misma tarea que el método validate() pero de manera parcial y
@@ -34,5 +34,5 @@ public interface Validator {
      * @param contexto
      * @return Mono<Result> resultado del proceso de validación
      */
-    public Mono<Result> validateForm(@NotNull ContextDTO contexto);
+    public Mono<Result> validateForm(@NotNull ContextDto contexto);
 }

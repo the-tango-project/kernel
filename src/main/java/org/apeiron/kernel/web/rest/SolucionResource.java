@@ -7,8 +7,8 @@ import java.util.Objects;
 import org.apeiron.kernel.domain.enumeration.EstadoSolucion;
 import org.apeiron.kernel.repository.SolucionRepository;
 import org.apeiron.kernel.service.SolucionService;
-import org.apeiron.kernel.service.dto.DefinicionEvaluacionDTO;
-import org.apeiron.kernel.service.dto.SolucionDTO;
+import org.apeiron.kernel.service.dto.DefinicionEvaluacionDto;
+import org.apeiron.kernel.service.dto.SolucionDto;
 import org.apeiron.kernel.service.util.Filtro;
 import org.apeiron.kernel.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
@@ -62,20 +62,20 @@ public class SolucionResource {
     /**
      * {@code POST  /solucions} : Create a new solucion.
      *
-     * @param solucionDTO the solucionDTO to create.
+     * @param solucionDto the solucionDto to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
-     *         body the new solucionDTO, or with status {@code 400 (Bad Request)} if
+     *         body the new solucionDto, or with status {@code 400 (Bad Request)} if
      *         the solucion has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/soluciones")
-    public Mono<ResponseEntity<SolucionDTO>> createSolucion(@RequestBody SolucionDTO solucionDTO) throws URISyntaxException {
-        log.debug("REST request to save Solucion : {}", solucionDTO);
-        if (solucionDTO.getId() != null) {
+    public Mono<ResponseEntity<SolucionDto>> createSolucion(@RequestBody SolucionDto solucionDto) throws URISyntaxException {
+        log.debug("REST request to save Solucion : {}", solucionDto);
+        if (solucionDto.getId() != null) {
             throw new BadRequestAlertException("A new solucion cannot already have an ID", ENTITY_NAME, "idexists");
         }
         return solucionService
-            .create(solucionDTO)
+            .create(solucionDto)
             .map(result -> {
                 try {
                     return ResponseEntity
@@ -91,26 +91,26 @@ public class SolucionResource {
     /**
      * {@code PUT  /solucions/:id} : Updates an existing solucion.
      *
-     * @param id          the id of the solucionDTO to save.
-     * @param solucionDTO the solucionDTO to update.
+     * @param id          the id of the solucionDto to save.
+     * @param solucionDto the solucionDto to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the updated solucionDTO,
-     *         or with status {@code 400 (Bad Request)} if the solucionDTO is not
+     *         the updated solucionDto,
+     *         or with status {@code 400 (Bad Request)} if the solucionDto is not
      *         valid,
-     *         or with status {@code 500 (Internal Server Error)} if the solucionDTO
+     *         or with status {@code 500 (Internal Server Error)} if the solucionDto
      *         couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/soluciones/{id}")
-    public Mono<ResponseEntity<SolucionDTO>> updateSolucion(
+    public Mono<ResponseEntity<SolucionDto>> updateSolucion(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody SolucionDTO solucionDTO
+        @RequestBody SolucionDto solucionDto
     ) throws URISyntaxException {
-        log.debug("REST request to update Solucion : {}, {}", id, solucionDTO);
-        if (solucionDTO.getId() == null) {
+        log.debug("REST request to update Solucion : {}, {}", id, solucionDto);
+        if (solucionDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, solucionDTO.getId())) {
+        if (!Objects.equals(id, solucionDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -122,7 +122,7 @@ public class SolucionResource {
                 }
 
                 return solucionService
-                    .update(solucionDTO)
+                    .update(solucionDto)
                     .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                     .map(result ->
                         ResponseEntity
@@ -134,15 +134,15 @@ public class SolucionResource {
     }
 
     @PutMapping("/soluciones/{id}/publicaciones")
-    public Mono<ResponseEntity<SolucionDTO>> publicarSolucion(
+    public Mono<ResponseEntity<SolucionDto>> publicarSolucion(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody SolucionDTO solucionDTO
+        @RequestBody SolucionDto solucionDto
     ) throws URISyntaxException {
-        log.debug("REST request to update Solucion : {}, {}", id, solucionDTO);
-        if (solucionDTO.getId() == null) {
+        log.debug("REST request to update Solucion : {}, {}", id, solucionDto);
+        if (solucionDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, solucionDTO.getId())) {
+        if (!Objects.equals(id, solucionDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -154,7 +154,7 @@ public class SolucionResource {
                 }
 
                 return solucionService
-                    .publicar(solucionDTO)
+                    .publicar(solucionDto)
                     .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                     .map(result ->
                         ResponseEntity
@@ -166,15 +166,15 @@ public class SolucionResource {
     }
 
     @PutMapping("/soluciones/{id}/archivar")
-    public Mono<ResponseEntity<SolucionDTO>> archivarSolucion(
+    public Mono<ResponseEntity<SolucionDto>> archivarSolucion(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody SolucionDTO solucionDTO
+        @RequestBody SolucionDto solucionDto
     ) throws URISyntaxException {
-        log.debug("REST request to update Solucion : {}, {}", id, solucionDTO);
-        if (solucionDTO.getId() == null) {
+        log.debug("REST request to update Solucion : {}, {}", id, solucionDto);
+        if (solucionDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, solucionDTO.getId())) {
+        if (!Objects.equals(id, solucionDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -186,7 +186,7 @@ public class SolucionResource {
                 }
 
                 return solucionService
-                    .archivar(solucionDTO)
+                    .archivar(solucionDto)
                     .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                     .map(result ->
                         ResponseEntity
@@ -201,28 +201,28 @@ public class SolucionResource {
      * {@code PATCH  /solucions/:id} : Partial updates given fields of an existing
      * solucion, field will ignore if it is null
      *
-     * @param id          the id of the solucionDTO to save.
-     * @param solucionDTO the solucionDTO to update.
+     * @param id          the id of the solucionDto to save.
+     * @param solucionDto the solucionDto to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the updated solucionDTO,
-     *         or with status {@code 400 (Bad Request)} if the solucionDTO is not
+     *         the updated solucionDto,
+     *         or with status {@code 400 (Bad Request)} if the solucionDto is not
      *         valid,
-     *         or with status {@code 404 (Not Found)} if the solucionDTO is not
+     *         or with status {@code 404 (Not Found)} if the solucionDto is not
      *         found,
-     *         or with status {@code 500 (Internal Server Error)} if the solucionDTO
+     *         or with status {@code 500 (Internal Server Error)} if the solucionDto
      *         couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/soluciones/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public Mono<ResponseEntity<SolucionDTO>> partialUpdateSolucion(
+    public Mono<ResponseEntity<SolucionDto>> partialUpdateSolucion(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody SolucionDTO solucionDTO
+        @RequestBody SolucionDto solucionDto
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Solucion partially : {}, {}", id, solucionDTO);
-        if (solucionDTO.getId() == null) {
+        log.debug("REST request to partial update Solucion partially : {}, {}", id, solucionDto);
+        if (solucionDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, solucionDTO.getId())) {
+        if (!Objects.equals(id, solucionDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -233,7 +233,7 @@ public class SolucionResource {
                     return Mono.error(new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound"));
                 }
 
-                Mono<SolucionDTO> result = solucionService.partialUpdate(solucionDTO);
+                Mono<SolucionDto> result = solucionService.partialUpdate(solucionDto);
 
                 return result
                     .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
@@ -255,7 +255,7 @@ public class SolucionResource {
      *         of solucions in body.
      */
     @GetMapping("/soluciones")
-    public Mono<ResponseEntity<List<SolucionDTO>>> getAllSolucions(
+    public Mono<ResponseEntity<List<SolucionDto>>> getAllSolucions(
         Filtro filtro,
         @org.springdoc.core.annotations.ParameterObject Pageable pageable,
         ServerHttpRequest request
@@ -279,7 +279,7 @@ public class SolucionResource {
 
     // TODO Utilizar getAllSolucions con filtro
     @GetMapping("/soluciones/activas")
-    public Mono<ResponseEntity<List<SolucionDTO>>> getAllSolucionesActivas(
+    public Mono<ResponseEntity<List<SolucionDto>>> getAllSolucionesActivas(
         Filtro filtro,
         @org.springdoc.core.annotations.ParameterObject Pageable pageable,
         ServerHttpRequest request
@@ -306,28 +306,28 @@ public class SolucionResource {
     /**
      * {@code GET  /solucions/:id} : get the "id" solucion.
      *
-     * @param id the id of the solucionDTO to retrieve.
+     * @param id the id of the solucionDto to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the solucionDTO, or with status {@code 404 (Not Found)}.
+     *         the solucionDto, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/soluciones/{id}")
-    public Mono<ResponseEntity<SolucionDTO>> getSolucion(@PathVariable String id) {
+    public Mono<ResponseEntity<SolucionDto>> getSolucion(@PathVariable String id) {
         log.debug("REST request to get Solucion : {}", id);
-        Mono<SolucionDTO> solucionDTO = solucionService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(solucionDTO);
+        Mono<SolucionDto> solucionDto = solucionService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(solucionDto);
     }
 
     @GetMapping("/soluciones/{id}/historicos")
-    public Mono<ResponseEntity<SolucionDTO>> getSolucionByLastEdited(@PathVariable String id) {
+    public Mono<ResponseEntity<SolucionDto>> getSolucionByLastEdited(@PathVariable String id) {
         log.debug("REST request to get last version of the Solucion : {}", id);
-        Mono<SolucionDTO> solucionDTO = solucionService.findOneByLastVersion(id);
-        return ResponseUtil.wrapOrNotFound(solucionDTO);
+        Mono<SolucionDto> solucionDto = solucionService.findOneByLastVersion(id);
+        return ResponseUtil.wrapOrNotFound(solucionDto);
     }
 
     /**
      * {@code DELETE  /solucions/:id} : delete the "id" solucion.
      *
-     * @param id the id of the solucionDTO to delete.
+     * @param id the id of the solucionDto to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/soluciones/{id}")
@@ -343,20 +343,20 @@ public class SolucionResource {
     }
 
     @GetMapping("/soluciones/{id}/evaluaciones")
-    public Mono<ResponseEntity<DefinicionEvaluacionDTO>> getEvaluaciones(@PathVariable String id) {
+    public Mono<ResponseEntity<DefinicionEvaluacionDto>> getEvaluaciones(@PathVariable String id) {
         log.debug("REST request to get revision definitions for solucion: {}", id);
-        Mono<DefinicionEvaluacionDTO> solucionDTO = solucionService.findOneDefinicionEvaluacion(id);
-        return ResponseUtil.wrapOrNotFound(solucionDTO);
+        Mono<DefinicionEvaluacionDto> solucionDto = solucionService.findOneDefinicionEvaluacion(id);
+        return ResponseUtil.wrapOrNotFound(solucionDto);
     }
 
     @PutMapping("/soluciones/{id}/evaluaciones")
-    public Mono<ResponseEntity<DefinicionEvaluacionDTO>> updateDefinicionEvaluacion(
+    public Mono<ResponseEntity<DefinicionEvaluacionDto>> updateDefinicionEvaluacion(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody DefinicionEvaluacionDTO definicionEvaluacionDTO
+        @RequestBody DefinicionEvaluacionDto definicionEvaluacionDto
     ) throws URISyntaxException {
-        log.debug("REST request to update/create DefinicionEvaluacion : {}, {}", id, definicionEvaluacionDTO);
+        log.debug("REST request to update/create DefinicionEvaluacion : {}, {}", id, definicionEvaluacionDto);
 
-        if (!Objects.equals(id, definicionEvaluacionDTO.getId())) {
+        if (!Objects.equals(id, definicionEvaluacionDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -368,7 +368,7 @@ public class SolucionResource {
                 }
 
                 return solucionService
-                    .saveDefinicionEvaluacion(definicionEvaluacionDTO)
+                    .saveDefinicionEvaluacion(definicionEvaluacionDto)
                     .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                     .map(result ->
                         ResponseEntity

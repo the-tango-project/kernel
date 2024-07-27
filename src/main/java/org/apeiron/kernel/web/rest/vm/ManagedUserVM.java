@@ -1,11 +1,11 @@
 package org.apeiron.kernel.web.rest.vm;
 
-import org.apeiron.kernel.service.dto.AdminUserDTO;
+import org.apeiron.kernel.service.dto.AdminUserDto;
 
 /**
- * View Model extending the AdminUserDTO, which is meant to be used in the user management UI.
+ * View Model extending the AdminUserDto, which is meant to be used in the user management UI.
  */
-public class ManagedUserVM extends AdminUserDTO {
+public class ManagedUserVM extends AdminUserDto {
 
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.

@@ -7,7 +7,7 @@ import java.util.Objects;
 import jakarta.validation.Valid;
 import org.apeiron.kernel.repository.ComentarioRepository;
 import org.apeiron.kernel.service.ComentarioService;
-import org.apeiron.kernel.service.dto.ComentarioDTO;
+import org.apeiron.kernel.service.dto.ComentarioDto;
 import org.apeiron.kernel.service.util.Filtro;
 import org.apeiron.kernel.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
@@ -57,18 +57,18 @@ public class ComentarioResource {
     /**
      * {@code POST  /comentarios} : Create a new comentario.
      *
-     * @param comentarioDTO the comentarioDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new comentarioDTO, or with status {@code 400 (Bad Request)} if the comentario has already an ID.
+     * @param comentarioDto the comentarioDto to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new comentarioDto, or with status {@code 400 (Bad Request)} if the comentario has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/comentarios")
-    public Mono<ResponseEntity<ComentarioDTO>> createComentario(@Valid @RequestBody ComentarioDTO comentarioDTO) throws URISyntaxException {
-        log.debug("REST request to save Comentario : {}", comentarioDTO);
-        if (comentarioDTO.getId() != null) {
+    public Mono<ResponseEntity<ComentarioDto>> createComentario(@Valid @RequestBody ComentarioDto comentarioDto) throws URISyntaxException {
+        log.debug("REST request to save Comentario : {}", comentarioDto);
+        if (comentarioDto.getId() != null) {
             throw new BadRequestAlertException("A new comentario cannot already have an ID", ENTITY_NAME, "idexists");
         }
         return comentarioService
-            .save(comentarioDTO)
+            .save(comentarioDto)
             .map(result -> {
                 try {
                     return ResponseEntity
@@ -84,23 +84,23 @@ public class ComentarioResource {
     /**
      * {@code PUT  /comentarios/:id} : Updates an existing comentario.
      *
-     * @param id the id of the comentarioDTO to save.
-     * @param comentarioDTO the comentarioDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated comentarioDTO,
-     * or with status {@code 400 (Bad Request)} if the comentarioDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the comentarioDTO couldn't be updated.
+     * @param id the id of the comentarioDto to save.
+     * @param comentarioDto the comentarioDto to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated comentarioDto,
+     * or with status {@code 400 (Bad Request)} if the comentarioDto is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the comentarioDto couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/comentarios/{id}")
-    public Mono<ResponseEntity<ComentarioDTO>> updateComentario(
+    public Mono<ResponseEntity<ComentarioDto>> updateComentario(
         @PathVariable(value = "id", required = false) final String id,
-        @Valid @RequestBody ComentarioDTO comentarioDTO
+        @Valid @RequestBody ComentarioDto comentarioDto
     ) throws URISyntaxException {
-        log.debug("REST request to update Comentario : {}, {}", id, comentarioDTO);
-        if (comentarioDTO.getId() == null) {
+        log.debug("REST request to update Comentario : {}, {}", id, comentarioDto);
+        if (comentarioDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, comentarioDTO.getId())) {
+        if (!Objects.equals(id, comentarioDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -112,7 +112,7 @@ public class ComentarioResource {
                 }
 
                 return comentarioService
-                    .update(comentarioDTO)
+                    .update(comentarioDto)
                     .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                     .map(result ->
                         ResponseEntity
@@ -131,7 +131,7 @@ public class ComentarioResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of comentarios in body.
      */
     @GetMapping("/comentarios")
-    public Mono<ResponseEntity<List<ComentarioDTO>>> getAllComentarios(Filtro filtro, Pageable pageable, ServerHttpRequest request) {
+    public Mono<ResponseEntity<List<ComentarioDto>>> getAllComentarios(Filtro filtro, Pageable pageable, ServerHttpRequest request) {
         log.debug("REST request to get a page of Comentarios");
         return comentarioService
             .countAll(filtro)

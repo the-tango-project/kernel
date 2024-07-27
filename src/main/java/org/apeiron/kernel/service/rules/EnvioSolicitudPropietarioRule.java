@@ -5,7 +5,7 @@ import org.apeiron.kernel.commons.annotations.ApeironRule;
 import org.apeiron.kernel.commons.annotations.Condition;
 import org.apeiron.kernel.commons.annotations.Tags;
 import org.apeiron.kernel.security.SecurityUtils;
-import org.apeiron.kernel.service.dto.ContextDTO;
+import org.apeiron.kernel.service.dto.ContextDto;
 import org.apeiron.kernel.service.validator.IRule;
 import reactor.core.publisher.Mono;
 
@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 public class EnvioSolicitudPropietarioRule implements IRule {
 
     @Override
-    public Mono<Boolean> validate(ContextDTO context) {
+    public Mono<Boolean> validate(ContextDto context) {
         return SecurityUtils
             .getCurrentUserLogin()
             .switchIfEmpty(Mono.just("anonymous"))

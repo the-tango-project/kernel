@@ -2,15 +2,15 @@ package org.apeiron.kernel.service.dto.factories;
 
 import java.time.Instant;
 import org.apeiron.kernel.domain.enumeration.TipoComentario;
-import org.apeiron.kernel.service.dto.ComentarioDTO;
-import org.apeiron.kernel.service.dto.ContextDTO;
+import org.apeiron.kernel.service.dto.ComentarioDto;
+import org.apeiron.kernel.service.dto.ContextDto;
 
 public class ComentarioFactory {
 
     private ComentarioFactory() {}
 
-    public static ComentarioDTO fromContext(ContextDTO contexto) {
-        return ComentarioDTO
+    public static ComentarioDto fromContext(ContextDto contexto) {
+        return ComentarioDto
             .builder()
             .solicitudId(contexto.getSolicitud().getId())
             .text(contexto.getTransicionContext().getMensaje())

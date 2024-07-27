@@ -3,7 +3,7 @@ package org.apeiron.kernel.web.rest;
 import java.util.List;
 import org.apeiron.kernel.commons.annotations.AnnotationProcessor;
 import org.apeiron.kernel.service.actionable.IAction;
-import org.apeiron.kernel.service.dto.ActionDTO;
+import org.apeiron.kernel.service.dto.ActionDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class ActionResource {
     private List<IAction> actions;
 
     @GetMapping("/actions")
-    public Mono<ResponseEntity<List<ActionDTO>>> getAllActions(
+    public Mono<ResponseEntity<List<ActionDto>>> getAllActions(
         @org.springdoc.core.annotations.ParameterObject Pageable pageable,
         ServerHttpRequest request
     ) {

@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 import org.apeiron.kernel.IntegrationTest;
 import org.apeiron.kernel.service.actionable.IAction;
-import org.apeiron.kernel.service.dto.ActionDTO;
-import org.apeiron.kernel.service.dto.ArgumentDTO;
-import org.apeiron.kernel.service.dto.ContextDTO;
-import org.apeiron.kernel.service.dto.PropertyMapDTO;
-import org.apeiron.kernel.service.dto.RuleDTO;
-import org.apeiron.kernel.service.dto.TransicionDTO;
+import org.apeiron.kernel.service.dto.ActionDto;
+import org.apeiron.kernel.service.dto.ArgumentDto;
+import org.apeiron.kernel.service.dto.ContextDto;
+import org.apeiron.kernel.service.dto.PropertyMapDto;
+import org.apeiron.kernel.service.dto.RuleDto;
+import org.apeiron.kernel.service.dto.TransicionDto;
 import org.apeiron.kernel.service.util.ArgumentUtils;
 import org.apeiron.kernel.service.validator.IRule;
 import org.apeiron.kernel.utils.StringUtils;
@@ -40,17 +40,17 @@ class AnnotationProcessorTest {
     private static final String STRING_ARGUMENT = "stringArgument";
     private static final String PROPERTY_MAP_ARGUMENT = "propertyMapArgument";
     private static final String NOT_EXISTING_PROPERTY_NAME = "propertyNotExisting";
-    private RuleDTO argumentRule = null;
-    private ActionDTO argumentAction = null;
+    private RuleDto argumentRule = null;
+    private ActionDto argumentAction = null;
     private IRule argumentRuleInstance = null;
     private IAction argumentActionInstance = null;
-    private ArgumentDTO dateTimeArgument = null;
-    private ArgumentDTO dateArgument = null;
-    private ArgumentDTO integerArgument = null;
-    private ArgumentDTO floatArgument = null;
-    private ArgumentDTO stringArgument = null;
-    private ArgumentDTO propertyMapArgument = null;
-    private ContextDTO context = null;
+    private ArgumentDto dateTimeArgument = null;
+    private ArgumentDto dateArgument = null;
+    private ArgumentDto integerArgument = null;
+    private ArgumentDto floatArgument = null;
+    private ArgumentDto stringArgument = null;
+    private ArgumentDto propertyMapArgument = null;
+    private ContextDto context = null;
 
     @BeforeEach
     public void init() {
@@ -167,12 +167,12 @@ class AnnotationProcessorTest {
 
     @Test
     void testPropertyMapArgumentMap() {
-        Optional<List<PropertyMapDTO>> propertyMapOptional = ArgumentUtils.asPropertyMap(
+        Optional<List<PropertyMapDto>> propertyMapOptional = ArgumentUtils.asPropertyMap(
             this.context,
             this.argumentRuleInstance,
             this.propertyMapArgument.getName()
         );
-        Optional<List<PropertyMapDTO>> propertyMapEmptyOptional = ArgumentUtils.asPropertyMap(
+        Optional<List<PropertyMapDto>> propertyMapEmptyOptional = ArgumentUtils.asPropertyMap(
             this.context,
             this.argumentRuleInstance,
             NOT_EXISTING_PROPERTY_NAME
@@ -183,7 +183,7 @@ class AnnotationProcessorTest {
         assertThat(propertyMapEmptyOptional.get()).isEmpty();
     }
 
-    private static boolean isArgumentEquals(ArgumentDTO left, ArgumentDTO right) {
+    private static boolean isArgumentEquals(ArgumentDto left, ArgumentDto right) {
         if (!left.getName().equals(right.getName())) {
             return false;
         }
@@ -195,12 +195,12 @@ class AnnotationProcessorTest {
         return true;
     }
 
-    private static final ArgumentDTO createArgument(ArgumentType type, String name, Object value) {
-        return ArgumentDTO.builder().type(type).name(name).value(value).build();
+    private static final ArgumentDto createArgument(ArgumentType type, String name, Object value) {
+        return ArgumentDto.builder().type(type).name(name).value(value).build();
     }
 
-    private ContextDTO mockContext() {
-        ArgumentDTO[] argumentos = new ArgumentDTO[] {
+    private ContextDto mockContext() {
+        ArgumentDto[] argumentos = new ArgumentDto[] {
             this.dateArgument,
             this.dateTimeArgument,
             this.integerArgument,
@@ -208,24 +208,24 @@ class AnnotationProcessorTest {
             this.stringArgument,
             this.propertyMapArgument,
         };
-        List<RuleDTO> reglas = Arrays.asList(RuleDTO.builder().clave(ARGUMENT_RULE_NAME).arguments(argumentos).build());
-        List<ActionDTO> acciones = Arrays.asList(ActionDTO.builder().clave(ARGUMENT_ACTION_NAME).arguments(argumentos).build());
-        TransicionDTO transicion = new TransicionDTO();
+        List<RuleDto> reglas = Arrays.asList(RuleDto.builder().clave(ARGUMENT_RULE_NAME).arguments(argumentos).build());
+        List<ActionDto> acciones = Arrays.asList(ActionDto.builder().clave(ARGUMENT_ACTION_NAME).arguments(argumentos).build());
+        TransicionDto transicion = new TransicionDto();
         transicion.setReglas(reglas);
         transicion.setAcciones(acciones);
-        return ContextDTO.builder().transicion(transicion).build();
+        return ContextDto.builder().transicion(transicion).build();
     }
 
-    private static List<PropertyMapDTO> mockPropertyMap() {
+    private static List<PropertyMapDto> mockPropertyMap() {
         return Arrays.asList(
-            PropertyMapDTO
+            PropertyMapDto
                 .builder()
                 .type(PropertyMapType.FROM_OBJECT)
                 .value("propertyMapFromObjectValue")
                 .from("solicitud.solicitante.cvu")
                 .to("formalizacion.solicitante.cvu")
                 .build(),
-            PropertyMapDTO
+            PropertyMapDto
                 .builder()
                 .type(PropertyMapType.FROM_INLINE_VALUE)
                 .value("inlineValue")

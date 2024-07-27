@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.apeiron.kernel.domain.User;
-import org.apeiron.kernel.service.dto.AdminUserDTO;
-import org.apeiron.kernel.service.dto.UserDTO;
+import org.apeiron.kernel.service.dto.AdminUserDto;
+import org.apeiron.kernel.service.dto.UserDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ class UserMapperTest {
 
     private UserMapper userMapper;
     private User user;
-    private AdminUserDTO userDto;
+    private AdminUserDto userDto;
 
     @BeforeEach
     public void init() {
@@ -36,41 +36,41 @@ class UserMapperTest {
         user.setImageUrl("image_url");
         user.setLangKey("en");
 
-        userDto = new AdminUserDTO(user);
+        userDto = new AdminUserDto(user);
     }
 
     @Test
-    void usersToUserDTOsShouldMapOnlyNonNullUsers() {
+    void usersToUserDtosShouldMapOnlyNonNullUsers() {
         List<User> users = new ArrayList<>();
         users.add(user);
         users.add(null);
 
-        List<UserDTO> userDTOS = userMapper.usersToUserDTOs(users);
+        List<UserDto> userDtoS = userMapper.usersToUserDtos(users);
 
-        assertThat(userDTOS).isNotEmpty().size().isEqualTo(1);
+        assertThat(userDtoS).isNotEmpty().size().isEqualTo(1);
     }
 
     @Test
-    void userDTOsToUsersShouldMapOnlyNonNullUsers() {
-        List<AdminUserDTO> usersDto = new ArrayList<>();
+    void userDtosToUsersShouldMapOnlyNonNullUsers() {
+        List<AdminUserDto> usersDto = new ArrayList<>();
         usersDto.add(userDto);
         usersDto.add(null);
 
-        List<User> users = userMapper.userDTOsToUsers(usersDto);
+        List<User> users = userMapper.userDtosToUsers(usersDto);
 
         assertThat(users).isNotEmpty().size().isEqualTo(1);
     }
 
     @Test
-    void userDTOsToUsersWithAuthoritiesStringShouldMapToUsersWithAuthoritiesDomain() {
+    void userDtosToUsersWithAuthoritiesStringShouldMapToUsersWithAuthoritiesDomain() {
         Set<String> authoritiesAsString = new HashSet<>();
         authoritiesAsString.add("ADMIN");
         userDto.setAuthorities(authoritiesAsString);
 
-        List<AdminUserDTO> usersDto = new ArrayList<>();
+        List<AdminUserDto> usersDto = new ArrayList<>();
         usersDto.add(userDto);
 
-        List<User> users = userMapper.userDTOsToUsers(usersDto);
+        List<User> users = userMapper.userDtosToUsers(usersDto);
 
         assertThat(users).isNotEmpty().size().isEqualTo(1);
         assertThat(users.get(0).getAuthorities()).isNotNull();
@@ -79,13 +79,13 @@ class UserMapperTest {
     }
 
     @Test
-    void userDTOsToUsersMapWithNullAuthoritiesStringShouldReturnUserWithEmptyAuthorities() {
+    void userDtosToUsersMapWithNullAuthoritiesStringShouldReturnUserWithEmptyAuthorities() {
         userDto.setAuthorities(null);
 
-        List<AdminUserDTO> usersDto = new ArrayList<>();
+        List<AdminUserDto> usersDto = new ArrayList<>();
         usersDto.add(userDto);
 
-        List<User> users = userMapper.userDTOsToUsers(usersDto);
+        List<User> users = userMapper.userDtosToUsers(usersDto);
 
         assertThat(users).isNotEmpty().size().isEqualTo(1);
         assertThat(users.get(0).getAuthorities()).isNotNull();
@@ -93,12 +93,12 @@ class UserMapperTest {
     }
 
     @Test
-    void userDTOToUserMapWithAuthoritiesStringShouldReturnUserWithAuthorities() {
+    void userDtoToUserMapWithAuthoritiesStringShouldReturnUserWithAuthorities() {
         Set<String> authoritiesAsString = new HashSet<>();
         authoritiesAsString.add("ADMIN");
         userDto.setAuthorities(authoritiesAsString);
 
-        User user = userMapper.userDTOToUser(userDto);
+        User user = userMapper.userDtoToUser(userDto);
 
         assertThat(user).isNotNull();
         assertThat(user.getAuthorities()).isNotNull();
@@ -107,10 +107,10 @@ class UserMapperTest {
     }
 
     @Test
-    void userDTOToUserMapWithNullAuthoritiesStringShouldReturnUserWithEmptyAuthorities() {
+    void userDtoToUserMapWithNullAuthoritiesStringShouldReturnUserWithEmptyAuthorities() {
         userDto.setAuthorities(null);
 
-        User user = userMapper.userDTOToUser(userDto);
+        User user = userMapper.userDtoToUser(userDto);
 
         assertThat(user).isNotNull();
         assertThat(user.getAuthorities()).isNotNull();
@@ -118,8 +118,8 @@ class UserMapperTest {
     }
 
     @Test
-    void userDTOToUserMapWithNullUserShouldReturnNull() {
-        assertThat(userMapper.userDTOToUser(null)).isNull();
+    void userDtoToUserMapWithNullUserShouldReturnNull() {
+        assertThat(userMapper.userDtoToUser(null)).isNull();
     }
 
     @Test

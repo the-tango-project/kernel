@@ -1,8 +1,8 @@
 package org.apeiron.kernel.service.actionable;
 
-import org.apeiron.kernel.service.dto.ContextDTO;
+import org.apeiron.kernel.service.dto.ContextDto;
 import reactor.core.publisher.Mono;
 
 public interface Actionable {
-    public Mono<ContextDTO> execute(ContextDTO contexto);
+    public Mono<ContextDto> execute(ContextDto contexto);
 }

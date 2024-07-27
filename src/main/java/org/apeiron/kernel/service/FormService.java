@@ -1,6 +1,6 @@
 package org.apeiron.kernel.service;
 
-import org.apeiron.kernel.service.dto.FormDTO;
+import org.apeiron.kernel.service.dto.FormDto;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -12,26 +12,26 @@ public interface FormService {
     /**
      * Save a form.
      *
-     * @param formDTO the entity to save.
+     * @param formDto the entity to save.
      * @return the persisted entity.
      */
-    Mono<FormDTO> save(FormDTO formDTO);
+    Mono<FormDto> save(FormDto formDto);
 
     /**
      * Updates a form.
      *
-     * @param formDTO the entity to update.
+     * @param formDto the entity to update.
      * @return the persisted entity.
      */
-    Mono<FormDTO> update(FormDTO formDTO);
+    Mono<FormDto> update(FormDto formDto);
 
     /**
      * Partially updates a form.
      *
-     * @param formDTO the entity to update partially.
+     * @param formDto the entity to update partially.
      * @return the persisted entity.
      */
-    Mono<FormDTO> partialUpdate(FormDTO formDTO);
+    Mono<FormDto> partialUpdate(FormDto formDto);
 
     /**
      * Get all the forms.
@@ -39,7 +39,7 @@ public interface FormService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Flux<FormDTO> findAll(Pageable pageable);
+    Flux<FormDto> findAll(Pageable pageable);
 
     /**
      * Returns the number of forms available.
@@ -54,7 +54,7 @@ public interface FormService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Mono<FormDTO> findOne(String id);
+    Mono<FormDto> findOne(String id);
 
     /**
      * Delete the "id" form.

@@ -6,9 +6,9 @@ import static org.apeiron.kernel.utils.StringUtils.toCamelCase;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import org.apeiron.kernel.service.actionable.IAction;
-import org.apeiron.kernel.service.dto.ActionDTO;
-import org.apeiron.kernel.service.dto.ArgumentDTO;
-import org.apeiron.kernel.service.dto.RuleDTO;
+import org.apeiron.kernel.service.dto.ActionDto;
+import org.apeiron.kernel.service.dto.ArgumentDto;
+import org.apeiron.kernel.service.dto.RuleDto;
 import org.apeiron.kernel.service.validator.IRule;
 
 /**
@@ -17,7 +17,7 @@ import org.apeiron.kernel.service.validator.IRule;
  * {@link java.lang.deprecated}
  *
  * Las anotaciones son procesadas y convertidas a objectos de tipo
- * {@link RuleDTO}, {@link ActionDTO}
+ * {@link RuleDto}, {@link ActionDto}
  *
  * El resultado de este procesamiento, se utiliza para visualizar reglas y
  * acciones en el configurador de reglas y acciones del áperion, de tal modo que
@@ -31,15 +31,15 @@ public class AnnotationProcessor {
      * Método que, a partir de una clase que implementa la interfaz {@link IRule}
      * lee las anotaciones {@link ApeironRule}, {@link Condition},
      * {@link Tags}, {@link Deprecated}, {@link Arguments} y {@link Argument} para
-     * construir el objeto {@link RuleDTO}
+     * construir el objeto {@link RuleDto}
      *
      * @param ruleProvider regla a partir de la cual se procesarán las anotaciones
-     * @return RuleDTO resuelta
+     * @return RuleDto resuelta
      */
-    public static RuleDTO resolveRule(IRule ruleProvider) {
+    public static RuleDto resolveRule(IRule ruleProvider) {
         Class<?> clazz = ruleProvider.getClass();
         Method validateMethod = clazz.getMethods()[0];
-        return toRuleDTO(
+        return toRuleDto(
             AnnotationContext
                 .builder()
                 .clave(toCamelCase(clazz.getSimpleName()))
@@ -57,15 +57,15 @@ public class AnnotationProcessor {
      * Método que, a partir de una clase que implementa la interfaz {@link IAction}
      * lee las anotaciones {@link ApeironAction}, {@link Deprecated},
      * {@link Arguments} y {@link Argument} para construir el objeto
-     * {@link ActionDTO}
+     * {@link ActionDto}
      *
      * @param actionProvider acción a partir de la cual se leen las anotaciones
-     * @return ActionDTO resuelta
+     * @return ActionDto resuelta
      */
-    public static ActionDTO resolveActions(IAction actionProvider) {
+    public static ActionDto resolveActions(IAction actionProvider) {
         Class<?> clazz = actionProvider.getClass();
         Method executeMethod = clazz.getMethods()[0];
-        return toActionDTO(
+        return toActionDto(
             ActionAnnotationContext
                 .builder()
                 .clave(toCamelCase(clazz.getSimpleName()))
@@ -77,8 +77,8 @@ public class AnnotationProcessor {
         );
     }
 
-    private static RuleDTO toRuleDTO(AnnotationContext context) {
-        RuleDTO target = new RuleDTO();
+    private static RuleDto toRuleDto(AnnotationContext context) {
+        RuleDto target = new RuleDto();
         target.setClave(context.getClave());
 
         if (context.getRule().isPresent()) {
@@ -101,8 +101,8 @@ public class AnnotationProcessor {
         return target;
     }
 
-    private static ActionDTO toActionDTO(ActionAnnotationContext context) {
-        ActionDTO target = new ActionDTO();
+    private static ActionDto toActionDto(ActionAnnotationContext context) {
+        ActionDto target = new ActionDto();
         target.setClave(context.getClave());
 
         if (context.getAction().isPresent()) {
@@ -124,7 +124,7 @@ public class AnnotationProcessor {
         return context.getArguments().isPresent() || context.getArgument().isPresent();
     }
 
-    private static ArgumentDTO[] resolveArguments(Configurable context) {
+    private static ArgumentDto[] resolveArguments(Configurable context) {
         if (context.getArguments().isPresent()) {
             return AnnotationProcessor.processManyArguments(context.getArguments().get());
         }
@@ -132,18 +132,18 @@ public class AnnotationProcessor {
         if (context.getArgument().isPresent()) {
             return AnnotationProcessor.processOneArgument(context.getArgument().get());
         }
-        return new ArgumentDTO[0];
+        return new ArgumentDto[0];
     }
 
-    private static ArgumentDTO[] processManyArguments(Arguments arguments) {
-        return Arrays.stream(arguments.value()).map(AnnotationProcessor::mapToArgumentDto).toArray(ArgumentDTO[]::new);
+    private static ArgumentDto[] processManyArguments(Arguments arguments) {
+        return Arrays.stream(arguments.value()).map(AnnotationProcessor::mapToArgumentDto).toArray(ArgumentDto[]::new);
     }
 
-    private static ArgumentDTO[] processOneArgument(Argument argument) {
-        return new ArgumentDTO[] { AnnotationProcessor.mapToArgumentDto(argument) };
+    private static ArgumentDto[] processOneArgument(Argument argument) {
+        return new ArgumentDto[] { AnnotationProcessor.mapToArgumentDto(argument) };
     }
 
-    private static ArgumentDTO mapToArgumentDto(Argument argument) {
-        return ArgumentDTO.builder().name(argument.name()).type(argument.type()).build();
+    private static ArgumentDto mapToArgumentDto(Argument argument) {
+        return ArgumentDto.builder().name(argument.name()).type(argument.type()).build();
     }
 }

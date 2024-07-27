@@ -1,7 +1,7 @@
 package org.apeiron.kernel.service;
 
-import org.apeiron.kernel.service.dto.DefinicionEvaluacionDTO;
-import org.apeiron.kernel.service.dto.SolucionDTO;
+import org.apeiron.kernel.service.dto.DefinicionEvaluacionDto;
+import org.apeiron.kernel.service.dto.SolucionDto;
 import org.apeiron.kernel.service.util.Filtro;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
@@ -15,50 +15,50 @@ public interface SolucionService {
     /**
      * Save a solucion.
      *
-     * @param solucionDTO the entity to save.
+     * @param solucionDto the entity to save.
      * @return the persisted entity.
      */
-    Mono<SolucionDTO> save(SolucionDTO solucionDTO);
+    Mono<SolucionDto> save(SolucionDto solucionDto);
 
     /**
      * Crear a new solucion.
      *
-     * @param solucionDTO the entity to save.
+     * @param solucionDto the entity to save.
      * @return the persisted entity.
      */
-    Mono<SolucionDTO> create(SolucionDTO solucionDTO);
+    Mono<SolucionDto> create(SolucionDto solucionDto);
 
     /**
      * Updates a solucion.
      *
-     * @param solucionDTO the entity to update.
+     * @param solucionDto the entity to update.
      * @return the persisted entity.
      */
-    Mono<SolucionDTO> update(SolucionDTO solucionDTO);
+    Mono<SolucionDto> update(SolucionDto solucionDto);
 
     /**
      * Publicar una solucion.
      *
-     * @param solucionDTO la solucion para publicar.
+     * @param solucionDto la solucion para publicar.
      * @return the solucion para persistir.
      */
-    Mono<SolucionDTO> publicar(SolucionDTO solucionDTO);
+    Mono<SolucionDto> publicar(SolucionDto solucionDto);
 
     /**
      * Archivar una solucion.
      *
-     * @param solucionDTO la solucion para publicar.
+     * @param solucionDto la solucion para publicar.
      * @return the solucion para persistir.
      */
-    Mono<SolucionDTO> archivar(SolucionDTO solucionDTO);
+    Mono<SolucionDto> archivar(SolucionDto solucionDto);
 
     /**
      * Partially updates a solucion.
      *
-     * @param solucionDTO the entity to update partially.
+     * @param solucionDto the entity to update partially.
      * @return the persisted entity.
      */
-    Mono<SolucionDTO> partialUpdate(SolucionDTO solucionDTO);
+    Mono<SolucionDto> partialUpdate(SolucionDto solucionDto);
 
     /**
      * Get all the solucions.
@@ -66,7 +66,7 @@ public interface SolucionService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Flux<SolucionDTO> findAll(Pageable pageable);
+    Flux<SolucionDto> findAll(Pageable pageable);
 
     /**
      * Get all the solucions.
@@ -74,9 +74,9 @@ public interface SolucionService {
      * @param filtro the filter.
      * @return the list of entities.
      */
-    Flux<SolucionDTO> findAll(Filtro filtro);
+    Flux<SolucionDto> findAll(Filtro filtro);
 
-    Flux<SolucionDTO> findAll(Filtro filtro, Pageable pageable);
+    Flux<SolucionDto> findAll(Filtro filtro, Pageable pageable);
 
     /**
      * Get all the solucions by estado
@@ -85,7 +85,7 @@ public interface SolucionService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Flux<SolucionDTO> findAllByEstado(String estado, Pageable pageable);
+    public Flux<SolucionDto> findAllByEstado(String estado, Pageable pageable);
 
     /**
      * Returns the number of solucions available.
@@ -103,7 +103,7 @@ public interface SolucionService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Mono<SolucionDTO> findOne(String id);
+    Mono<SolucionDto> findOne(String id);
 
     /**
      * Find the last solucion by "id" into the historical data.
@@ -111,7 +111,7 @@ public interface SolucionService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Mono<SolucionDTO> findOneByLastVersion(String id);
+    Mono<SolucionDto> findOneByLastVersion(String id);
 
     /**
      * Delete the "id" solucion.
@@ -125,15 +125,15 @@ public interface SolucionService {
      * Get the "id" revision definition.
      *
      * @param solucionId the id of the solucion.
-     * @return the DefinicionEvaluacionDTO.
+     * @return the DefinicionEvaluacionDto.
      */
-    Mono<DefinicionEvaluacionDTO> findOneDefinicionEvaluacion(String solucionId);
+    Mono<DefinicionEvaluacionDto> findOneDefinicionEvaluacion(String solucionId);
 
     /**
-     * Save a definicionEvalucionDTO.
+     * Save a definicionEvalucionDto.
      *
-     * @param DefinicionEvaluacionDTO the entity to save.
+     * @param DefinicionEvaluacionDto the entity to save.
      * @return the persisted entity.
      */
-    Mono<DefinicionEvaluacionDTO> saveDefinicionEvaluacion(DefinicionEvaluacionDTO definicionDTO);
+    Mono<DefinicionEvaluacionDto> saveDefinicionEvaluacion(DefinicionEvaluacionDto definicionDto);
 }

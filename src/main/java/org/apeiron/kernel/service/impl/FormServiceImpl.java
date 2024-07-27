@@ -3,7 +3,7 @@ package org.apeiron.kernel.service.impl;
 import org.apeiron.kernel.domain.Form;
 import org.apeiron.kernel.repository.FormRepository;
 import org.apeiron.kernel.service.FormService;
-import org.apeiron.kernel.service.dto.FormDTO;
+import org.apeiron.kernel.service.dto.FormDto;
 import org.apeiron.kernel.service.mapper.FormMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,25 +30,25 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public Mono<FormDTO> save(FormDTO formDTO) {
-        log.debug("Request to save Form : {}", formDTO);
-        return formRepository.save(formMapper.toEntity(formDTO)).map(formMapper::toDto);
+    public Mono<FormDto> save(FormDto formDto) {
+        log.debug("Request to save Form : {}", formDto);
+        return formRepository.save(formMapper.toEntity(formDto)).map(formMapper::toDto);
     }
 
     @Override
-    public Mono<FormDTO> update(FormDTO formDTO) {
-        log.debug("Request to update Form : {}", formDTO);
-        return formRepository.save(formMapper.toEntity(formDTO)).map(formMapper::toDto);
+    public Mono<FormDto> update(FormDto formDto) {
+        log.debug("Request to update Form : {}", formDto);
+        return formRepository.save(formMapper.toEntity(formDto)).map(formMapper::toDto);
     }
 
     @Override
-    public Mono<FormDTO> partialUpdate(FormDTO formDTO) {
-        log.debug("Request to partially update Form : {}", formDTO);
+    public Mono<FormDto> partialUpdate(FormDto formDto) {
+        log.debug("Request to partially update Form : {}", formDto);
 
         return formRepository
-            .findById(formDTO.getId())
+            .findById(formDto.getId())
             .map(existingForm -> {
-                formMapper.partialUpdate(existingForm, formDTO);
+                formMapper.partialUpdate(existingForm, formDto);
 
                 return existingForm;
             })
@@ -57,7 +57,7 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public Flux<FormDTO> findAll(Pageable pageable) {
+    public Flux<FormDto> findAll(Pageable pageable) {
         log.debug("Request to get all Forms");
         return formRepository.findAllBy(pageable).map(formMapper::toDto);
     }
@@ -67,7 +67,7 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public Mono<FormDTO> findOne(String id) {
+    public Mono<FormDto> findOne(String id) {
         log.debug("Request to get Form : {}", id);
         return formRepository.findById(id).map(formMapper::toDto);
     }

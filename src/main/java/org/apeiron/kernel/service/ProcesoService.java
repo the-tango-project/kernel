@@ -1,9 +1,9 @@
 package org.apeiron.kernel.service;
 
 import java.util.List;
-import org.apeiron.kernel.service.dto.BulkResponseDTO;
-import org.apeiron.kernel.service.dto.SolicitudDTO;
-import org.apeiron.kernel.service.dto.TransicionContextDTO;
+import org.apeiron.kernel.service.dto.BulkResponseDto;
+import org.apeiron.kernel.service.dto.SolicitudDto;
+import org.apeiron.kernel.service.dto.TransicionContextDto;
 import reactor.core.publisher.Mono;
 
 /**
@@ -16,9 +16,9 @@ public interface ProcesoService {
      * posaction y notificaciones definididas en la solución
      *
      * @param transicion the transition context
-     * @return Mono<SolicitudDTO>
+     * @return Mono<SolicitudDto>
      */
-    Mono<SolicitudDTO> doTransicion(TransicionContextDTO transicion);
+    Mono<SolicitudDto> doTransicion(TransicionContextDto transicion);
 
     /**
      * Realiza la transición de estado de una o más solicitudes aplicando las
@@ -28,9 +28,9 @@ public interface ProcesoService {
      * varios registros
      *
      * @param transicion the transition context
-     * @return Mono<SolicitudDTO>
+     * @return Mono<SolicitudDto>
      */
-    Mono<BulkResponseDTO> doMultipleTransicions(List<TransicionContextDTO> transicions);
+    Mono<BulkResponseDto> doMultipleTransicions(List<TransicionContextDto> transicions);
 
     /**
      * Realiza la creación de una o más solicitudes aplicando las
@@ -40,9 +40,9 @@ public interface ProcesoService {
      * varios registros
      *
      * @param solicitudes las solicitudes
-     * @return Mono<SolicitudDTO>
+     * @return Mono<SolicitudDto>
      */
-    Mono<BulkResponseDTO> doMultipleCreations(List<SolicitudDTO> solicitudes);
+    Mono<BulkResponseDto> doMultipleCreations(List<SolicitudDto> solicitudes);
 
     /**
      * Realiza el guardado parcial de la solicitud, acotado a la información del
@@ -52,7 +52,7 @@ public interface ProcesoService {
      *
      * @param solicitud la solicitud
      * @param formId    id del formulario
-     * @return Mono<SolicitudDTO>
+     * @return Mono<SolicitudDto>
      */
-    Mono<SolicitudDTO> saveForm(SolicitudDTO solicitud, String formId);
+    Mono<SolicitudDto> saveForm(SolicitudDto solicitud, String formId);
 }

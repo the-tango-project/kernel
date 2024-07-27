@@ -18,16 +18,16 @@ import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.apeiron.kernel.service.actionable.IAction;
-import org.apeiron.kernel.service.dto.ArgumentDTO;
-import org.apeiron.kernel.service.dto.ContextDTO;
+import org.apeiron.kernel.service.dto.ArgumentDto;
+import org.apeiron.kernel.service.dto.ContextDto;
 import org.apeiron.kernel.service.dto.Parametrizable;
-import org.apeiron.kernel.service.dto.PropertyMapDTO;
+import org.apeiron.kernel.service.dto.PropertyMapDto;
 import org.apeiron.kernel.service.transition.TransitionElement;
 import org.apeiron.kernel.service.validator.IRule;
 
 /**
  * Clase útil con métodos que ayudan a recuperar parámetros del objeto
- * ContextDTO, de tal manera que se puedan consultar los valores asignados
+ * ContextDto, de tal manera que se puedan consultar los valores asignados
  * durante la configuración de una IRule o un IAction. Los parametros que se
  * intenten buscar deberán de estar definidos dentro de clases que implementen
  * las
@@ -63,8 +63,8 @@ public class ArgumentUtils {
      * @return Valor del argumento como Optional. Se regresa vacío en caso de que no
      *         exista
      */
-    public static Optional<String> asString(ContextDTO context, TransitionElement transitionElement, String argumentName) {
-        ArgumentDTO argument = resolveArgument(context, transitionElement, argumentName);
+    public static Optional<String> asString(ContextDto context, TransitionElement transitionElement, String argumentName) {
+        ArgumentDto argument = resolveArgument(context, transitionElement, argumentName);
         return Optional.ofNullable(resolveString(getValue(argument)));
     }
 
@@ -84,8 +84,8 @@ public class ArgumentUtils {
      * @return Valor del argumento como Optional. Se regresa vacío en caso de que no
      *         exista
      */
-    public static Optional<Integer> asInteger(ContextDTO context, TransitionElement transitionElement, String argumentName) {
-        ArgumentDTO argument = resolveArgument(context, transitionElement, argumentName);
+    public static Optional<Integer> asInteger(ContextDto context, TransitionElement transitionElement, String argumentName) {
+        ArgumentDto argument = resolveArgument(context, transitionElement, argumentName);
         return Optional.ofNullable(resolveInteger(getValue(argument)));
     }
 
@@ -105,8 +105,8 @@ public class ArgumentUtils {
      * @return Valor del argumento como Optional. Se regresa vacío en caso de que no
      *         exista
      */
-    public static Optional<Float> asFloat(ContextDTO context, TransitionElement transitionElement, String argumentName) {
-        ArgumentDTO argument = resolveArgument(context, transitionElement, argumentName);
+    public static Optional<Float> asFloat(ContextDto context, TransitionElement transitionElement, String argumentName) {
+        ArgumentDto argument = resolveArgument(context, transitionElement, argumentName);
         return Optional.ofNullable(resolveFloat(getValue(argument)));
     }
 
@@ -126,8 +126,8 @@ public class ArgumentUtils {
      * @return Valor del argumento como Optional. Se regresa vacío en caso de que no
      *         exista
      */
-    public static Optional<LocalDate> asDate(ContextDTO context, TransitionElement transitionElement, String argumentName) {
-        ArgumentDTO argument = resolveArgument(context, transitionElement, argumentName);
+    public static Optional<LocalDate> asDate(ContextDto context, TransitionElement transitionElement, String argumentName) {
+        ArgumentDto argument = resolveArgument(context, transitionElement, argumentName);
         return Optional.ofNullable(resolveLocalDate(getValue(argument)));
     }
 
@@ -147,8 +147,8 @@ public class ArgumentUtils {
      * @return Valor del argumento como Optional. Se regresa vacío en caso de que no
      *         exista
      */
-    public static Optional<Instant> asDateTime(ContextDTO context, TransitionElement transitionElement, String argumentName) {
-        ArgumentDTO argument = resolveArgument(context, transitionElement, argumentName);
+    public static Optional<Instant> asDateTime(ContextDto context, TransitionElement transitionElement, String argumentName) {
+        ArgumentDto argument = resolveArgument(context, transitionElement, argumentName);
         return Optional.ofNullable(resolveInstant(getValue(argument)));
     }
 
@@ -165,23 +165,23 @@ public class ArgumentUtils {
      * @return Optional de PropertyMapValor. Se regresa vacío en caso de que no
      *         exista
      */
-    public static Optional<List<PropertyMapDTO>> asPropertyMap(
-        ContextDTO context,
+    public static Optional<List<PropertyMapDto>> asPropertyMap(
+        ContextDto context,
         TransitionElement transitionElement,
         String argumentName
     ) {
-        ArgumentDTO argument = resolveArgument(context, transitionElement, argumentName);
+        ArgumentDto argument = resolveArgument(context, transitionElement, argumentName);
         return Optional.ofNullable(resolvePropertyMap(getValue(argument)));
     }
 
-    private static ArgumentDTO resolveArgument(ContextDTO context, TransitionElement transitionElement, String argumentName) {
+    private static ArgumentDto resolveArgument(ContextDto context, TransitionElement transitionElement, String argumentName) {
         String clave = toCamelCase(transitionElement.getClass().getSimpleName());
         Parametrizable parametrizable = findParametrizable(resolveParametrizable(context, transitionElement), clave);
         log.debug("Se encontró el parametro con clave {} ", parametrizable.getClave());
         return findArgument(getArguments(parametrizable), argumentName);
     }
 
-    private static <T> List<? extends Parametrizable> resolveParametrizable(ContextDTO context, T transitionElement) {
+    private static <T> List<? extends Parametrizable> resolveParametrizable(ContextDto context, T transitionElement) {
         if (transitionElement instanceof IRule) {
             return context.getTransicion().getReglas();
         } else if (transitionElement instanceof IAction) {
@@ -191,16 +191,16 @@ public class ArgumentUtils {
         return Collections.emptyList();
     }
 
-    private static ArgumentDTO[] getArguments(Parametrizable parametrizable) {
+    private static ArgumentDto[] getArguments(Parametrizable parametrizable) {
         if (nonNull(parametrizable)) {
             return parametrizable.getArguments();
         }
 
         log.warn("No se encontró un elemento parametrizable, por lo que se regresa un arreglo vacío");
-        return new ArgumentDTO[] {};
+        return new ArgumentDto[] {};
     }
 
-    private static Object getValue(ArgumentDTO argument) {
+    private static Object getValue(ArgumentDto argument) {
         if (nonNull(argument)) {
             return argument.getValue();
         }
@@ -212,7 +212,7 @@ public class ArgumentUtils {
         return parametrizables.stream().filter(regla -> regla.getClave().equals(clave)).reduce((first, second) -> first).orElse(null);
     }
 
-    private static ArgumentDTO findArgument(ArgumentDTO[] arguments, String argumentName) {
+    private static ArgumentDto findArgument(ArgumentDto[] arguments, String argumentName) {
         return Arrays
             .stream(arguments)
             .filter(argument -> argument.getName().equals(argumentName))
@@ -248,17 +248,17 @@ public class ArgumentUtils {
         }
     }
 
-    private static List<PropertyMapDTO> resolvePropertyMap(Object object) {
+    private static List<PropertyMapDto> resolvePropertyMap(Object object) {
         if (isNull(object)) {
             return new ArrayList<>();
         }
 
         if (object instanceof List<?>) {
-            List<PropertyMapDTO> to = new ArrayList<>();
+            List<PropertyMapDto> to = new ArrayList<>();
             List<?> objectList = new ArrayList<>((Collection<?>) object);
             for (Object item : objectList) {
-                if (item instanceof PropertyMapDTO) {
-                    to.add((PropertyMapDTO) item);
+                if (item instanceof PropertyMapDto) {
+                    to.add((PropertyMapDto) item);
                 }
             }
             return to;

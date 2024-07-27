@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apeiron.kernel.commons.annotations.AnnotationProcessor;
-import org.apeiron.kernel.service.dto.RuleDTO;
+import org.apeiron.kernel.service.dto.RuleDto;
 import org.apeiron.kernel.service.validator.IRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class RuleResource {
     private final List<IRule> reglas;
 
     @GetMapping("/rules")
-    public Mono<ResponseEntity<List<RuleDTO>>> getAllRules(
+    public Mono<ResponseEntity<List<RuleDto>>> getAllRules(
         @org.springdoc.core.annotations.ParameterObject Pageable pageable,
         ServerHttpRequest request
     ) {
@@ -43,7 +43,7 @@ public class RuleResource {
         return Flux
             .fromIterable(reglas)
             .map(AnnotationProcessor::resolveRule)
-            .sort(Comparator.comparing(RuleDTO::getNombre))
+            .sort(Comparator.comparing(RuleDto::getNombre))
             .collectList()
             .map(regla -> ResponseEntity.ok().body(regla));
     }

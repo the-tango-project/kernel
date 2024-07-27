@@ -1,8 +1,8 @@
 package org.apeiron.kernel.service.actionable;
 
 import java.util.Map;
-import org.apeiron.kernel.service.dto.ActionDTO;
-import org.apeiron.kernel.service.dto.ContextDTO;
+import org.apeiron.kernel.service.dto.ActionDto;
+import org.apeiron.kernel.service.dto.ContextDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -15,9 +15,9 @@ public class ActionEngine implements Actionable {
     private Map<String, IAction> actions;
 
     @Override
-    public Mono<ContextDTO> execute(ContextDTO contexto) {
+    public Mono<ContextDto> execute(ContextDto contexto) {
         contexto.getSolicitud().setEstado(contexto.getTransicion().getDestino());
-        Flux<ActionDTO> currentActions = Flux.fromIterable(contexto.getTransicion().getAcciones());
+        Flux<ActionDto> currentActions = Flux.fromIterable(contexto.getTransicion().getAcciones());
         return currentActions.flatMap(action -> actions.get(action.getClave()).execute(contexto)).then(Mono.just(contexto));
     }
 }

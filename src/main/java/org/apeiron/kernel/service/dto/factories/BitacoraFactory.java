@@ -1,15 +1,15 @@
 package org.apeiron.kernel.service.dto.factories;
 
 import org.apeiron.kernel.domain.enumeration.TipoMovimiento;
-import org.apeiron.kernel.service.dto.BitacoraDTO;
-import org.apeiron.kernel.service.dto.ContextDTO;
+import org.apeiron.kernel.service.dto.BitacoraDto;
+import org.apeiron.kernel.service.dto.ContextDto;
 
 public class BitacoraFactory {
 
     private BitacoraFactory() {}
 
-    public static BitacoraDTO fromContext(ContextDTO contexto) {
-        return BitacoraDTO
+    public static BitacoraDto fromContext(ContextDto contexto) {
+        return BitacoraDto
             .builder()
             .solicitudId(contexto.getSolicitud().getId())
             .accion(contexto.getAccion())
@@ -22,7 +22,7 @@ public class BitacoraFactory {
             .build();
     }
 
-    private static String resolveDescripcion(ContextDTO contexto) {
+    private static String resolveDescripcion(ContextDto contexto) {
         return new StringBuilder()
             .append("Transicion éxitosa")
             .append(" ")

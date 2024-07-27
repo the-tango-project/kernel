@@ -3,7 +3,7 @@ package org.apeiron.kernel.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.apeiron.kernel.repository.SolicitudRepository;
 import org.apeiron.kernel.service.ReporteService;
-import org.apeiron.kernel.service.dto.ReporteDTO;
+import org.apeiron.kernel.service.dto.ReporteDto;
 import org.apeiron.kernel.service.mapper.ReporteMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class ReporteServiceImpl implements ReporteService {
     private final ReporteMapper reporteMapper;
 
     @Override
-    public Flux<ReporteDTO> countTotalSolicitudesByEstado(String solucionId) {
+    public Flux<ReporteDto> countTotalSolicitudesByEstado(String solucionId) {
         log.debug("Request to get Reporte by solucionId : {}", solucionId);
         return solicitudRepository.countTotalSolicitudesByEstado(solucionId).map(reporteMapper::toDto);
     }

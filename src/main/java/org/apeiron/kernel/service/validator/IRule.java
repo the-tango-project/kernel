@@ -1,7 +1,7 @@
 package org.apeiron.kernel.service.validator;
 
 import org.apeiron.kernel.domain.Solicitud;
-import org.apeiron.kernel.service.dto.ContextDTO;
+import org.apeiron.kernel.service.dto.ContextDto;
 import org.apeiron.kernel.service.transition.TransitionElement;
 import reactor.core.publisher.Mono;
 
@@ -24,5 +24,5 @@ public interface IRule extends TransitionElement {
      * @param context contexto para validar la regla
      * @return True si cumple con la regla, de otro modo False
      */
-    public Mono<Boolean> validate(ContextDTO context);
+    public Mono<Boolean> validate(ContextDto context);
 }

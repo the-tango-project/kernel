@@ -4,7 +4,7 @@ import java.net.URISyntaxException;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.apeiron.kernel.service.ResultadoService;
-import org.apeiron.kernel.service.dto.ResultadoDTO;
+import org.apeiron.kernel.service.dto.ResultadoDto;
 import org.apeiron.kernel.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,32 +42,32 @@ public class ResultadoResource {
     /**
      * {@code PUT  /Resultados/:id} : Updates an existing Resultado.
      *
-     * @param id           the id of the ResultadoDTO to save.
-     * @param ResultadoDTO the ResultadoDTO to update.
+     * @param id           the id of the ResultadoDto to save.
+     * @param ResultadoDto the ResultadoDto to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the updated ResultadoDTO,
-     *         or with status {@code 400 (Bad Request)} if the ResultadoDTO is not
+     *         the updated ResultadoDto,
+     *         or with status {@code 400 (Bad Request)} if the ResultadoDto is not
      *         valid,
      *         or with status {@code 500 (Internal Server Error)} if the
-     *         ResultadoDTO
+     *         ResultadoDto
      *         couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/resultados/{id}")
-    public Mono<ResponseEntity<ResultadoDTO>> updateResultado(
+    public Mono<ResponseEntity<ResultadoDto>> updateResultado(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody ResultadoDTO resultadoDTO
+        @RequestBody ResultadoDto resultadoDto
     ) throws URISyntaxException {
-        log.debug("REST request to update Resultado : {}, {}", id, resultadoDTO);
-        if (resultadoDTO.getId() == null) {
+        log.debug("REST request to update Resultado : {}, {}", id, resultadoDto);
+        if (resultadoDto.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, resultadoDTO.getId())) {
+        if (!Objects.equals(id, resultadoDto.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
         return resultadoService
-            .save(resultadoDTO)
+            .save(resultadoDto)
             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
             .map(result ->
                 ResponseEntity
@@ -82,12 +82,12 @@ public class ResultadoResource {
      *
      * @param id the id of solicitud id.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the resultadoDTO, or with status {@code 404 (Not Found)}.
+     *         the resultadoDto, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/resultados/{id}")
-    public Mono<ResponseEntity<ResultadoDTO>> getResultado(@PathVariable String id) {
+    public Mono<ResponseEntity<ResultadoDto>> getResultado(@PathVariable String id) {
         log.debug("REST request to get Resultado : {}", id);
-        Mono<ResultadoDTO> resultadoDTO = resultadoService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(resultadoDTO);
+        Mono<ResultadoDto> resultadoDto = resultadoService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(resultadoDto);
     }
 }
