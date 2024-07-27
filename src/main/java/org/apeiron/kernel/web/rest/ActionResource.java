@@ -27,7 +27,7 @@ public class ActionResource {
     private final Logger log = LoggerFactory.getLogger(ActionResource.class);
 
     //FIXME: Quitar del modelo principal
-    @Value("${jhipster.clientApp.name}")
+    @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     @Autowired

@@ -46,7 +46,7 @@ public class RevisionResource {
 
     private static final String ENTITY_NAME = "revision";
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     private final RevisionService revisionService;

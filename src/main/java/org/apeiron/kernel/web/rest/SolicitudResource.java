@@ -60,7 +60,7 @@ public class SolicitudResource {
 
     private static final String ENTITY_NAME = "solicitud";
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     private final SolicitudService solicitudService;

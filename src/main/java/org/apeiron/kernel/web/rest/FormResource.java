@@ -43,7 +43,7 @@ public class FormResource {
 
     private static final String ENTITY_NAME = "form";
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     private final FormService formService;

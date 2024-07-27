@@ -1,0 +1,3 @@
+org.apeiron.kernel.config.MailAutoconfiguration
+org.apeiron.kernel.config.JobrunrAutoconfiguration
+org.apeiron.kernel.config.KernelProperties

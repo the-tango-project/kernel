@@ -32,7 +32,7 @@ public class ResultadoResource {
 
     private final Logger log = LoggerFactory.getLogger(ResultadoResource.class);
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     private static final String ENTITY_NAME = "Resultado";

@@ -42,7 +42,7 @@ public class ComentarioResource {
 
     private static final String ENTITY_NAME = "comentario";
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     private final ComentarioService comentarioService;

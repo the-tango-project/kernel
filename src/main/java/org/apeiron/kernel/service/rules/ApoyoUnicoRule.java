@@ -2,10 +2,10 @@ package org.apeiron.kernel.service.rules;
 
 import static java.util.Objects.isNull;
 
+import org.apeiron.kernel.autoconfiguration.Constants.RuleTag;
 import org.apeiron.kernel.commons.annotations.ApeironRule;
 import org.apeiron.kernel.commons.annotations.Condition;
 import org.apeiron.kernel.commons.annotations.Tags;
-import org.apeiron.kernel.config.Constants.RuleTag;
 import org.apeiron.kernel.domain.enumeration.EstadoSolicitud;
 import org.apeiron.kernel.service.SolicitudService;
 import org.apeiron.kernel.service.dto.ContextDTO;

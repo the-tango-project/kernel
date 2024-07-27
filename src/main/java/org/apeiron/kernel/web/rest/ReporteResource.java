@@ -31,7 +31,7 @@ public class ReporteResource {
 
     private final Logger log = LoggerFactory.getLogger(ReporteResource.class);
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     private final ReporteService reporteService;

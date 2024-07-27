@@ -1,11 +1,11 @@
 package org.apeiron.kernel.service.impl;
 
 import static java.util.Objects.isNull;
-import static org.apeiron.kernel.config.Constants.Mail.CORREO_DEFAULT;
-import static org.apeiron.kernel.config.Constants.Mail.MAIL_CONTENT_PLACEHOLDER;
-import static org.apeiron.kernel.config.Constants.SolicitanteConstants.CORREO_VARIABLE_REGEX;
-import static org.apeiron.kernel.config.Constants.SolicitanteConstants.DEFAULT_SUBJECT_VARIABLE;
 import static org.apache.commons.lang3.StringUtils.firstNonBlank;
+import static org.apeiron.kernel.autoconfiguration.Constants.Mail.CORREO_DEFAULT;
+import static org.apeiron.kernel.autoconfiguration.Constants.Mail.MAIL_CONTENT_PLACEHOLDER;
+import static org.apeiron.kernel.autoconfiguration.Constants.SolicitanteConstants.CORREO_VARIABLE_REGEX;
+import static org.apeiron.kernel.autoconfiguration.Constants.SolicitanteConstants.DEFAULT_SUBJECT_VARIABLE;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +35,7 @@ public class DefaultNotificacionServiceImpl implements NotificacionService {
 
     private final Logger log = LoggerFactory.getLogger(DefaultNotificacionServiceImpl.class);
 
-    @Value("${jhipster.mail.from}")
+    @Value("${kernel.mail.from}")
     private String mailFrom;
 
     private final Mailer mailer;

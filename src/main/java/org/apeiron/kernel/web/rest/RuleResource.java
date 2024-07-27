@@ -28,7 +28,7 @@ public class RuleResource {
 
     private final Logger log = LoggerFactory.getLogger(RuleResource.class);
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     private final List<IRule> reglas;

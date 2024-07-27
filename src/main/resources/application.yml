@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: kernel
+
+kernel:
+  clientApp:
+    name: apeironGwApp
+  mail:
+    host: localhost
+    port: 8080
+    username: defaultname
+    password: defaultpassword
+    starttls: true
+    from: from@default

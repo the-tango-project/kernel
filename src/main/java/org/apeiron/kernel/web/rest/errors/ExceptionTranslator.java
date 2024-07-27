@@ -54,7 +54,7 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
     private static final String VIOLATIONS_KEY = "violations";
     private static final String ERROR_GENERAR_PDF_KEY = "errorGeneratingPDF";
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     private final Environment env;

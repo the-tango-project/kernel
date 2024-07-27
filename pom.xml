@@ -40,6 +40,24 @@
 		<jhipster-dependencies.version>7.9.3</jhipster-dependencies.version>
 		<springdoc-openapi-starter-webflux-api.version>2.5.0</springdoc-openapi-starter-webflux-api.version>
 	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.mongock</groupId>
+				<artifactId>mongock-bom</artifactId>
+				<version>${mongock-bom.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>tech.jhipster</groupId>
@@ -86,6 +104,11 @@
 			<version>${simplejavamail.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.simplejavamail</groupId>
+			<artifactId>batch-module</artifactId>
+			<version>${simplejavamail.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.zalando</groupId>
 			<artifactId>problem-spring-webflux</artifactId>
 			<version>0.29.1</version>
@@ -118,6 +141,16 @@
 		<dependency>
 			<groupId>io.mongock</groupId>
 			<artifactId>mongodb-springdata-v3-driver</artifactId>
+		</dependency>
+		<!-- Mongo db driver was excluded from starter, adding manually. -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver-reactivestreams</artifactId>
+		</dependency>
+		<!-- Mongo db driver was excluded from starter, adding manually. -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver-sync</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -160,28 +193,35 @@
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>mongodb</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.mongock</groupId>
-				<artifactId>mongock-bom</artifactId>
-				<version>${mongock-bom.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>apt-maven-plugin</artifactId>

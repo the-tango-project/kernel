@@ -13,7 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
-import org.apeiron.kernel.config.Constants.AyudantesConstants;
+
+import org.apeiron.kernel.autoconfiguration.Constants.AyudantesConstants;
 
 public class ValidationUtils {
 

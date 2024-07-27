@@ -1,4 +1,4 @@
-package org.apeiron.kernel.config;
+package org.apeiron.kernel.autoconfiguration;
 
 import static org.apeiron.kernel.domain.enumeration.EstadoSolicitud.CANCELADA;
 import static org.apeiron.kernel.domain.enumeration.EstadoSolicitud.FORMALIZADA;

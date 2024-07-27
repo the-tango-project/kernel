@@ -34,7 +34,7 @@ public class PublicUserResource {
 
     private final UserService userService;
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     public PublicUserResource(UserService userService) {

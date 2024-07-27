@@ -47,7 +47,7 @@ public class SolucionResource {
 
     private static final String ENTITY_NAME = "solucion";
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     private final SolucionService solucionService;

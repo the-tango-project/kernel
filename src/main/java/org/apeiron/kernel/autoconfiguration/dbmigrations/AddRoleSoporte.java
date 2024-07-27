@@ -1,4 +1,4 @@
-package org.apeiron.kernel.config.dbmigrations;
+package org.apeiron.kernel.autoconfiguration.dbmigrations;
 
 import static org.apeiron.kernel.security.AuthoritiesConstants.SOPORTE;
 

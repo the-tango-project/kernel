@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.apeiron.kernel.config.Constants;
+
+import org.apeiron.kernel.autoconfiguration.Constants;
 import org.apeiron.kernel.domain.Authority;
 import org.apeiron.kernel.domain.User;
 import org.apeiron.kernel.repository.AuthorityRepository;

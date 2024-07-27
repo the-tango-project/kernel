@@ -1,4 +1,4 @@
-package org.apeiron.kernel.config.dbmigrations;
+package org.apeiron.kernel.autoconfiguration.dbmigrations;
 
 import com.google.common.collect.Lists;
 import io.mongock.api.annotations.ChangeUnit;

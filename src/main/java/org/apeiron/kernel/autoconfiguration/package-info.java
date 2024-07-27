@@ -1,4 +1,4 @@
 /**
  * Spring Framework configuration files.
  */
-package org.apeiron.kernel.config;
+package org.apeiron.kernel.autoconfiguration;

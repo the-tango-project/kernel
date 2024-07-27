@@ -1,23 +1,25 @@
-package org.apeiron.kernel.config.dbmigrations;
+package org.apeiron.kernel.autoconfiguration.dbmigrations;
 
 import io.mongock.api.annotations.ChangeUnit;
 import io.mongock.api.annotations.Execution;
 import io.mongock.api.annotations.RollbackExecution;
-import org.apeiron.kernel.domain.Revision;
+import org.apeiron.kernel.domain.Solicitud;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-@ChangeUnit(id = "add-revision-index", order = "011")
-public class RevisionIndexCreation extends AbstractIndexCreation {
+@ChangeUnit(id = "add-solicitud-index", order = "005")
+public class SolicitudIndexCreation extends AbstractIndexCreation {
 
-    public RevisionIndexCreation(MongoTemplate mongoTemplate) {
-        super(mongoTemplate, Revision.class);
+    public SolicitudIndexCreation(MongoTemplate mongoTemplate) {
+        super(mongoTemplate, Solicitud.class);
     }
 
     @Execution
     public void changeSet() {
-        addSimpleIdx(false, "evaluacion_id");
+        addSimpleIdx(false, "solucionId");
+        addSimpleIdx(false, "usuario");
         addSimpleIdx(false, "estado");
-        addSimpleIdx(false, "revisor.revisor_id");
+
+        // Para paginados
         addSimpleIdx(false, "created_date");
         addComposeIndex(false, "_id", "created_date");
     }

@@ -1,9 +1,9 @@
 package org.apeiron.kernel.service.rules;
 
+import org.apeiron.kernel.autoconfiguration.Constants.RuleTag;
 import org.apeiron.kernel.commons.annotations.ApeironRule;
 import org.apeiron.kernel.commons.annotations.Condition;
 import org.apeiron.kernel.commons.annotations.Tags;
-import org.apeiron.kernel.config.Constants.RuleTag;
 import org.apeiron.kernel.security.SecurityUtils;
 import org.apeiron.kernel.service.dto.ContextDTO;
 import org.apeiron.kernel.service.validator.IRule;

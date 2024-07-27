@@ -1,19 +1,19 @@
-package org.apeiron.kernel.config.dbmigrations;
+package org.apeiron.kernel.autoconfiguration.dbmigrations;
 
 import io.mongock.api.annotations.ChangeUnit;
 import io.mongock.api.annotations.Execution;
 import io.mongock.api.annotations.RollbackExecution;
-import org.apeiron.kernel.domain.Comentario;
+import org.apeiron.kernel.domain.bitacora.Bitacora;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 /**
- * ComentarioIndexCreation
+ * BitacoraIndexCreation
  */
-@ChangeUnit(id = "add-comentario-index", order = "008")
-public class ComentarioIndexCreation extends AbstractIndexCreation {
+@ChangeUnit(id = "add-bitacora-index", order = "007")
+public class BitacoraIndexCreation extends AbstractIndexCreation {
 
-    public ComentarioIndexCreation(MongoTemplate mongoTemplate) {
-        super(mongoTemplate, Comentario.class);
+    public BitacoraIndexCreation(MongoTemplate mongoTemplate) {
+        super(mongoTemplate, Bitacora.class);
     }
 
     @Execution
