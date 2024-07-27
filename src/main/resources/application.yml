@@ -12,3 +12,7 @@ kernel:
     password: defaultpassword
     starttls: true
     from: from@default
+
+mongock:
+  migration-scan-package:
+    - org.apeiron.kernel.autoconfiguration.dbmigrations
