@@ -31,11 +31,14 @@ public interface RevisionRepository extends ReactiveMongoRepository<Revision, St
     /**
      * Get the "Revision" revision.
      *
-     * @param idSolicitud and revisorId and evaluacionId the
+     * @param solicitudId and revisorId and evaluacionId the
      *                    solicitudResumen.solicitudId and
      *                    revisor.revisorId and evaluacionId of the revision to
      *                    retrieve.
-     * @return the entity.
+     * @param revisorId the revisorId
+     * @param evaluacionId the evaluacionId
+     * 
+     * @return the revision finded
      */
     @Query("{ 'solicitudResumen.solicitudId': ?0, 'revisor.revisorId': ?1, 'evaluacion_id': ?2 }")
     Mono<Revision> findBysolicitudIdAndRevisorId(String solicitudId, String revisorId, String evaluacionId);
@@ -43,10 +46,11 @@ public interface RevisionRepository extends ReactiveMongoRepository<Revision, St
     /**
      * Get the "Revision" revision.
      *
-     * @param idSolicitud and evaluacionId the
+     * @param solicitudId and evaluacionId the
      *                    solicitudResumen.solicitudId and
      *                    evaluacionId of the revision to
      *                    retrieve.
+     * @param evaluacionId the evaluacionId
      * @return the entity.
      */
     @Query("{ 'solicitudResumen.solicitudId': ?0, 'evaluacion_id': ?1 }")

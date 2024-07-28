@@ -2,10 +2,11 @@ package org.apeiron.kernel.service;
 
 import org.jobrunr.jobs.JobId;
 import org.jobrunr.jobs.lambdas.JobLambda;
+import org.jobrunr.jobs.lambdas.JobRunrJob;
 
 /**
  *
- * Intefaz que describe el servicio JobService para administrar {@link Jobs}.
+ * Intefaz que describe el servicio JobService para administrar {@link JobRunrJob}.
  *
  * Esta implementación se dede utilizar para poder calendarizar tareas que se
  * tengan que ejecutar en un flujo diferente al stream actual y con la finalidad
@@ -24,7 +25,7 @@ public interface JobService {
      * Ejecuta un método en segundo plano tipo scheduler-cron.
      *
      * @param cron Expresión de concurrencia
-     * @param JobLambda Lambda a ejecutar.
+     * @param job el job a ejecutar.
      * @return ID del Job ejecutado.
      */
     String enqueueCron(String cron, JobLambda job);

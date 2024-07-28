@@ -172,9 +172,9 @@ public class SolicitudResource {
      * {@code PUT  /solicitudes/aprobacionMasivaAcreditacion/} : Updates an existing
      * solicitud and send to formalizacion.
      *
-     * @param Filtro.idsSolicitud array id solicitud .
+     * @param transiciones list of transitions
      *
-     * @return the Mono<ResponseEntity<Void>> with status {@code 200 (OK)}
+     * @return the response with status {@code 200 (OK)}
      *         or with status {@code 404 (Not found)} if the
      *         solicitudDto can't find.
      */

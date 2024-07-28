@@ -14,7 +14,7 @@ import org.apeiron.kernel.service.validator.IRule;
 /**
  * Clase encargada de leer y procesar las anotaciones de {@link ApeironAction},
  * {@link ApeironRule}, {@link Condition}, {@link Tags},
- * {@link java.lang.deprecated}
+ * {@link java.lang.Deprecated}
  *
  * Las anotaciones son procesadas y convertidas a objectos de tipo
  * {@link RuleDto}, {@link ActionDto}

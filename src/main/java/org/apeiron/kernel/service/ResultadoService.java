@@ -7,7 +7,7 @@ public interface ResultadoService {
     /**
      * Save a Resultado.
      *
-     * @param ResultadoDto the entity to save.
+     * @param resultadoDto the entity to save.
      * @return the persisted entity.
      */
     Mono<ResultadoDto> save(ResultadoDto resultadoDto);

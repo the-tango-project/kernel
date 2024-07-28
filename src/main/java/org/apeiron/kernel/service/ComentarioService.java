@@ -48,7 +48,7 @@ public class ComentarioService {
     /**
      * Save a comentario.
      *
-     * @param comentarioDto the entity to save.
+     * @param comentario the entity to save.
      * @return the persisted entity.
      */
     public Disposable saveAsynchronous(ComentarioDto comentario) {

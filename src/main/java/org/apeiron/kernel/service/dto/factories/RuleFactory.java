@@ -24,8 +24,7 @@ public class RuleFactory {
      * ápeiron
      *
      * @param action
-     * @return List<RuleDto> Regresa la regla invalidTransitionByAction como una
-     *         lista
+     * @return la lista de objectos RuleDto
      */
     public static List<RuleDto> invalidTransitionByActionAsList(TipoAccion action) {
         return Arrays.asList(RuleFactory.invalidTransitionByAction(action));

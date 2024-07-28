@@ -96,10 +96,12 @@ public interface RevisionService {
     /**
      * Get the "RevisionDto" revision.
      *
-     * @param idSolicitud and revisorId and evaluacionId the
+     * @param solicitudId the solicitudId
+     * @param revisorId and revisorId and evaluacionId the
      *                    solicitudResumen.solicitudId and
      *                    revisor.revisorId and evaluacionId of the revisionDto to
      *                    retrieve.
+     * @param evaluacionId the evaluacionId
      * @return the entity.
      */
     public Mono<RevisionDto> findBysolicitudIdAndRevisorId(String solicitudId, String revisorId, String evaluacionId);
@@ -107,7 +109,8 @@ public interface RevisionService {
     /**
      * Get the "RevisionDto" revision.
      *
-     * @param idSolicitud and revisorId and evaluacionId the
+     * @param solicitudId the solicitudId
+     * @param evaluacionId and revisorId and evaluacionId the
      *                    solicitudResumen.solicitudId and
      *                    revisor.revisorId and evaluacionId of the revisionDto to
      *                    retrieve.
@@ -118,11 +121,8 @@ public interface RevisionService {
     /**
      * Get the "RevisionDto" revision.
      *
-     * @param evaluacionId and revisorId the solicitudResumen.solicitudId and
-     *                     revisor.revisorId of the revisionDto to retrieve.
-     * @param revisorId    and revisorId the solicitudResumen.solicitudId and
-     *                     revisor.revisorId of the revisionDto to retrieve.
-     * @return the entity.
+     * @param filtro the filter to find a revisor
+     * @return the revisorDto entity
      */
     Mono<RevisionDto> findByEvaluacionIdAndRevisorId(FiltroRevision filtro);
 }

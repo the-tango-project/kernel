@@ -11,7 +11,7 @@ import org.apeiron.kernel.domain.enumeration.TipoAccion;
 import org.apeiron.kernel.domain.enumeration.TipoMovimiento;
 
 /**
- * A Dto for the {@link mx.conacyt.domain.Documento} entity.
+ * A Dto for the {@link org.apeiron.kernel.domain.Documento} entity.
  */
 @Data
 @NoArgsConstructor

@@ -255,7 +255,7 @@ public class RevisionResource {
      * {@code GET  /revisiones/:evaluacionId/:revisorId} : get the "evaluacionId"
      * and "revisorId" revision.
      *
-     * @param id the id of the revisionDto to retrieve.
+     * @param filtro the filtro to retrieve information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
      *         the revisionDto, or with status {@code 404 (Not Found)}.
      */
@@ -293,7 +293,7 @@ public class RevisionResource {
      * revisor.revisorId and evaluacionIdof the revisionDto to retrieve.
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-     *         the revisionDto, or with status {@code 404 (Not Found)}.
+     *         the revisionDto, or with status {@code 404 (Not Found)}
      */
     @GetMapping("/revisiones/obtener-por-solicitud-revisor/{solicitudId}")
     public Mono<ResponseEntity<RevisionDto>> getRevisionBySolicitudIdAndRevisorId(
@@ -309,9 +309,10 @@ public class RevisionResource {
     /**
      * {@code GET  /revisiones} : get all the revisiones.
      *
-     * @param idSolicitud and revisorId and evaluacionId the
+     * @param solicitudId and revisorId and evaluacionId the
      *                    solicitudResumen.solicitudId and
      *                    revisor.revisorId and evaluacionIdof the revisionDto
+     * @param evaluacionId the evaluacionId to search
      * @param request     a {@link ServerHttpRequest} request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
      *         of revisiones in body.

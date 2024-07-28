@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * A Dto for the {@link mx.conacyt.domain.Documento} entity.
+ * A Dto for the {@link org.apeiron.kernel.domain.Documento} entity.
  */
 @Data
 @NoArgsConstructor

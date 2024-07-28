@@ -20,7 +20,7 @@ public class PropertyHelper {
      * Obtiene el valor de un map dada una key
      *
      * @param obj
-     * @param key
+     * @param path
      * @return Object
      */
     @SuppressWarnings("unchecked")
@@ -42,7 +42,7 @@ public class PropertyHelper {
      * una fecha y la convierte a un objeto de tipo LocalDate
      *
      * @param obj
-     * @param key
+     * @param path
      * @return LocalDate
      */
     public static LocalDate getAsLocalDate(Object obj, String path) {
@@ -57,7 +57,7 @@ public class PropertyHelper {
      * Obtiene el valor de un map dada una key y lo convriete a string
      *
      * @param obj
-     * @param key
+     * @param path
      * @return String
      */
     public static String getAsString(Object obj, String path) {
@@ -70,7 +70,7 @@ public class PropertyHelper {
      * de la propieda viene null, entonces se regresa una cadena vacía
      *
      * @param obj
-     * @param key
+     * @param path
      * @return String
      */
     public static String getAsNotNullString(Object obj, String path) {
@@ -82,7 +82,7 @@ public class PropertyHelper {
      * Obtiene el valor de un map y lo regresa como Boolean
      *
      * @param obj
-     * @param key
+     * @param path
      * @return Boolean
      */
     public static Boolean getAsBoolean(Object obj, String path) {
@@ -94,7 +94,7 @@ public class PropertyHelper {
      * Obtiene el valor de un map y lo regresa como Integer
      *
      * @param obj
-     * @param key
+     * @param path
      * @return Integer
      */
     public static Integer getAsInteger(Object obj, String path) {
@@ -106,7 +106,7 @@ public class PropertyHelper {
      * Obtiene el valor de un map dada una key
      *
      * @param obj
-     * @param key
+     * @param path
      * @return
      */
     public static List<Object> getAsList(Object obj, String path) {

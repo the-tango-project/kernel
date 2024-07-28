@@ -13,15 +13,18 @@ public class FiltroHelper {
 
     static {
         List<String> defaultFilters = Arrays.asList("sort", "size", "page");
-        propertiesToExclude = Arrays.stream(Filtro.class.getDeclaredFields()).map(Field::getName).collect(Collectors.toList());
+        propertiesToExclude = Arrays.stream(Filtro.class.getDeclaredFields()).map(Field::getName)
+                .collect(Collectors.toList());
         propertiesToExclude.addAll(defaultFilters);
     }
 
-    private FiltroHelper() {}
+    private FiltroHelper() {
+    }
 
     /**
      * Método que mapea los Query Params diferentes a los definidos en la clase
-     * Filtro y se los agrega en al propiedad <additionalFilters> de tal manera que
+     * Filtro y se los agrega en al propiedad
+     * {@link Filtro#setAdditionalFilters(Map)} de tal manera que
      * se puedan procesar como filtros dinámicos dentro de la clas QueryHelper.
      *
      * @param filtro        con las propiedades base para filtrar una solicitud

@@ -21,7 +21,7 @@ public interface Validator {
      * y ejecución de postactions
      *
      * @param contexto
-     * @return Mono<Result> resultado del proceso de validación
+     * @return El resultado del proceso de validación
      */
     public Mono<Result> validate(@NotNull ContextDto contexto);
 
@@ -32,7 +32,7 @@ public interface Validator {
      * y sólo aplicada para un formulario
      *
      * @param contexto
-     * @return Mono<Result> resultado del proceso de validación
+     * @return El resultado del proceso de validación
      */
     public Mono<Result> validateForm(@NotNull ContextDto contexto);
 }

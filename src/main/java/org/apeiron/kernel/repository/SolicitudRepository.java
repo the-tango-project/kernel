@@ -69,66 +69,10 @@ public interface SolicitudRepository
      *
      * @param idInstitucion El ID de la institución.
      * @param idDependencia El ID de la dependencia.
-     * @return Un Mono<Boolean> que indica si existen solicitudes para la
+     * @return Indica si existen solicitudes para la
      *         dependencia especificada.
      */
     @Query(value = "{ 'properties.institucionActualSubSeccion.idInstitucion': ?0, 'properties.institucionActualSubSeccion.idDependencia': ?1, 'estado': { $nin: ['CANCELADA', 'FORMALIZADA'] } }", exists = true)
     Mono<Boolean> existeSolicitudesPorDependencia(Long idInstitucion, Long idDependencia);
 
-    /**
-     * Comprueba si existen solicitudes asociadas a la subdependencia dada que no
-     * están en el estado 'CANCELADA' o 'FORMALIZADA'.
-     *
-     * @param idInstitucion    El ID de la institución.
-     * @param idDependencia    El ID de la dependencia.
-     * @param idSubDependencia El ID de la subdependencia.
-     * @return Un Mono<Boolean> que indica si existen solicitudes para la
-     *         subdependencia especificada.
-     */
-    @Query(value = "{ 'properties.institucionActualSubSeccion.idInstitucion': ?0, 'properties.institucionActualSubSeccion.idDependencia': ?1, 'properties.institucionActualSubSeccion.idSubDependencia': ?2, 'estado': { $nin: ['CANCELADA', 'FORMALIZADA'] } }", exists = true)
-    Mono<Boolean> existeSolicitudesPorSubDependencia(Long idInstitucion, Long idDependencia, Long idSubDependencia);
-
-    /**
-     * Comprueba si existen solicitudes asociadas al departamento dado que no están
-     * en el estado 'CANCELADA' o 'FORMALIZADA'.
-     *
-     * @param idInstitucion    El ID de la institución.
-     * @param idDependencia    El ID de la dependencia.
-     * @param idSubDependencia El ID de la subdependencia.
-     * @param idDepartamento   El ID del departamento.
-     * @return Un Mono<Boolean> que indica si existen solicitudes para el
-     *         departamento especificado.
-     */
-    @Query(value = "{ 'properties.institucionActualSubSeccion.idInstitucion': ?0, 'properties.institucionActualSubSeccion.idDependencia': ?1, 'properties.institucionActualSubSeccion.idSubDependencia': ?2, 'properties.institucionActualSubSeccion.idDepartamento': ?3, 'estado': { $nin: ['CANCELADA', 'FORMALIZADA'] } }", exists = true)
-    Mono<Boolean> existeSolicitudesPorDepartamento(Long idInstitucion, Long idDependencia, Long idSubDependencia,
-            Long idDepartamento);
-
-    /**
-     * Busca todas la solicitudes pendientes de enviar a expedientes, que sean de
-     * tipo Reclasificacion de ayudantes y que sean menor o igual a la fecha
-     * 
-     * @param date Filtro fecha
-     * @return Solicitudes pendientes de enviar a expedientes
-     */
-    @Aggregation(pipeline = {
-            "{ $match: { $and: [ {'properties.expediente': false }, {'properties.tipoMovimiento': 'Reclasificación ayudantes'} ] } }",
-            "{ $addFields: { fechaEfectivaReclasificacion: { '$convert': { 'input': '$properties.fechaEfectivaReclasificacion', 'to': 'date' } } } }",
-            "{ $match: { fechaEfectivaReclasificacion: { $lte: ?0 } } }",
-    })
-    Flux<Solicitud> findAllSolicitudesReclasificadasPendienteEnviarExp(Instant date);
-
-    /**
-     * Busca todas la solicitudes de ayudantias pendientes de terminar por solucion
-     * id, estado formalizada y no vigentes
-     * 
-     * @param solucionId Id de la solución
-     * @param date       Filtro fecha
-     * @return Solicitudes pendientes de cerrar
-     */
-    @Aggregation(pipeline = {
-            "{ $match: { $and: [ {'solucionId': ?0 }, {'estado': 'FORMALIZADA'} ] } }",
-            "{ $addFields: { fecha_fin: { '$convert': { 'input': '$properties.fecha_fin', 'to': 'date' } } } }",
-            "{ $match: { fecha_fin: { $lt: ?1 } } }",
-    })
-    Flux<Solicitud> findAllSolicitudesNoVigentes(String solucionId, Instant date);
 }

@@ -132,7 +132,7 @@ public interface SolucionService {
     /**
      * Save a definicionEvalucionDto.
      *
-     * @param DefinicionEvaluacionDto the entity to save.
+     * @param definicionDto the entity to save.
      * @return the persisted entity.
      */
     Mono<DefinicionEvaluacionDto> saveDefinicionEvaluacion(DefinicionEvaluacionDto definicionDto);

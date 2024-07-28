@@ -20,7 +20,7 @@ public interface IAction extends TransitionElement {
      * {@link Solicitud} se encuentra validado
      *
      * @param context para ejecutar una acción
-     * @return Mono<Void>
+     * @return Mono without any else
      */
     Mono<Void> execute(ContextDto context);
 }

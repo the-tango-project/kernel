@@ -290,8 +290,8 @@ public class UserService {
 
     /**
      * Return new user
-     * @param User
-     * @return Mono<User>
+     * @param user
+     * @return El usuaro actualizado o guardado
      */
     public Mono<User> saveUserOrUpdateAutorities(User user) {
         return userRepository
@@ -304,8 +304,10 @@ public class UserService {
 
     /**
      * Return Remove autorities
-     * @param User
-     * @return Mono<User>
+     * 
+     * @param user
+     * @param authoritiesToRemove
+     * @return El usuario con las autoridades removidas
      */
     public Mono<User> removeAuthorities(User user, Set<Authority> authoritiesToRemove) {
         return userRepository

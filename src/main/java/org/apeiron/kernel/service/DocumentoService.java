@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Service Interface for managing {@link mx.conacyt.domain.Documento}.
+ * Service Interface for managing {@link org.apeiron.kernel.domain.Documento}.
  */
 public interface DocumentoService {
     /**

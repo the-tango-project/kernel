@@ -19,8 +19,6 @@ public class Argument implements Serializable {
     /**
      * Tipo de argumento. Como valor predeterminado se dice que un
      * argumento es de tipo {@link ArgumentType#STRING}
-     *
-     * @return El tipo de argumento
      */
     @Field("type")
     private ArgumentType type;

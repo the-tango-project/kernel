@@ -66,7 +66,8 @@ public class PublicUserResource {
      * {@code PUT /users/{login}/authorities} : update user authorities
      *
      * @param request  a {@link ServerHttpRequest} request.
-     * @param pageable the pagination information.
+     * @param login the login of the user
+     * @param authorities the list of autorities
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
      *         all users.
      */

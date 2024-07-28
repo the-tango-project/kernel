@@ -160,7 +160,7 @@ public class SolicitudServiceImpl implements SolicitudService {
      * 
      * @param solucionId
      * @param pageable
-     * @return Flux<SolicitudDto>
+     * @return La solicitudDto
      */
     @Override
     public Flux<SolicitudDto> findAllByUsuarioAndSolucionId(String solucionId, Pageable pageable) {
@@ -179,7 +179,7 @@ public class SolicitudServiceImpl implements SolicitudService {
      * 
      * @param solucionIds
      * @param pageable
-     * @return Flux<SolicitudDto>
+     * @return La solicitudDto
      */
     @Override
     public Flux<SolicitudDto> findAllByAllSoluciones(List<String> solucionIds, Pageable pageable) {

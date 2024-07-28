@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Service Interface for managing {@link mx.conacyt.domain.Bitacora}.
+ * Service Interface for managing {@link org.apeiron.kernel.domain.bitacora.Bitacora}.
  */
 public interface BitacoraService {
     /**
@@ -23,8 +23,8 @@ public interface BitacoraService {
     /**
      * Save a bitacora.
      *
-     * @param contexto the entity to save.
-     * @return the persisted entity.
+     * @param  bitacoraDto to save.
+     * @return Disposable the disposable object
      */
     Disposable saveAsynchronous(BitacoraDto bitacoraDto);
 

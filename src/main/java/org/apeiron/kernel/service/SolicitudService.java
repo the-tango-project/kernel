@@ -92,9 +92,9 @@ public interface SolicitudService {
     /**
      * Consulta la lista de solicitudes asociadas a solucionId y usuario logueado
      * 
-     * @param solucionId
+     * @param solucionIds
      * @param pageable
-     * @return Flux<SolicitudDto>
+     * @return La solicitudDto
      */
     Flux<SolicitudDto> findAllByUsuarioAndSolucionId(String solucionIds, Pageable pageable);
 
@@ -104,7 +104,7 @@ public interface SolicitudService {
      * 
      * @param solucionIds
      * @param pageable
-     * @return Flux<SolicitudDto>
+     * @return La solicitudDto
      */
     Flux<SolicitudDto> findAllByAllSoluciones(List<String> solucionIds, Pageable pageable);
 
@@ -112,15 +112,15 @@ public interface SolicitudService {
      * Regresa un true si encuentra una solicitud que cumpla con los filtros
      * 
      * @param filtro filtro de busqueda
-     * @return Mono<Boolean>
+     * @return true if exist, otherwise false
      */
     Mono<Boolean> exists(Filtro filtro);
 
     /**
      * Elimina la solicitud por id
      *
-     * @param El id de la solicitud
-     * @return Mono<Void>
+     * @param id de la solicitud
+     * @return no regresa nada
      */
     Mono<Void> delete(String id);
 }

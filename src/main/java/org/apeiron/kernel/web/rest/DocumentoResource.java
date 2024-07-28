@@ -25,7 +25,7 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.reactive.ResponseUtil;
 
 /**
- * REST controller for managing {@link mx.conacyt.domain.Documento}.
+ * REST controller for managing {@link org.apeiron.kernel.domain.Documento}.
  */
 @RestController
 @RequestMapping("/api")

@@ -51,8 +51,8 @@ public class ParseUtils {
      * En caso de que no sea posible obtener un objeto de tipo Instant, este
      * método regresa null
      *
-     * @param dateString
-     * @return objeto Instant
+     * @param valueAsString
+     * @return Instant la fecha
      */
     public static Instant parseInstantOrNull(String valueAsString) {
         if (isNull(valueAsString)) {
@@ -75,8 +75,8 @@ public class ParseUtils {
      * En caso de que no sea posible obtener un objeto de tipo Integer, este
      * método regresa null
      *
-     * @param dateString
-     * @return objeto Integer
+     * @param valueAsString
+     * @return Integer el entero
      */
     public static Integer parseIntegerOrNull(String valueAsString) {
         if (isNull(valueAsString)) {
@@ -99,8 +99,8 @@ public class ParseUtils {
      * En caso de que no sea posible obtener un objeto de tipo Float, este
      * método regresa null
      *
-     * @param dateString
-     * @return objeto Float
+     * @param valueAsString
+     * @return Float el Float
      */
     public static Float parseFloatOrNull(String valueAsString) {
         if (isNull(valueAsString)) {

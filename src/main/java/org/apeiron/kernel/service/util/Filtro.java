@@ -66,8 +66,8 @@ public class Filtro implements Serializable {
     private Boolean becaLiberada;
 
     /**
-     * Filtros adicionales en la forma de <clave, valor>. La clave puede tomar
-     * parametros de la forma <properties.programa.clave> que representan una ruta a
+     * Filtros adicionales en la forma de {@code [clave, valor]}. La clave puede tomar
+     * parametros de la forma {@code properties.programa.clave} que representan una ruta a
      * una propiedad dentor de la colección de Soluciones. Los valores siempre son
      * de tipo String. Esto filtros se configuran desde la solución y son dinámicos,
      * por lo tanto se deberá de considerar su indexación por separado

@@ -7,12 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apeiron.kernel.service.JobService;
 import org.jobrunr.jobs.JobId;
 import org.jobrunr.jobs.lambdas.JobLambda;
+import org.jobrunr.jobs.lambdas.JobRunrJob;
 import org.jobrunr.scheduling.JobScheduler;
 import org.springframework.stereotype.Service;
 
 /**
  *
- * Implementación del servicio JobService para administrar {@link Jobs}
+ * Implementación del servicio JobService para administrar {@link JobRunrJob}
  *
  */
 @Service

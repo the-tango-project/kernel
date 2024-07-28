@@ -16,7 +16,7 @@ public interface ProcesoService {
      * posaction y notificaciones definididas en la solución
      *
      * @param transicion the transition context
-     * @return Mono<SolicitudDto>
+     * @return the Mono object of {@link SolicitudDto}
      */
     Mono<SolicitudDto> doTransicion(TransicionContextDto transicion);
 
@@ -27,8 +27,8 @@ public interface ProcesoService {
      * Este proceso se ejecuta en segundo plano dado que es una operación para
      * varios registros
      *
-     * @param transicion the transition context
-     * @return Mono<SolicitudDto>
+     * @param transicions the transition context
+     * @return the Mono object of {@link SolicitudDto}
      */
     Mono<BulkResponseDto> doMultipleTransicions(List<TransicionContextDto> transicions);
 
@@ -40,7 +40,7 @@ public interface ProcesoService {
      * varios registros
      *
      * @param solicitudes las solicitudes
-     * @return Mono<SolicitudDto>
+     * @return the Mono object of {@link SolicitudDto}
      */
     Mono<BulkResponseDto> doMultipleCreations(List<SolicitudDto> solicitudes);
 
@@ -52,7 +52,7 @@ public interface ProcesoService {
      *
      * @param solicitud la solicitud
      * @param formId    id del formulario
-     * @return Mono<SolicitudDto>
+     * @return the Mono object of {@link SolicitudDto}
      */
     Mono<SolicitudDto> saveForm(SolicitudDto solicitud, String formId);
 }

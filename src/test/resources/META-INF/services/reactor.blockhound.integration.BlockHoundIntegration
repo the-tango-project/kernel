@@ -1,1 +1,1 @@
-com.mycompany.myapp.config.JHipsterBlockHoundIntegration
+org.apeiron.kernel.config.JHipsterBlockHoundIntegration

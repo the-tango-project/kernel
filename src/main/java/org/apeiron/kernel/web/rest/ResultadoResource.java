@@ -43,7 +43,7 @@ public class ResultadoResource {
      * {@code PUT  /Resultados/:id} : Updates an existing Resultado.
      *
      * @param id           the id of the ResultadoDto to save.
-     * @param ResultadoDto the ResultadoDto to update.
+     * @param resultadoDto the ResultadoDto to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
      *         the updated ResultadoDto,
      *         or with status {@code 400 (Bad Request)} if the ResultadoDto is not

@@ -9,7 +9,7 @@ import org.zalando.problem.Status;
  * <p>
  * Si no se agrega una regla explícita en el {@link ExceptionTranslator},
  * será traducida a un {@link Problem} del tipo
- * {@link Status.CONFLICT}.
+ * {@link Status#CONFLICT}.
  *
  * @see Problem
  * @see Status
