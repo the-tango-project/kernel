@@ -23,8 +23,8 @@ public class FiltroHelper {
 
     /**
      * Método que mapea los Query Params diferentes a los definidos en la clase
-     * Filtro y se los agrega en al propiedad
-     * {@link Filtro#setAdditionalFilters(Map)} de tal manera que
+     * Filtro y se los agrega en al propiedad {@code filtro.additionalFilters} de
+     * tal manera que
      * se puedan procesar como filtros dinámicos dentro de la clas QueryHelper.
      *
      * @param filtro        con las propiedades base para filtrar una solicitud
