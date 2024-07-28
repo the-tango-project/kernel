@@ -20,10 +20,11 @@ public abstract class AbstractExtensibleDto implements Serializable {
     private transient Map<String, Object> properties = new HashMap<>();
 
     /**
-     * Método utilizado para cualquier propiedad que no exista en el modelo original.
+     * Método utilizado para cualquier propiedad que no exista en el modelo
+     * original.
      *
-     * @param key
-     * @param value
+     * @param key   for the map
+     * @param value of the map value
      */
     @JsonAnySetter
     @SuppressWarnings("unchecked")
@@ -38,6 +39,8 @@ public abstract class AbstractExtensibleDto implements Serializable {
     }
 
     /**
+     * Setter method for properties
+     * 
      * @param properties Reemplaza las propiedades con las que tenga el request.
      */
     public void setProperties(Map<String, Object> properties) {
@@ -47,8 +50,10 @@ public abstract class AbstractExtensibleDto implements Serializable {
     }
 
     /**
-     * Método a invocar para recupear las propiedades que no existen en el modelo original.
-     * @return
+     * Método a invocar para recupear las propiedades que no existen en el modelo
+     * original.
+     * 
+     * @return the properties map
      */
     @JsonAnyGetter
     public Map<String, Object> getProperties() {

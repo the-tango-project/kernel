@@ -20,6 +20,7 @@ public class ValidationUtils {
 
     private ValidationUtils() {}
 
+    @SuppressWarnings("unchecked")
     public static <T> boolean isNotEmpy(T element) {
         if (element instanceof Collection) {
             return isNotArrayEmpty((Collection<T>) element);

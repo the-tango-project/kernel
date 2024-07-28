@@ -19,8 +19,6 @@ public abstract class AbstractAuditingEntity<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public abstract T getId();
-
     @Field("created_by")
     private String createdBy;
 
@@ -36,6 +34,13 @@ public abstract class AbstractAuditingEntity<T> implements Serializable {
     private Instant lastModifiedDate = Instant.now();
 
     /**
+     * Getter method for id
+     * 
+     * @return String
+     */
+    public abstract T getId();
+
+    /**
      * Getter for the createdBy property
      * 
      * @return String the createdby
@@ -46,6 +51,8 @@ public abstract class AbstractAuditingEntity<T> implements Serializable {
 
     /**
      * Setter for the createdBy property
+     * 
+     * @param createdBy
      */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
@@ -62,6 +69,8 @@ public abstract class AbstractAuditingEntity<T> implements Serializable {
 
     /**
      * Setter for the createdDate property
+     * 
+     * @param createdDate
      */
     public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
@@ -78,6 +87,8 @@ public abstract class AbstractAuditingEntity<T> implements Serializable {
 
     /**
      * Setter for the lastModifiedBy property
+     * 
+     * @param lastModifiedBy
      */
     public void setLastModifiedBy(String lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
@@ -94,6 +105,8 @@ public abstract class AbstractAuditingEntity<T> implements Serializable {
 
     /**
      * Setter for the lastModifiedDate property
+     * 
+     * @param lastModifiedDate
      */
     public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;

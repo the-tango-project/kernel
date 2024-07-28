@@ -1,7 +1,6 @@
 package org.apeiron.kernel.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import jakarta.validation.constraints.Email;
@@ -19,9 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * FIXME: Ajustar para que esta clase y Persona estén relacionados y unificados
  */
 @org.springframework.data.mongodb.core.mapping.Document(collection = "jhi_user")
-public class User extends AbstractAuditingEntity<String> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class User extends AbstractAuditingEntity<String> {
 
     @Id
     private String id;

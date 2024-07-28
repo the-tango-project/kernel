@@ -52,10 +52,18 @@ public class AdminUserDto implements Serializable {
 
     private Set<String> authorities;
 
+    /**
+     * Default contructor for AdminUserDto
+     */
     public AdminUserDto() {
         // Empty constructor needed for Jackson.
     }
 
+    /**
+     * Constructor with {@link User} parameter.
+     * 
+     * @param user
+     */
     public AdminUserDto(User user) {
         this.id = user.getId();
         this.login = user.getLogin();
@@ -180,18 +188,18 @@ public class AdminUserDto implements Serializable {
     @Override
     public String toString() {
         return "AdminUserDto{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated=" + activated +
-            ", langKey='" + langKey + '\'' +
-            ", createdBy=" + createdBy +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
-            ", authorities=" + authorities +
-            "}";
+                "login='" + login + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", activated=" + activated +
+                ", langKey='" + langKey + '\'' +
+                ", createdBy=" + createdBy +
+                ", createdDate=" + createdDate +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", authorities=" + authorities +
+                "}";
     }
 }

@@ -52,7 +52,6 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
     private static final String MESSAGE_KEY = "message";
     private static final String PATH_KEY = "path";
     private static final String VIOLATIONS_KEY = "violations";
-    private static final String ERROR_GENERAR_PDF_KEY = "errorGeneratingPDF";
 
     @Value("${kernel.clientApp.name}")
     private String applicationName;
@@ -66,6 +65,7 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
     /**
      * Post-process the Problem payload to add the message key for the front-end if needed.
      */
+    @SuppressWarnings("null")
     @Override
     public Mono<ResponseEntity<Problem>> process(@Nullable ResponseEntity<Problem> entity, ServerWebExchange request) {
         if (entity == null) {
