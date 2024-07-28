@@ -1,6 +1,8 @@
 package org.apeiron.kernel.web.rest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.apeiron.kernel.domain.Authority;
 import org.apeiron.kernel.domain.User;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,16 +24,21 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.util.ForwardedHeaderUtils;
+
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import tech.jhipster.web.util.PaginationUtil;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class PublicUserResource {
 
-    private final Logger log = LoggerFactory.getLogger(PublicUserResource.class);
+    private static final List<String> ALLOWED_ORDERED_PROPERTIES = Collections.unmodifiableList(
+        Arrays.asList("id", "login", "firstName", "lastName", "email", "activated", "langKey")
+    );
 
     private final UserService userService;
 
@@ -41,8 +49,9 @@ public class PublicUserResource {
         this.userService = userService;
     }
 
+
     /**
-     * {@code GET /users} : get all users with only the public informations - calling this are allowed for anyone.
+     * {@code GET /users} : get all users with only public information - calling this method is allowed for anyone.
      *
      * @param request a {@link ServerHttpRequest} request.
      * @param pageable the pagination information.
@@ -54,14 +63,22 @@ public class PublicUserResource {
         @org.springdoc.core.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to get all public User names");
+        if (!onlyContainsAllowedProperties(pageable)) {
+            return Mono.just(ResponseEntity.badRequest().build());
+        }
 
         return userService
             .countManagedUsers()
             .map(total -> new PageImpl<>(new ArrayList<>(), pageable, total))
-            .map(page -> PaginationUtil.generatePaginationHttpHeaders(UriComponentsBuilder.fromHttpRequest(request), page))
+            .map(
+                page ->
+                    PaginationUtil.generatePaginationHttpHeaders(
+                        ForwardedHeaderUtils.adaptFromForwardedHeaders(request.getURI(), request.getHeaders()),
+                        page
+                    )
+            )
             .map(headers -> ResponseEntity.ok().headers(headers).body(userService.getAllPublicUsers(pageable)));
     }
-
     /**
      * {@code PUT /users/{login}/authorities} : update user authorities
      *
@@ -90,5 +107,9 @@ public class PublicUserResource {
     @GetMapping("/authorities")
     public Mono<List<String>> getAuthorities() {
         return userService.getAuthorities().collectList();
+    }
+
+    private boolean onlyContainsAllowedProperties(Pageable pageable) {
+        return pageable.getSort().stream().map(Sort.Order::getProperty).allMatch(ALLOWED_ORDERED_PROPERTIES::contains);
     }
 }
