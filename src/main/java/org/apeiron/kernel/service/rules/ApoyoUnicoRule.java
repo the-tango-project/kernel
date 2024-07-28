@@ -14,6 +14,10 @@ import org.apeiron.kernel.service.validator.IRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Mono;
 
+/**
+ * The `ApoyoUnicoRule` class implements the `IRule` interface and validates a
+ * context based on a condition involving a `SolicitudService` instance.
+ */
 @ApeironRule(nombre = "Solicitud única por convocatoria")
 @Condition("Un solicitante sólo puede enviar una solicitud por convocatoria")
 @Tags({ RuleTag.Must.APOYO_UNICO })
@@ -25,8 +29,8 @@ public class ApoyoUnicoRule implements IRule {
     @Override
     public Mono<Boolean> validate(ContextDto context) {
         return solicitudService
-            .findBySolucionIdAndEstado(context.getSolucion().getId(), EstadoSolicitud.ENVIADA)
-            .switchIfEmpty(Mono.just(new SolicitudDto()))
-            .flatMap(solucion -> Mono.just(isNull(solucion.getId())));
+                .findBySolucionIdAndEstado(context.getSolucion().getId(), EstadoSolicitud.ENVIADA)
+                .switchIfEmpty(Mono.just(new SolicitudDto()))
+                .flatMap(solucion -> Mono.just(isNull(solucion.getId())));
     }
 }

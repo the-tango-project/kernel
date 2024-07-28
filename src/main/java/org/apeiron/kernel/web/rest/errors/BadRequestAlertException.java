@@ -25,10 +25,20 @@ public class BadRequestAlertException extends AbstractThrowableProblem {
         this.errorKey = errorKey;
     }
 
+    /**
+     * Getter method for `entityName` property
+     * 
+     * @return String
+     */
     public String getEntityName() {
         return entityName;
     }
 
+    /**
+     * Getter method for `errorKey`
+     * 
+     * @return String
+     */
     public String getErrorKey() {
         return errorKey;
     }

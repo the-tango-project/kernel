@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apeiron.kernel.domain.enumeration.TipoAviso;
 
+/**
+ * The AvisoDto Data transfer Object
+ */
 @Data
 @ToString
 @NoArgsConstructor

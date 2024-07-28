@@ -26,24 +26,32 @@ public class ActionResource {
 
     private final Logger log = LoggerFactory.getLogger(ActionResource.class);
 
-    //FIXME: Quitar del modelo principal
+    // FIXME: Quitar del modelo principal
     @Value("${kernel.clientApp.name}")
     private String applicationName;
 
     @Autowired
     private List<IAction> actions;
 
+    /**
+     * This method `getAllActions` in the `ActionResource` class is a REST endpoint
+     * that handles a GETrequest to retrieve a list of actions. Here's a breakdown
+     * of what it does:
+     * 
+     * @param pageable
+     * @param request
+     * @return the list of actionsDto
+     */
     @GetMapping("/actions")
     public Mono<ResponseEntity<List<ActionDto>>> getAllActions(
-        @org.springdoc.core.annotations.ParameterObject Pageable pageable,
-        ServerHttpRequest request
-    ) {
+            @org.springdoc.core.annotations.ParameterObject Pageable pageable,
+            ServerHttpRequest request) {
         log.debug("REST request to get a page of Actions");
 
         return Flux
-            .fromIterable(actions)
-            .map(AnnotationProcessor::resolveActions)
-            .collectList()
-            .map(action -> ResponseEntity.ok().body(action));
+                .fromIterable(actions)
+                .map(AnnotationProcessor::resolveActions)
+                .collectList()
+                .map(action -> ResponseEntity.ok().body(action));
     }
 }

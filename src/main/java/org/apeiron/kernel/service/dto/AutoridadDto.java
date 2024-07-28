@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apeiron.kernel.domain.enumeration.RolAutoridad;
 
+/**
+ * The AutoridadDto is the Data transfer Object representation of the Autoridad
+ * entity
+ */
 @Data
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -29,7 +33,7 @@ public class AutoridadDto implements Serializable {
 
     private String apellidoPaterno;
 
-    //FIXME: Eliminar y sólo dejar usuarioId o uno más genérico
+    // FIXME: Eliminar y sólo dejar usuarioId o uno más genérico
     private String cvu;
 
     private List<RolAutoridad> roles;

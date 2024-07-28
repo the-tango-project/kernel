@@ -9,6 +9,10 @@ import lombok.ToString;
 import org.apeiron.kernel.domain.enumeration.TipoAviso;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+/**
+ * The Aviso class that represent an information message for the user into the
+ * framework
+ */
 @Data
 @ToString
 @NoArgsConstructor

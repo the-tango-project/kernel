@@ -63,6 +63,11 @@ public enum ArgumentType {
 
     private Class<?> classType;
 
+    /**
+     * Method that return the classType of the argument
+     * 
+     * @return the class of the argument
+     */
     public Class<?> getClassType() {
         return this.classType;
     }

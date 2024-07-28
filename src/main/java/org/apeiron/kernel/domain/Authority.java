@@ -20,14 +20,29 @@ public class Authority implements Serializable {
     @Id
     private String name;
 
+    /**
+     * Getter method for the `name` property
+     * 
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Setter methdo for `name` property
+     * 
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Equals method for the class `Authority`
+     * 
+     * @param o
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -39,16 +54,26 @@ public class Authority implements Serializable {
         return Objects.equals(name, ((Authority) o).name);
     }
 
+    /**
+     * Hashcode method for the class `Authority`
+     * 
+     * @return the hascode of the entity
+     */
     @Override
     public int hashCode() {
         return Objects.hashCode(name);
     }
 
+    /**
+     * The toString method of the `Authority` class
+     * 
+     * @return the string representation of the method
+     */
     // prettier-ignore
     @Override
     public String toString() {
         return "Authority{" +
-            "name='" + name + '\'' +
-            "}";
+                "name='" + name + '\'' +
+                "}";
     }
 }
