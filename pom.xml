@@ -6,7 +6,7 @@
 
 	<groupId>org.apeiron</groupId>
 	<artifactId>apeiron-kernel-starter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>kernel</name>
 	<description>Starter for the Apeiron kernel</description>
 
@@ -22,7 +22,7 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
-		<jobrunr.version>6.3.3</jobrunr.version>
+		<jobrunr.version>7.2.2</jobrunr.version>
 		<mapstruct.version>1.5.2.Final</mapstruct.version>
 		<querydsl.version>5.0.0</querydsl.version>
 		<apache.poi.version>5.2.0</apache.poi.version>
@@ -221,7 +221,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.jobrunr</groupId>
-			<artifactId>jobrunr-spring-boot-2-starter</artifactId>
+			<artifactId>jobrunr-spring-boot-3-starter</artifactId>
 			<version>${jobrunr.version}</version>
 		</dependency>
 		<dependency>
