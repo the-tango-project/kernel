@@ -1,10 +1,10 @@
 package org.apeiron.kernel.service.dto.factories;
 
 import static org.apache.commons.lang3.ObjectUtils.firstNonNull;
-import static org.apeiron.kernel.autoconfiguration.Constants.Html.STRONG_CLOSE;
-import static org.apeiron.kernel.autoconfiguration.Constants.Html.STRONG_OPEN;
-import static org.apeiron.kernel.autoconfiguration.Constants.TextFormat.DOT;
-import static org.apeiron.kernel.autoconfiguration.Constants.TextFormat.SPACE;
+import static org.apeiron.kernel.configuration.Constants.Html.STRONG_CLOSE;
+import static org.apeiron.kernel.configuration.Constants.Html.STRONG_OPEN;
+import static org.apeiron.kernel.configuration.Constants.TextFormat.DOT;
+import static org.apeiron.kernel.configuration.Constants.TextFormat.SPACE;
 
 import java.util.Arrays;
 import java.util.List;

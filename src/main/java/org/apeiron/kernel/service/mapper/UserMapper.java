@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * Normal mappers are generated using MapStruct, this one is hand-coded as MapStruct
  * support is still in beta, and requires a manual step with an IDE.
  */
-@Service
+//@Service
 public class UserMapper {
 
     public List<UserDto> usersToUserDtos(List<User> users) {

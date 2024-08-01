@@ -1,4 +1,4 @@
-package org.apeiron.kernel.autoconfiguration;
+package org.apeiron.kernel.configuration;
 
 import org.simplejavamail.api.mailer.CustomMailer;
 import org.simplejavamail.api.mailer.Mailer;
@@ -17,9 +17,9 @@ import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import tech.jhipster.config.JHipsterConstants;
 
-@Configuration
 @Slf4j
-public class MailAutoconfiguration {
+@Configuration
+public class MailConfiguration {
 
     @Value("${kernel.mail.host}")
     private String mailServerHost;

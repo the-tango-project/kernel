@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apeiron.kernel.autoconfiguration.Constants.RuleTag;
 import org.apeiron.kernel.commons.annotations.ApeironRule;
 import org.apeiron.kernel.commons.annotations.Condition;
 import org.apeiron.kernel.commons.annotations.Tags;
+import org.apeiron.kernel.configuration.Constants.RuleTag;
 import org.apeiron.kernel.service.DocumentoService;
 import org.apeiron.kernel.service.dto.ContextDto;
 import org.apeiron.kernel.service.dto.DocumentoConfiguracionDto;

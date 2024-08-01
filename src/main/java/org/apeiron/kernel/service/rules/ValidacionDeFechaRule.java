@@ -5,12 +5,12 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.apeiron.kernel.autoconfiguration.Constants.RuleTag;
 import org.apeiron.kernel.commons.annotations.ApeironRule;
 import org.apeiron.kernel.commons.annotations.Argument;
 import org.apeiron.kernel.commons.annotations.ArgumentType;
 import org.apeiron.kernel.commons.annotations.Condition;
 import org.apeiron.kernel.commons.annotations.Tags;
+import org.apeiron.kernel.configuration.Constants.RuleTag;
 import org.apeiron.kernel.service.dto.ContextDto;
 import org.apeiron.kernel.service.util.ArgumentUtils;
 import org.apeiron.kernel.service.validator.IRule;

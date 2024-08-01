@@ -1,4 +1,4 @@
-package org.apeiron.kernel.autoconfiguration;
+package org.apeiron.kernel.configuration;
 
 import io.mongock.runner.springboot.EnableMongock;
 import java.util.ArrayList;
@@ -19,25 +19,23 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import tech.jhipster.config.JHipsterConstants;
 import tech.jhipster.domain.util.JSR310DateConverters.DateToZonedDateTimeConverter;
 import tech.jhipster.domain.util.JSR310DateConverters.ZonedDateTimeToDateConverter;
+//@EnableMongock
+//@EnableReactiveMongoRepositories("org.apeiron.kernel.repository")
+//@Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
+//@Import(value = { MongoAutoConfiguration.class, MongoReactiveAutoConfiguration.class })
+public class MongoDbConfiguration {
 
-@Configuration
-@EnableMongock
-@EnableReactiveMongoRepositories("org.apeiron.kernel.repository")
-@Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
-@Import(value = { MongoAutoConfiguration.class, MongoReactiveAutoConfiguration.class })
-public class DatabaseConfiguration {
-
-    @Bean
+    //@Bean
     public ValidatingMongoEventListener validatingMongoEventListener() {
         return new ValidatingMongoEventListener(validator());
     }
 
-    @Bean
+  //  @Bean
     public LocalValidatorFactoryBean validator() {
         return new LocalValidatorFactoryBean();
     }
 
-    @Bean
+    //@Bean
     public MongoCustomConversions customConversions() {
         List<Converter<?, ?>> converters = new ArrayList<>();
         converters.add(DateToZonedDateTimeConverter.INSTANCE);

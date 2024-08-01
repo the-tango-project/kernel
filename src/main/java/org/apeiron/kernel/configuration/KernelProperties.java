@@ -1,12 +1,10 @@
-package org.apeiron.kernel.autoconfiguration;
+package org.apeiron.kernel.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Configuration
 @ConfigurationProperties(prefix = "kernel", ignoreUnknownFields = false)
 @Getter
 public class KernelProperties {
@@ -14,7 +12,6 @@ public class KernelProperties {
     private final ClientApp clientApp = new ClientApp();
 
     private final Mail mail = new Mail();
-
 
     @Setter
     @Getter

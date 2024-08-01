@@ -1,6 +1,6 @@
 package org.apeiron.kernel.service.impl;
 
-import static org.apeiron.kernel.autoconfiguration.Constants.Apeiron.VALID_SOLICITUD_STATE;
+import static org.apeiron.kernel.configuration.Constants.Apeiron.VALID_SOLICITUD_STATE;
 import static org.apeiron.kernel.service.dto.factories.BulkDataFactory.failure;
 import static org.apeiron.kernel.service.dto.factories.BulkDataFactory.success;
 

@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
-import org.apeiron.kernel.autoconfiguration.Constants.AyudantesConstants;
+import org.apeiron.kernel.configuration.Constants.AyudantesConstants;
 
 public class ValidationUtils {
 

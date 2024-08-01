@@ -1,4 +1,4 @@
-package org.apeiron.kernel.autoconfiguration;
+package org.apeiron.kernel.configuration;
 
 import com.mongodb.client.MongoClient;
 import org.jobrunr.jobs.mappers.JobMapper;
@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import tech.jhipster.config.JHipsterConstants;
 
 @Configuration
-public class JobrunrAutoconfiguration {
+public class JobrunrConfiguration {
 
     @Bean
     @Profile("!" + JHipsterConstants.SPRING_PROFILE_PRODUCTION)

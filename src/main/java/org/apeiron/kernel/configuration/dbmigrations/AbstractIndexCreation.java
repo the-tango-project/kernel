@@ -1,4 +1,4 @@
-package org.apeiron.kernel.autoconfiguration.dbmigrations;
+package org.apeiron.kernel.configuration.dbmigrations;
 
 import java.util.HashSet;
 import java.util.Set;

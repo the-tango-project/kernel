@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.apeiron.kernel.autoconfiguration.Constants;
+import org.apeiron.kernel.configuration.Constants;
 import org.apeiron.kernel.domain.Authority;
 import org.apeiron.kernel.domain.User;
 import org.apeiron.kernel.repository.AuthorityRepository;
@@ -31,7 +31,7 @@ import reactor.util.function.Tuple2;
 /**
  * Service class for managing users.
  */
-@Service
+//@Service
 public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);

@@ -2,12 +2,12 @@ package org.apeiron.kernel.service.rules;
 
 import lombok.RequiredArgsConstructor;
 
-import org.apeiron.kernel.autoconfiguration.Constants.RuleTag;
 import org.apeiron.kernel.commons.annotations.ApeironRule;
 import org.apeiron.kernel.commons.annotations.Argument;
 import org.apeiron.kernel.commons.annotations.ArgumentType;
 import org.apeiron.kernel.commons.annotations.Condition;
 import org.apeiron.kernel.commons.annotations.Tags;
+import org.apeiron.kernel.configuration.Constants.RuleTag;
 import org.apeiron.kernel.service.dto.ContextDto;
 import org.apeiron.kernel.service.validator.IRule;
 import reactor.core.publisher.Mono;

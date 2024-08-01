@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import jakarta.validation.constraints.*;
 
-import org.apeiron.kernel.autoconfiguration.Constants;
+import org.apeiron.kernel.configuration.Constants;
 import org.apeiron.kernel.domain.Authority;
 import org.apeiron.kernel.domain.User;
 

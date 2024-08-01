@@ -1,7 +1,7 @@
 package org.apeiron.kernel.utils;
 
 import static java.util.Objects.isNull;
-import static org.apeiron.kernel.autoconfiguration.Constants.Apeiron.DATE_FORMATTER;
+import static org.apeiron.kernel.configuration.Constants.Apeiron.DATE_FORMATTER;
 
 import java.time.Instant;
 import java.time.LocalDate;

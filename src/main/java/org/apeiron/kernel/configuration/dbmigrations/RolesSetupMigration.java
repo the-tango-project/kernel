@@ -1,4 +1,4 @@
-package org.apeiron.kernel.autoconfiguration.dbmigrations;
+package org.apeiron.kernel.configuration.dbmigrations;
 
 import static org.apeiron.kernel.security.AuthoritiesConstants.INNOVADOR;
 import static org.apeiron.kernel.security.AuthoritiesConstants.MODELADOR;

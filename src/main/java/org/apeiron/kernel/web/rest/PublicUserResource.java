@@ -31,8 +31,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import tech.jhipster.web.util.PaginationUtil;
 
-@RestController
-@RequestMapping("/api")
+//@RestController
+//@RequestMapping("/api")
 @Slf4j
 public class PublicUserResource {
 
