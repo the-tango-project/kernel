@@ -12,12 +12,17 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import reactor.core.publisher.Mono;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 
 /**
  * Utility class for Spring Security.
  * FIXME: Refactorizar para que no dependa del cvu y otros propiedades
  */
 public final class SecurityUtils {
+
+    public static final MacAlgorithm JWT_ALGORITHM = MacAlgorithm.HS512;
+
+    public static final String AUTHORITIES_KEY = "auth";
 
     public static final String CLAIMS_NAMESPACE = "https://www.jhipster.tech/";
     public static final String CLAIMS_NAMESPACE_ROLES = CLAIMS_NAMESPACE + "roles";
@@ -43,24 +48,12 @@ public final class SecurityUtils {
     private static String extractPrincipal(Authentication authentication) {
         if (authentication == null) {
             return null;
-        } else if (authentication.getPrincipal() instanceof UserDetails) {
-            UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
+        } else if (authentication.getPrincipal() instanceof UserDetails springSecurityUser) {
             return springSecurityUser.getUsername();
-        } else if (authentication instanceof JwtAuthenticationToken) {
-            return (String) ((JwtAuthenticationToken) authentication).getToken().getClaims()
-                    .get(PREFERRED_USERNAME_KEY);
-        } else if (authentication.getPrincipal() instanceof Jwt) {
-            Map<String, Object> claims = ((Jwt) authentication.getPrincipal()).getClaims();
-            if (claims.containsKey(PREFERRED_USERNAME_KEY)) {
-                return (String) claims.get(PREFERRED_USERNAME_KEY);
-            }
-        } else if (authentication.getPrincipal() instanceof DefaultOidcUser) {
-            Map<String, Object> attributes = ((DefaultOidcUser) authentication.getPrincipal()).getAttributes();
-            if (attributes.containsKey(PREFERRED_USERNAME_KEY)) {
-                return (String) attributes.get(PREFERRED_USERNAME_KEY);
-            }
-        } else if (authentication.getPrincipal() instanceof String) {
-            return (String) authentication.getPrincipal();
+        } else if (authentication.getPrincipal() instanceof Jwt jwt) {
+            return jwt.getSubject();
+        } else if (authentication.getPrincipal() instanceof String s) {
+            return s;
         }
         return null;
     }

@@ -29,6 +29,11 @@ public class Authority implements Serializable {
         return name;
     }
 
+    public Authority name(String name) {
+        this.setName(name);
+        return this;
+    }
+
     /**
      * Setter methdo for `name` property
      * 
@@ -51,7 +56,7 @@ public class Authority implements Serializable {
         if (!(o instanceof Authority)) {
             return false;
         }
-        return Objects.equals(name, ((Authority) o).name);
+        return getName() != null && getName().equals(((Authority) o).getName());
     }
 
     /**

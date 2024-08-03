@@ -10,6 +10,8 @@ import static org.apeiron.kernel.configuration.Constants.SolicitanteConstants.DE
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+
+import org.apeiron.kernel.domain.User;
 import org.apeiron.kernel.service.NotificacionService;
 import org.apeiron.kernel.service.dto.NotificacionContext;
 import org.apeiron.kernel.service.dto.PersonaDto;
@@ -101,5 +103,35 @@ public class DefaultNotificacionServiceImpl implements NotificacionService {
      */
     private List<String> resolveBccs(NotificacionContext context) {
         return context.getNotificacion().getCco();
+    }
+
+    @Override
+    public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sendEmail'");
+    }
+
+    @Override
+    public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sendEmailFromTemplate'");
+    }
+
+    @Override
+    public void sendActivationEmail(User user) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sendActivationEmail'");
+    }
+
+    @Override
+    public void sendCreationEmail(User user) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sendCreationEmail'");
+    }
+
+    @Override
+    public void sendPasswordResetMail(User user) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sendPasswordResetMail'");
     }
 }

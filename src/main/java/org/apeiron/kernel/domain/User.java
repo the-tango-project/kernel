@@ -1,6 +1,8 @@
 package org.apeiron.kernel.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import jakarta.validation.constraints.Email;
@@ -29,6 +31,11 @@ public class User extends AbstractAuditingEntity<String> {
     @Indexed
     private String login;
 
+    @JsonIgnore
+    @NotNull
+    @Size(min = 60, max = 60)
+    private String password;
+
     @Size(max = 200)
     @Field("first_name")
     private String firstName;
@@ -52,6 +59,20 @@ public class User extends AbstractAuditingEntity<String> {
     @Field("image_url")
     private String imageUrl;
 
+    @Size(max = 20)
+    @Field("activation_key")
+    @JsonIgnore
+    private String activationKey;
+
+    @Size(max = 20)
+    @Field("reset_key")
+    @JsonIgnore
+    private String resetKey;
+
+    @Field("reset_date")
+    private Instant resetDate = null;
+
+
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
 
@@ -70,6 +91,14 @@ public class User extends AbstractAuditingEntity<String> {
     // Lowercase the login before saving it in database
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -110,6 +139,30 @@ public class User extends AbstractAuditingEntity<String> {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    public String getActivationKey() {
+        return activationKey;
+    }
+
+    public void setActivationKey(String activationKey) {
+        this.activationKey = activationKey;
+    }
+
+    public String getResetKey() {
+        return resetKey;
+    }
+
+    public void setResetKey(String resetKey) {
+        this.resetKey = resetKey;
+    }
+
+    public Instant getResetDate() {
+        return resetDate;
+    }
+
+    public void setResetDate(Instant resetDate) {
+        this.resetDate = resetDate;
     }
 
     public String getLangKey() {

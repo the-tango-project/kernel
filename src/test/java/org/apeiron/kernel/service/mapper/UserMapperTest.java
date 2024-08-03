@@ -13,20 +13,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link UserMapper}.
+ * Unit tests for {@link DefaultUserMapper}.
  */
 class UserMapperTest {
 
     private static final String DEFAULT_LOGIN = "johndoe";
     private static final String DEFAULT_ID = "id1";
 
-    private UserMapper userMapper;
+    private DefaultUserMapper userMapper;
     private User user;
     private AdminUserDto userDto;
 
     @BeforeEach
     public void init() {
-        userMapper = new UserMapper();
+        userMapper = new DefaultUserMapper();
         user = new User();
         user.setLogin(DEFAULT_LOGIN);
         user.setActivated(true);

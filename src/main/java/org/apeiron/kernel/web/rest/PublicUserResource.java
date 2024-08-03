@@ -7,10 +7,8 @@ import java.util.List;
 import org.apeiron.kernel.domain.Authority;
 import org.apeiron.kernel.domain.User;
 import org.apeiron.kernel.security.AuthoritiesConstants;
-import org.apeiron.kernel.service.UserService;
 import org.apeiron.kernel.service.dto.UserDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apeiron.kernel.service.impl.DefaultUserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -40,12 +38,12 @@ public class PublicUserResource {
         Arrays.asList("id", "login", "firstName", "lastName", "email", "activated", "langKey")
     );
 
-    private final UserService userService;
+    private final DefaultUserService userService;
 
     @Value("${kernel.clientApp.name}")
     private String applicationName;
 
-    public PublicUserResource(UserService userService) {
+    public PublicUserResource(DefaultUserService userService) {
         this.userService = userService;
     }
 
