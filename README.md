@@ -27,3 +27,17 @@ mongock:
     - org.apeiron.kernel.configuration.dbmigrations
 
 ```
+
+## Development
+
+Libraries specifications
+
+1. Java 21 and above
+2. Maven 3.2.5 and above
+
+TIn order to build the project we can just type the next command:
+
+```shell
+./mvnw
+```
+
