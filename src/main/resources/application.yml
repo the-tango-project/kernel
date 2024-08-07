@@ -15,4 +15,4 @@ kernel:
 
 mongock:
   migration-scan-package:
-    - org.apeiron.kernel.autoconfiguration.dbmigrations
+    - org.apeiron.kernel.configuration.dbmigrations
