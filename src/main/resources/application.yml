@@ -11,7 +11,7 @@ kernel:
     username: defaultname
     password: defaultpassword
     starttls: true
-    from: from@default
+    from: from@default.com
 
 mongock:
   migration-scan-package:

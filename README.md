@@ -28,6 +28,22 @@ mongock:
 
 ```
 
+### Configurate the kernel loggin level
+
+If you want to debug the kernel, you can do in the next way:
+
+In the `.env` file
+```shell
+LOGGING_LEVEL_ORG_APEIRON_KERNEL=DEBUG
+```
+
+In the `application.yml` file
+```yml
+logging:
+  level:
+    org.apeiron.kernel: DEBUG
+```
+
 ## Development
 
 Libraries specifications

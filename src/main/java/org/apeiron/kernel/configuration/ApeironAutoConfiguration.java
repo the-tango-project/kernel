@@ -4,5 +4,5 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 @AutoConfiguration
-@Import({ AppConfiguration.class, JobrunrConfiguration.class, MailConfiguration.class })
+@Import({ AppConfiguration.class, JobrunrConfiguration.class, TemplateEngineConfiguration.class,MailConfiguration.class })
 public class ApeironAutoConfiguration {}

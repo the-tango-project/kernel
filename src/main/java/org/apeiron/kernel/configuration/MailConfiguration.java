@@ -1,19 +1,12 @@
 package org.apeiron.kernel.configuration;
 
-import org.simplejavamail.api.mailer.CustomMailer;
 import org.simplejavamail.api.mailer.Mailer;
-import org.simplejavamail.api.mailer.config.OperationalConfig;
 import org.simplejavamail.api.mailer.config.TransportStrategy;
 import org.simplejavamail.mailer.MailerBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-
-import jakarta.mail.Session;
-import org.simplejavamail.api.email.Email;
-
-import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import tech.jhipster.config.JHipsterConstants;
 
@@ -39,27 +32,16 @@ public class MailConfiguration {
     @Bean
     @Profile("!" + JHipsterConstants.SPRING_PROFILE_PRODUCTION)
     public Mailer mailerToLog() {
-        log.debug("Usando Mailer LOG");
-        return MailerBuilder
-                // Información 'dummy' solo para utilizar un 'custom mailer'.
-                .withSMTPServer("localhost", 0).withCustomMailer(new CustomMailer() {
-                    @Override
-                    public void testConnection(OperationalConfig operationalConfig, Session session) {
-                        // No necesario
-                    }
-
-                    @Override
-                    public void sendMessage(OperationalConfig operationalConfig, Session session, Email email,
-                            MimeMessage message) {
-                        log.debug("Simulando envío de correo electrónico: {}", email);
-                    }
-                }).buildMailer();
+        // Ensure logging emails insted of sending
+        // https://www.simplejavamail.org/debugging.html#section-debug-mode
+        log.debug("Configuration for ensure Logging emails instead of sending");
+        return MailerBuilder.withTransportModeLoggingOnly().buildMailer();
     }
 
     @Bean
     @Profile(JHipsterConstants.SPRING_PROFILE_PRODUCTION)
     public Mailer getDefaultJavaMailSender() {
-
+        log.debug("Using Productio Mail credentials");
         return MailerBuilder
                 .withSMTPServerHost(mailServerHost)
                 .withSMTPServerPort(mailServerPort)

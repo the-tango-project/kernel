@@ -45,6 +45,19 @@ public final class SecurityUtils {
                 .flatMap(authentication -> Mono.justOrEmpty(extractPrincipal(authentication)));
     }
 
+
+    /**
+     * Get the JWT of the current user.
+     *
+     * @return the JWT of the current user.
+     */
+    public static Mono<String> getCurrentUserJWT() {
+        return ReactiveSecurityContextHolder.getContext()
+            .map(SecurityContext::getAuthentication)
+            .filter(authentication -> authentication.getCredentials() instanceof String)
+            .map(authentication -> (String) authentication.getCredentials());
+    }
+
     private static String extractPrincipal(Authentication authentication) {
         if (authentication == null) {
             return null;
