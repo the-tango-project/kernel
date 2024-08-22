@@ -38,4 +38,5 @@ public enum MenuElement {
     MOVIMIENTO,
     HISTORICO_PAGOS,
     REVISORES,
+    CONCILIACION
 }

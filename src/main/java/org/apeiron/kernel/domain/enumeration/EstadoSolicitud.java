@@ -9,6 +9,8 @@ public enum EstadoSolicitud {
     ASIGNADA,
     EN_ACTUALIZACION,
     EN_EVALUACION,
+    EVALUADA,
+    EN_ASIGNACION,
     ENVIADA,
     CANCELADA,
     REVISADA,
@@ -26,4 +28,6 @@ public enum EstadoSolicitud {
     DICTAMINADA,
     FINALIZADA,
     FIRMADA,
+    PREFORMALIZADA,
+    ACTUALIZADA
 }
