@@ -8,6 +8,7 @@ public enum EstadoSolicitud {
     PREASIGNADA,
     ASIGNADA,
     EN_ACTUALIZACION,
+    EN_EVALUACION,
     ENVIADA,
     CANCELADA,
     REVISADA,
