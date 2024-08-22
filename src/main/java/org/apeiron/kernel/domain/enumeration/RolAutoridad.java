@@ -21,4 +21,5 @@ public enum RolAutoridad {
     ALUMNO,
     PROFESOR,
     AYUDANTE,
+    AUDITOR
 }
