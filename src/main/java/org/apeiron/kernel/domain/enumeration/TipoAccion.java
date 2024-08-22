@@ -23,4 +23,5 @@ public enum TipoAccion {
     BAJAR_POR_ACUERDO,
     DICTAMINAR,
     REVISAR,
+    EVALUAR
 }
