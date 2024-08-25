@@ -7,5 +7,6 @@ import org.mapstruct.Mapper;
 /**
  * Mapper for the entity {@link Estado} and its Dto {@link EstadoDto}.
  */
-@Mapper(componentModel = "spring", uses = { NotificacionMapper.class })
-public interface EstadoMapper extends EntityMapper<EstadoDto, Estado> {}
+@Mapper(componentModel = "spring", uses = { NotificacionMapper.class, DiagramMapper.class })
+public interface EstadoMapper extends EntityMapper<EstadoDto, Estado> {
+}
