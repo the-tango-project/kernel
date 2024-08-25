@@ -22,4 +22,7 @@ public class Estado implements Serializable {
 
     @Field("permisos")
     private List<Permiso> permisos;
+
+    @Field("digram")
+    private Diagram digram = new Diagram();
 }
