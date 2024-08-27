@@ -23,5 +23,5 @@ public class EstadoDto implements Serializable {
 
     private List<PermisoDto> permisos = new ArrayList<>();
 
-    private DiagramDto digram = new DiagramDto();
+    private DiagramDto diagram = new DiagramDto();
 }
