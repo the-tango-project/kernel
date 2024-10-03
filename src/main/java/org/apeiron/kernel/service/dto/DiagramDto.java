@@ -1,6 +1,9 @@
 package org.apeiron.kernel.service.dto;
 
 import java.io.Serializable;
+
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,4 +24,6 @@ public class DiagramDto implements Serializable {
     private String sourceId;
 
     private String targetId;
+
+    private String type;
 }

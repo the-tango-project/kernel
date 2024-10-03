@@ -33,4 +33,7 @@ public class TransicionDto implements Serializable {
     private List<ActionDto> acciones = new ArrayList<>();
 
     private NotificacionDto notificacion = new NotificacionDto();
+
+    private DiagramDto diagram = new DiagramDto();
+
 }

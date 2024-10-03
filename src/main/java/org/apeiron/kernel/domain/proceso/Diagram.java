@@ -23,4 +23,7 @@ public class Diagram implements Serializable {
     @Field("targetId")
     private String targetId;
 
+    @Field("type")
+    private String type;
+
 }

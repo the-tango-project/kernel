@@ -9,5 +9,6 @@ import org.mapstruct.Mapper;
 /**
  * Mapper for the entity {@link Rule} and its Dto {@link RuleDto}.
  */
-@Mapper(componentModel = "spring", uses = { NotificacionMapper.class })
-public interface TransicionMapper extends EntityMapper<TransicionDto, Transicion> {}
+@Mapper(componentModel = "spring", uses = { NotificacionMapper.class, DiagramMapper.class })
+public interface TransicionMapper extends EntityMapper<TransicionDto, Transicion> {
+}
