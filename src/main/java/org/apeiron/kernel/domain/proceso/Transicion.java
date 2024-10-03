@@ -41,7 +41,7 @@ public class Transicion implements Serializable {
 
     @Field("notificacion")
     private Notificacion notificacion = new Notificacion();
-    
+
     @Field("diagram")
-    private Diagram diagram = new Diagram();
+    private Diagram diagram = new Diagram(0.0, 0.0, "source", "target-a", "smoothstep");
 }

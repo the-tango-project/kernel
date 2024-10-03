@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apeiron.kernel.domain.enumeration.EstadoSolicitud;
 import org.apeiron.kernel.domain.enumeration.TipoAccion;
+import org.apeiron.kernel.domain.proceso.Diagram;
 
 @Data
 @ToString
@@ -34,6 +35,6 @@ public class TransicionDto implements Serializable {
 
     private NotificacionDto notificacion = new NotificacionDto();
 
-    private DiagramDto diagram = new DiagramDto();
+    private DiagramDto diagram = new DiagramDto(0.0, 0.0, "source", "target-a", "smoothstep");
 
 }

@@ -24,5 +24,5 @@ public class Estado implements Serializable {
     private List<Permiso> permisos;
 
     @Field("diagram")
-    private Diagram diagram = new Diagram();
+    private Diagram diagram = new Diagram(0.0, 0.0, null, null, "state");
 }
