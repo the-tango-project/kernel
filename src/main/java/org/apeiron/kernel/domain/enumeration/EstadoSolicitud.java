@@ -4,6 +4,7 @@ package org.apeiron.kernel.domain.enumeration;
  * The EstadoSolucion enumeration.
  */
 public enum EstadoSolicitud {
+    NONE,
     EN_CAPTURA,
     PREASIGNADA,
     ASIGNADA,
