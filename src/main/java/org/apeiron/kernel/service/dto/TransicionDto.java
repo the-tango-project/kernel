@@ -35,6 +35,6 @@ public class TransicionDto implements Serializable {
 
     private NotificacionDto notificacion = new NotificacionDto();
 
-    private DiagramDto diagram = new DiagramDto(0.0, 0.0, "source", "target-a", "smoothstep");
+    private DiagramDto diagram = new DiagramDto(0.0, 0.0, "connector-b", "connector-h", "smoothstep");
 
 }
